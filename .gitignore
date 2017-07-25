@@ -1,0 +1,8 @@
+#Global ignore
+
+#Ignore all pyc files (wherever they are)
+**/*.pyc
+
+#Ignore all zip files (wherever they are)
+**/*.zip
+

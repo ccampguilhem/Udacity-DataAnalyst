@@ -12,11 +12,11 @@
 
 ## Usefull links
 
-# Google drive files used during course
+### Google drive files used during course
 
 [Google Drive](https://drive.google.com/drive/folders/0BxGJLIfLDrGCMVBLYTctVUJTNk0)
 
-# Jupyter notebooks
+### Jupyter notebooks
 
 [Magic commands](http://ipython.readthedocs.io/en/stable/interactive/magics.html)
 
@@ -29,7 +29,7 @@
 [Python debugger](https://docs.python.org/3/library/pdb.html)
 
 
-# Git repositories
+### Git repositories
 
 [GitHub.com reposiory](https://github.com/ccampguilhem/Udacity-DataAnalyst)
 
@@ -42,5 +42,7 @@
 [Git support for large files](https://stackoverflow.com/questions/34181356/git-lfs-where-are-the-file-stored-how-to-get-them)
 
 [GitHub storage quota for large files](https://help.github.com/articles/about-storage-and-bandwidth-usage/)
+
+[Git pattern formats](https://git-scm.com/docs/gitignore#_pattern_format)
 
 
