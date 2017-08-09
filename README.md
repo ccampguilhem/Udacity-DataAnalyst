@@ -45,4 +45,12 @@
 
 [Git pattern formats](https://git-scm.com/docs/gitignore#_pattern_format)
 
+### Free datasets
+
+[Gapminder](http://www.gapminder.org/data/)
+
+### Pandas
+
+[Official documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
+
 
