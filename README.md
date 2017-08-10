@@ -29,19 +29,25 @@
 [Python debugger](https://docs.python.org/3/library/pdb.html)
 
 
-### Git repositories
+### Git
+
+#### Git repositories
 
 [GitHub.com reposiory](https://github.com/ccampguilhem/Udacity-DataAnalyst)
 
 [Nova GitLab repository](https://gitlab.nova.airbusdefenceandspace.com/cedric.campguilhem/Udacity-DataAnalyst)
 
-[Official help for large files](https://help.github.com/articles/versioning-large-files/)
-
 [Pushing to two repositories](https://stackoverflow.com/questions/14290113/git-pushing-code-to-two-remotes)
+
+#### Large files support
+
+[Official help for large files](https://help.github.com/articles/versioning-large-files/)
 
 [Git support for large files](https://stackoverflow.com/questions/34181356/git-lfs-where-are-the-file-stored-how-to-get-them)
 
 [GitHub storage quota for large files](https://help.github.com/articles/about-storage-and-bandwidth-usage/)
+
+[BFG repo-cleaner](https://rtyley.github.io/bfg-repo-cleaner/)
 
 [Git pattern formats](https://git-scm.com/docs/gitignore#_pattern_format)
 
@@ -53,4 +59,8 @@
 
 [Official documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
 
+### Data visualization
 
+[Nice plots with matplotlib](http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/)
+
+[Plotly and matplotlib in Jupyter notebooks](http://nbviewer.jupyter.org/github/plotly/python-user-guide/blob/master/s6_matplotlylib/s6_matplotlylib.ipynb)
