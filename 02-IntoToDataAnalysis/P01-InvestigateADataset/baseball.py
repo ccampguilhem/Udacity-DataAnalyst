@@ -1,7 +1,13 @@
 import datetime
+import os
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
+
+
+#Path of datasets
+DATASET_PATH = "./dataset/core"
 
 
 """
@@ -68,6 +74,15 @@ def convert_dates(column):
         return column
 
 
+def read_master():
+    """
+    Read the master dataset and clean it.
+    
+    - return: master data frame
+    """
+    return clean_master(pd.read_csv(os.path.join(DATASET_PATH, "Master.csv")))
+    
+
 def clean_master(df):
     """
     Clean the master data frame
@@ -104,17 +119,74 @@ def clean_master(df):
              "deathState", "bats", "throws", "bbrefID", "retroID"], 
              axis=1, inplace=True)
  
-    #Rename countries
+    #Rename countries (element-wise operation)
     df = df.applymap(rename_countries)
     
-    #Convert units
+    #Convert units (column-wise operation)
     df = df.apply(convert_units)
     
     #Convert dates
     df = df.apply(convert_dates)
 
     return df
+
+
+def convert_bool(column):
+    """
+    Convert text into bool in given column.
     
+    - column: series to be converted
+    - return: converted column
+    """
+    def _convert_bool(text):
+        if text in ["Y", "y", "1"]:
+            return True
+        else:
+            return False
+    
+    if column.name in ["active"]:
+        return column.apply(_convert_bool)
+    else:
+        return column
+
+
+def read_teams():
+    """
+    Read the teams dataset and clean it.
+    
+    - return: teams data frame
+    """
+    df = pd.read_csv(os.path.join(DATASET_PATH, "Teams.csv"))
+    return clean_teams(df)
+
+    
+def clean_teams(df):
+    """
+    Clean the teams data frame.
+    
+    Unused columns are dropped. Data frame is merged with the one from 
+    franchises. Only National League and American League are kept in data 
+    frame.
+    
+    - df: teams data frame
+    - df: cleaned data frame
+    """
+    #Merge with teams franchises
+    franchise_df = pd.read_csv(os.path.join(DATASET_PATH, "TeamsFranchises.csv"))
+    df = pd.merge(left=df, right=franchise_df, on=['franchID'], suffixes=('_l', '_r'))
+    
+    #Drop unused columns
+    df.drop(["teamIDBR", "teamIDlahman45", "teamIDretro", "franchID", 
+             "NAassoc"], inplace=True, axis=1)
+            
+    #Convert active column to bool
+    df = df.apply(convert_bool)
+    
+    #Only keep National League and American League teams:
+    df = df[(df["lgID"] == "NL") | (df["lgID"] == "AL")]
+    
+    return df
+
 
 def scatter_plot(x, y, size=None, xlabel=None, ylabel=None, figsize=(12, 9)):
     """
