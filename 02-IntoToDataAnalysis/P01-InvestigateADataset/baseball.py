@@ -1,3 +1,7 @@
+"""
+Functions used in the baseball notebook
+"""
+
 import datetime
 import os
 
@@ -8,11 +12,6 @@ import pandas as pd
 
 #Path of datasets
 DATASET_PATH = "./dataset/core"
-
-
-"""
-Functions used in the baseball notebook
-"""
 
 def rename_countries(country):
     """
@@ -148,6 +147,25 @@ def convert_bool(column):
         return column.apply(_convert_bool)
     else:
         return column
+        
+        
+def convert_int(column):
+    """
+    Convert text into integer in given column.
+    
+    - column: series to be converted
+    - return: converted column
+    """
+    def _convert_int(text):
+        if text in ["Y", "y", "1"]:
+            return 1
+        else:
+            return 0
+    
+    if column.name in ["DivWin", "LgWin", "WSWin"]:
+        return column.apply(_convert_int)
+    else:
+        return column       
 
 
 def read_teams():
@@ -166,7 +184,9 @@ def clean_teams(df):
     
     Unused columns are dropped. Data frame is merged with the one from 
     franchises. Only National League and American League are kept in data 
-    frame.
+    frame. Rows with no division affiliation are removed and text Y/N are 
+    converted to bool for active column and to integers for division, league 
+    and world series wins.
     
     - df: teams data frame
     - df: cleaned data frame
@@ -177,13 +197,19 @@ def clean_teams(df):
     
     #Drop unused columns
     df.drop(["teamIDBR", "teamIDlahman45", "teamIDretro", "franchID", 
-             "NAassoc"], inplace=True, axis=1)
+             "NAassoc", "BPF", "PPF"], inplace=True, axis=1)
             
-    #Convert active column to bool
+    #Convert text column to bool
     df = df.apply(convert_bool)
     
+    #Convert text column to integer
+    df = df.apply(convert_int)
+        
     #Only keep National League and American League teams:
     df = df[(df["lgID"] == "NL") | (df["lgID"] == "AL")]
+    
+    #Remove rows if divID is null
+    df = df[df["divID"].notnull()]
     
     return df
 
