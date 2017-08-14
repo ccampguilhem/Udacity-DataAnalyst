@@ -100,14 +100,15 @@ def clean_master(df):
     #Set player ID as index    
     df.set_index("playerID", inplace=True)
     
-    #Create a datetime object for birth date (not sure if this can be vectorized)
+    #Create a datetime object for birth date (not sure if it can be vectorized)
     birth_year = df["birthYear"]
     birth_month = df["birthMonth"]
     birth_day = df["birthDay"]
     birth_date = [ ]
     for (year, month, day) in zip(birth_year, birth_month, birth_day):
         try:
-            birth_date.append(datetime.datetime(int(year), int(month), int(day)))
+            birth_date.append(datetime.datetime(int(year), int(month), 
+                    int(day)))
         except ValueError:
             birth_date.append(None)
     df = df.assign(birthDate=birth_date)
@@ -189,11 +190,13 @@ def clean_teams(df):
     and world series wins.
     
     - df: teams data frame
-    - df: cleaned data frame
+    - return: cleaned data frame
     """
     #Merge with teams franchises
-    franchise_df = pd.read_csv(os.path.join(DATASET_PATH, "TeamsFranchises.csv"))
-    df = pd.merge(left=df, right=franchise_df, on=['franchID'], suffixes=('_l', '_r'))
+    franchise_df = pd.read_csv(os.path.join(DATASET_PATH, 
+            "TeamsFranchises.csv"))
+    df = pd.merge(left=df, right=franchise_df, on=['franchID'], 
+            suffixes=('_l', '_r'))
     
     #Drop unused columns
     df.drop(["teamIDBR", "teamIDlahman45", "teamIDretro", "franchID", 
@@ -212,6 +215,67 @@ def clean_teams(df):
     df = df[df["divID"].notnull()]
     
     return df
+    
+    
+def read_managers():
+    """
+    Read the manager dataset.
+    
+    - return: manager dataframe
+    """
+    return pd.read_csv(os.path.join(DATASET_PATH, "Managers.csv"))
+
+
+def clean_fielding(df):
+    """
+    Clean the fielding dataset.
+    
+    Remove unused columns.
+
+    - df: fielding dataframe
+    - return: cleaned dataframe
+    """
+    #Remove unused columns:
+    df = df.drop(["PO", "A", "E", "DP", "PB", "WP", "SB", "CS", "ZR", 
+                  "InnOuts"], axis=1)
+    
+    return df
+    
+
+def read_fielding():
+    """
+    Read and clean the fielding dataset.
+    
+    Some unused colums are dropped.
+    
+    - return: fielding dataframe
+    """
+    return clean_fielding(pd.read_csv(
+            os.path.join(DATASET_PATH, "Fielding.csv")))
+            
+            
+def clean_batting(df):
+    """
+    Clean the batting dataset.
+    
+    Do nothing.
+    
+    - df: batting dataframe
+    - return: cleaned dataframe
+    """
+    return df
+    
+            
+def read_batting():
+    """
+    Read and clean the batting dataset.
+    
+    No cleaning.
+    
+    - return: batting datatype
+    """
+    return clean_batting(pd.read_csv(
+            os.path.join(DATASET_PATH, "Batting.csv")))
 
 
 def scatter_plot(x, y, size=None, xlabel=None, ylabel=None, figsize=(12, 9)):
