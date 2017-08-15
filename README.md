@@ -65,3 +65,13 @@
 [Nice plots with matplotlib](http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/)
 
 [Plotly and matplotlib in Jupyter notebooks](http://nbviewer.jupyter.org/github/plotly/python-user-guide/blob/master/s6_matplotlylib/s6_matplotlylib.ipynb)
+
+### JSON
+
+[JSON tutorial in W3Schools](https://www.w3schools.com/js/js_json_intro.asp)
+
+[JSON official web site](http://www.json.org/)
+
+[Python standard library module for JSON](https://docs.python.org/2/library/json.html)
+
+
