@@ -11,7 +11,7 @@ import pandas as pd
 
 
 #Path of datasets
-DATASET_PATH = "./dataset/core"
+DATASET_PATH = "../dataset/core"
 
 def rename_countries(country):
     """

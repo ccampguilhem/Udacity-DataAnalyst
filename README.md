@@ -29,6 +29,7 @@
 
 [Python debugger](https://docs.python.org/3/library/pdb.html)
 
+[Table of contents](http://sebastianraschka.com/Articles/2014_ipython_internal_links.html)
 
 ### Git
 
@@ -66,6 +67,8 @@
 
 [Plotly and matplotlib in Jupyter notebooks](http://nbviewer.jupyter.org/github/plotly/python-user-guide/blob/master/s6_matplotlylib/s6_matplotlylib.ipynb)
 
+[Seaborn visualization library](https://seaborn.pydata.org/index.html)
+
 ### JSON
 
 [JSON tutorial in W3Schools](https://www.w3schools.com/js/js_json_intro.asp)
@@ -74,4 +77,7 @@
 
 [Python standard library module for JSON](https://docs.python.org/2/library/json.html)
 
+### Python
+
+[Tips and tricks for data science but not only](https://github.com/rasbt/python_reference)
 
