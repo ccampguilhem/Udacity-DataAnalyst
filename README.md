@@ -4,12 +4,13 @@
 
 ## History
 
-| Status      | Date       |
-| ----------- | ---------- |
-| Started     | 05/07/2017 |
-| P0 released | 08/07/2017 |
-| P0 accepted | 08/07/2017 |
-| P1 released | 14/08/2017 |
+| Status          | Date       |
+| --------------- | ---------- |
+| Started         | 05/07/2017 |
+| P0 released     | 08/07/2017 |
+| P0 accepted     | 08/07/2017 |
+| P1 released     | 14/08/2017 |
+| P1 re-submitted | 18/08/2017 |
 
 ## Usefull links
 
