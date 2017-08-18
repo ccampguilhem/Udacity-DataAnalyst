@@ -31,6 +31,8 @@
 
 [Table of contents](http://sebastianraschka.com/Articles/2014_ipython_internal_links.html)
 
+[Making presetations from notebook](https://neuroscience.telenczuk.pl/?p=607)
+
 ### Git
 
 #### Git repositories
