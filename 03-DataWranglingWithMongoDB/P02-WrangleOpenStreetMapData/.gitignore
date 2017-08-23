@@ -1,0 +1,6 @@
+#Downloaded dataset from OpenStreetMap
+data.osm
+#Diskcache files
+cache.db
+cache.db-shm
+cache.db-wal

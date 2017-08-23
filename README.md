@@ -11,6 +11,7 @@
 | P0 accepted     | 08/07/2017 |
 | P1 released     | 14/08/2017 |
 | P1 re-submitted | 18/08/2017 |
+| P1 accepted     | 18/08/2017 |
 
 ## Usefull links
 
@@ -60,6 +61,8 @@
 
 [Gapminder](http://www.gapminder.org/data/)
 
+[dbPedia the database ](http://wiki.dbpedia.org/)
+
 ### Pandas
 
 [Official documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
@@ -80,7 +83,22 @@
 
 [Python standard library module for JSON](https://docs.python.org/2/library/json.html)
 
+### XML
+
+[XPath syntax](https://www.w3schools.com/xml/xpath_syntax.asp)
+
+[Python XML library ElementTree](https://docs.python.org/2/library/xml.etree.elementtree.html#module-xml.etree.ElementTree)
+
+[BeautifulSoup library for HTML/XML processing](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
 ### Python
 
 [Tips and tricks for data science but not only](https://github.com/rasbt/python_reference)
+
+### Data wrangling
+
+[Dealing with missing data](https://measuringu.com/handle-missing-data/)
+
+[Requests Python library for http queries](http://requests.readthedocs.io/en/master/)
+
 
