@@ -35,6 +35,8 @@
 
 [Making presetations from notebook](https://neuroscience.telenczuk.pl/?p=607)
 
+[Monitoring memory consumption](https://timothymonteath.com/monitoring-memory-usage-in-jupyter-notebooks/)
+
 ### Git
 
 #### Git repositories

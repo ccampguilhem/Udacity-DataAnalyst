@@ -4,3 +4,5 @@ data.osm
 cache.db
 cache.db-shm
 cache.db-wal
+#JSON output file
+data.json
