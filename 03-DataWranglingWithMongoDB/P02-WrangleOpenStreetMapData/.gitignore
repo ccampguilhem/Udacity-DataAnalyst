@@ -6,3 +6,10 @@ cache.db-shm
 cache.db-wal
 #JSON output file
 data.json
+#CSV output file
+*.csv
+#SQLite database output
+data.sql
+#Zip file of project submission
+*.zip
+*.tar.gz
