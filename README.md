@@ -12,6 +12,7 @@
 | P1 released     | 14/08/2017 |
 | P1 re-submitted | 18/08/2017 |
 | P1 accepted     | 18/08/2017 |
+| P2 released     | 26/08/2017 |
 
 ## Usefull links
 
@@ -36,6 +37,8 @@
 [Making presetations from notebook](https://neuroscience.telenczuk.pl/?p=607)
 
 [Monitoring memory consumption](https://timothymonteath.com/monitoring-memory-usage-in-jupyter-notebooks/)
+
+[Tips and shortcuts](https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)
 
 ### Git
 
