@@ -11,8 +11,8 @@
 *
 */
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1107,6 +1107,7 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2535,6 +2536,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3025,6 +3027,7 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8755,9 +8758,6 @@ body > #header .header-bar {
     margin-left: 10px;
   }
 }
-[dir="rtl"] #ipython_notebook {
-  float: right !important;
-}
 #noscript {
   width: auto;
   padding-top: 16px;
@@ -8960,14 +8960,8 @@ span#login_widget > .button .badge,
  *
  * Author: Jupyter Development Team
  */
-[dir="rtl"] #tabs li {
-  float: right;
-}
 ul#tabs {
   margin-bottom: 4px;
-}
-[dir="rtl"] ul#tabs {
-  margin-right: 0px;
 }
 ul#tabs a {
   padding-top: 6px;
@@ -8990,16 +8984,6 @@ ul.breadcrumb span {
 }
 .list_toolbar .tree-buttons {
   padding-top: 1px;
-}
-[dir="rtl"] .list_toolbar .tree-buttons {
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-right {
-  padding-top: 1px;
-  float: left !important;
-}
-[dir="rtl"] .list_toolbar .pull-left {
-  float: right !important;
 }
 .dynamic-buttons {
   padding-top: 3px;
@@ -9136,9 +9120,6 @@ ul.breadcrumb span {
 #tree-selector {
   padding-right: 0px;
 }
-[dir="rtl"] #tree-selector a {
-  float: right;
-}
 #button-select-all {
   min-width: 50px;
 }
@@ -9228,9 +9209,6 @@ ul#new-menu {
   left: auto;
   right: 0;
 }
-[dir="rtl"] #new-menu {
-  text-align: right;
-}
 .kernel-menu-icon {
   padding-right: 12px;
   width: 24px;
@@ -9275,9 +9253,6 @@ ul#new-menu {
 }
 #running .panel-group .panel .panel-body .list_container .list_item:last-child {
   border-bottom: 0px;
-}
-[dir="rtl"] #running .col-sm-8 {
-  float: right !important;
 }
 .delete-button {
   display: none;
@@ -9574,7 +9549,6 @@ div.cell.selected.jupyter-soft-selected {
   }
 }
 div.inner_cell {
-  min-width: 0;
   /* Old browsers */
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -9595,6 +9569,11 @@ div.inner_cell {
   box-flex: 1;
   /* Modern browsers */
   flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
 }
 /* input_area and input_prompt must match in top border and margin for alignment */
 div.input_area {
@@ -11265,7 +11244,7 @@ div#pager .ui-resizable-handle::after {
 }
 .shortcut_key {
   display: inline-block;
-  width: 21ex;
+  width: 20ex;
   text-align: right;
   font-family: monospace;
 }
@@ -11577,7 +11556,6 @@ ul.typeahead-list > li > a {
   box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
 }
 .terminal-app .terminal {
-  width: 100%;
   float: left;
   font-family: monospace;
   color: white;
@@ -11591,9 +11569,6 @@ ul.typeahead-list > li > a {
 .terminal-app .terminal dummy-screen {
   line-height: 1em;
   font-size: 14px;
-}
-.terminal-app .terminal .xterm-rows {
-  padding: 10px;
 }
 .terminal-app .terminal-cursor {
   color: black;
@@ -11726,7 +11701,9 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}@media print {
+}
+
+@media print {
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -11747,7 +11724,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -11771,16 +11748,22 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Wrangle-OpenStreetMap-data">Wrangle OpenStreetMap data<a class="anchor-link" href="#Wrangle-OpenStreetMap-data">&#194;&#182;</a></h1><p><a href="https://github.com/ccampguilhem/Udacity-DataAnalyst">Cédric Campguilhem</a>, August 2017</p>
+<h1 id="Wrangle-OpenStreetMap-data">Wrangle OpenStreetMap data<a class="anchor-link" href="#Wrangle-OpenStreetMap-data">&#182;</a></h1><p><a href="https://github.com/ccampguilhem/Udacity-DataAnalyst">Cédric Campguilhem</a>, August 2017</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11789,13 +11772,17 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents">&#194;&#182;</a></h2><ul>
+<h2 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents">&#182;</a></h2><ul>
 <li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Organisation">Project organisation</a></li>
+<li><a href="#Project organisation">Project organisation</a></li>
 <li><a href="#Area selection">Map area selection</a></li>
 <li><a href="#XML data structure">XML data structure</a></li>
 <li><a href="#Data quality">Data quality audit</a><ul>
@@ -11823,13 +11810,18 @@ div#notebook {
 </ul>
 </li>
 <li><a href="#Conclusion">Conclusion</a></li>
+<li><a href="#Further work">Further work</a></li>
 <li><a href="#Appendix">Appendix</a></li>
 </ul>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11838,11 +11830,15 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction-top">Introduction <em><a href="#Top">top</a></em><a class="anchor-link" href="#Introduction-top">&#194;&#182;</a></h2><p>This project is related to Data Wrangling with MongoDB course for Udacity Data Analyst Nanodegree program.
+<h2 id="Introduction-top">Introduction <em><a href="#Top">top</a></em><a class="anchor-link" href="#Introduction-top">&#182;</a></h2><p>This project is related to Data Wrangling with MongoDB course for Udacity Data Analyst Nanodegree program.
 The purpose of this project is to:</p>
 <ul>
 <li>Collect data from <a href="https://www.openstreetmap.org">OpenStreetMap</a> web services.</li>
@@ -11871,7 +11867,11 @@ The purpose of this project is to:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11880,16 +11880,22 @@ The purpose of this project is to:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Project-organisation-top">Project organisation <em><a href="#Top">top</a></em><a class="anchor-link" href="#Project-organisation-top">&#194;&#182;</a></h2><p>The project is decomposed in the following manner:</p>
+<h2 id="Project-organisation-top">Project organisation <em><a href="#Top">top</a></em><a class="anchor-link" href="#Project-organisation-top">&#182;</a></h2><p>The project is decomposed in the following manner:</p>
 <ul>
 <li>This notebook (data_wrangling.ipynb) contains top-level code as well as results and report.</li>
 <li>The <a href="./data_wrangling.html">data_wrangling.html</a> file is a html export of this notebook.</li>
 <li>The <a href="./environment.yml">environment.yml</a> file contains the anaconda environment I used for this project.</li>
-<li>The <a href="./data_wrangling.py">data_wrangling.py</a> file is an export of this notebook. To be executed with ipython !</li>
+<li>The <a href="./data_wrangling.py">data_wrangling.py</a> file is an export of this notebook.</li>
+<li>The <a href="./download.py">download.py</a> module contains a function to download OpenStreetMap dataset with editable configuration.</li>
+<li>The <a href="./parse.py">parse.py</a> module contains functions to parse OpenStreetMap dataset.</li>
 <li>The <a href="./handler.py">handler.py</a> module contains a class used as content handler for SAX XML parser.</li>
 <li>The <a href="./utils.py">utils.py</a> module contains functions used by audit classes.</li>
 <li>The <a href="./validity_audit.py">validity_audit.py</a> module contains a callback class for validity audit.</li>
@@ -11898,29 +11904,20 @@ The purpose of this project is to:</p>
 <li>The <a href="./consistency_audit.py">consistency_audit.py</a> module contains a callback class for consistency audit.</li>
 <li>The <a href="./uniformity_audit.py">uniformity_audit.py</a> module contains a callback class for uniformity audit.</li>
 <li>The <a href="./clean_data.py">clean_data.py</a> module contains functions used to clean dataset.</li>
-<li>The <a href="./dictionnary_export.py">dictionnary_export.py</a> module contains a callback class to export data to a dicitonnary.</li>
+<li>The <a href="./dictionnary_export.py">dictionnary_export.py</a> module contains a callback class to export data to a dictionnary.</li>
 <li>The <a href="./export_data.py">export_data.py</a> module contains functions used to export data (into csv or SQLite).</li>
 </ul>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Enable auto-reload of modules, will help as we have a lot of modules</span>
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
 
-</div>
-</div>
-</div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -11929,11 +11926,15 @@ The purpose of this project is to:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Map-area-selection-top">Map area selection <em><a href="#Top">top</a></em><a class="anchor-link" href="#Map-area-selection-top">&#194;&#182;</a></h2><p>If you don't want to have details on how the data from OpenStreetMap is retrieved, you can skip this section. At the end of the processing, you should have a <em>data.osm</em> file in the same directory than this notebook.</p>
+<h2 id="Map-area-selection-top">Map area selection <em><a href="#Top">top</a></em><a class="anchor-link" href="#Map-area-selection-top">&#182;</a></h2><p>If you don't want to have details on how the data from OpenStreetMap is retrieved, you can skip this section. At the end of the processing, you should have a <em>data.osm</em> file in the same directory than this notebook.</p>
 <p>I have made the map area selection dynamic. By configuring few variables, a different map area may be extracted from OpenStreetMap. Some pre-selections are available:</p>
 <table>
 <thead><tr>
@@ -11976,39 +11977,16 @@ The purpose of this project is to:</p>
 <li>maximum longitude</li>
 </ul>
 <p><strong>Note: </strong> The data cleaning provided in this project works for French area, if you select a non-french area no data cleaning will be performed.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#SELECTION = &quot;PRESELECTED&quot; #Update the PRESELECTION variable</span>
-<span class="c1">#SELECTION = &quot;USER&quot; #Update the USER_SELECTION with the box you want</span>
-<span class="n">SELECTION</span> <span class="o">=</span> <span class="s2">&quot;CACHE&quot;</span> <span class="c1">#Use any data file present in directory</span>
-<span class="n">USER_SELECTION</span> <span class="o">=</span> <span class="p">(</span><span class="mf">43.5799</span><span class="p">,</span> <span class="mf">1.3434</span><span class="p">,</span> <span class="mf">43.5838</span><span class="p">,</span> <span class="mf">1.3496</span><span class="p">)</span>
-<span class="n">PRESELECTIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Tournefeuille&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">43.5475</span><span class="p">,</span> <span class="mf">1.2767</span><span class="p">,</span> <span class="mf">43.6019</span><span class="p">,</span> <span class="mf">1.3909</span><span class="p">),</span>
-                 <span class="s2">&quot;City center&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">43.5799</span><span class="p">,</span> <span class="mf">1.3434</span><span class="p">,</span> <span class="mf">43.5838</span><span class="p">,</span> <span class="mf">1.3496</span><span class="p">),</span>
-                 <span class="s2">&quot;Toulouse&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">43.3871</span><span class="p">,</span> <span class="mf">0.9874</span><span class="p">,</span> <span class="mf">43.8221</span><span class="p">,</span> <span class="mf">1.9006</span><span class="p">)}</span>
-<span class="n">PRESELECTION</span> <span class="o">=</span> <span class="s2">&quot;Tournefeuille&quot;</span>
-<span class="n">TEMPLATE</span> <span class="o">=</span> \
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">(</span>
-<span class="sd">   node({},{},{},{});</span>
-<span class="sd">   &lt;;</span>
-<span class="sd">);</span>
-<span class="sd">out meta;</span>
-<span class="sd">&quot;&quot;&quot;</span>
-</pre></div>
+<p><strong>Note: </strong> You can modify CONFIG variable to edit configuration (see <a href="./download.py">download.py</a> module for help).</p>
 
 </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12025,58 +12003,20 @@ The purpose of this project is to:</p>
 );
 out meta;</code></pre>
 <p>The idea is to send a http GET request using <a href="http://requests.readthedocs.io/en/master/">Requests</a> and collect results in a stream. This is because the data we get from the request may be huge and may not fit into memory.</p>
-<p>The following method <code>download_map_area</code> enables to download map area data and store it in a <em>data.osm</em> file:</p>
+<p>The following function <code>download_map_area</code> enables to download map area data and store it in a <em>data.osm</em> file:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-
-
-<span class="k">def</span> <span class="nf">download_map_area</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Download the map area in a file named data.osm.</span>
-<span class="sd">    </span>
-<span class="sd">    This function takes into account the following global variables: SELECTION, USER_SELECTION, PRESELECTIONS, </span>
-<span class="sd">    PRESELECTION and TEMPLATE</span>
-<span class="sd">    </span>
-<span class="sd">    If a http request is made, the response status code is returned, otherwise None in returned.</span>
-<span class="sd">    If SELECTION is set to CACHE and no file is present an exception is raised.</span>
-<span class="sd">    </span>
-<span class="sd">    - raise ValueError: if SELECTION=CACHE and there is no cached file</span>
-<span class="sd">    - raise ValueError: if SELECTION is not [PRESELECTED, USER, CACHE]</span>
-<span class="sd">    - raise NameError if either of SELECTION, PRESELECTION, PRESELECTIONS, USER_SELECTION or TEMPLATE does not exist.</span>
-<span class="sd">    - return: tuple:</span>
-<span class="sd">        - status code or None</span>
-<span class="sd">        - path to dataset</span>
-<span class="sd">        - dataset file size (in bytes)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;data.osm&quot;</span>
-    <span class="k">if</span> <span class="n">SELECTION</span> <span class="o">==</span> <span class="s2">&quot;CACHE&quot;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use SELECTION=CACHE if no {} file exists.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">SELECTION</span> <span class="o">==</span> <span class="s2">&quot;PRESELECTED&quot;</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">TEMPLATE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">PRESELECTIONS</span><span class="p">[</span><span class="n">PRESELECTION</span><span class="p">])</span>
-    <span class="k">elif</span> <span class="n">SELECTION</span> <span class="o">==</span> <span class="s2">&quot;USER&quot;</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">TEMPLATE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">USER_SELECTION</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;SELECTION=&quot;</span><span class="p">)</span>
-        
-    <span class="c1">#Get XML data</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://overpass-api.de/api/interpreter&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">},</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span> 
-            <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
-                <span class="n">fobj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">download</span> <span class="kn">import</span> <span class="n">download_map_area</span>
 </pre></div>
 
 </div>
@@ -12084,13 +12024,16 @@ out meta;</code></pre>
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Download dataset</span>
-<span class="o">%</span><span class="k">time</span> status_code, dataset_path, dataset_size = download_map_area()
+<span class="n">status_code</span><span class="p">,</span> <span class="n">dataset_path</span><span class="p">,</span> <span class="n">dataset_size</span> <span class="o">=</span> <span class="n">download_map_area</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">status_code</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
     <span class="k">print</span> <span class="s2">&quot;The file {} is re-used from a previous download. Its size is {} bytes.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">dataset_size</span><span class="p">)</span>
 <span class="k">elif</span> <span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
@@ -12107,15 +12050,9 @@ out meta;</code></pre>
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 0 ns, sys: 0 ns, total: 0 ns
-Wall time: 41 µs
-The file data.osm is re-used from a previous download. Its size is 103241495 bytes.
+<pre>The file data.osm is re-used from a previous download. Its size is 103241495 bytes.
 </pre>
 </div>
 </div>
@@ -12124,7 +12061,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12133,19 +12074,26 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="XML-data-structure-top">XML data structure <em><a href="#Top">top</a></em><a class="anchor-link" href="#XML-data-structure-top">&#194;&#182;</a></h2><p>In the previous section, we have downloaded a dataset from OpenStreetMap web service. The XML file retrieved this way is stored in the file named <em>data.osm</em>.</p>
+<h2 id="XML-data-structure-top">XML data structure <em><a href="#Top">top</a></em><a class="anchor-link" href="#XML-data-structure-top">&#182;</a></h2><p>In the previous section, we have downloaded a dataset from OpenStreetMap web service. The XML file retrieved this way is stored in the file named <em>data.osm</em>.</p>
 <p>In this section we are going to familiarize with the dataset to understand how it's built. As dataset may be a very large file (depending on the map area extracted) we are going to use an iterative parser that does not need to load the entire document in memory.</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Import the XML library</span>
@@ -12154,6 +12102,7 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
+<span class="kn">import</span> <span class="nn">tabulate</span>
 <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
 </pre></div>
 
@@ -12162,9 +12111,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Iterative parsing</span>
@@ -12182,11 +12134,7 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{&#39;member&#39;: 17264,
  &#39;meta&#39;: 1,
@@ -12205,7 +12153,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12225,9 +12177,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">xml.sax</span>
@@ -12239,7 +12194,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12248,9 +12207,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">sax</span><span class="o">.</span><span class="n">make_parser</span><span class="p">()</span>
@@ -12264,9 +12226,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Get tag counts</span>
@@ -12281,11 +12246,7 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{u&#39;member&#39;: 17264,
  u&#39;meta&#39;: 1,
@@ -12304,7 +12265,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12313,9 +12278,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Get tag ancestors</span>
@@ -12330,11 +12298,7 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{u&#39;member&#39;: set([u&#39;osm.relation&#39;]),
  u&#39;meta&#39;: set([u&#39;osm&#39;]),
@@ -12353,7 +12317,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12371,7 +12339,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12380,11 +12352,15 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-quality-audit-top">Data quality audit <em><a href="#Top">top</a></em><a class="anchor-link" href="#Data-quality-audit-top">&#194;&#182;</a></h2><p>This chapter is divided into 5 sections for each kind of data quality audit:</p>
+<h2 id="Data-quality-audit-top">Data quality audit <em><a href="#Top">top</a></em><a class="anchor-link" href="#Data-quality-audit-top">&#182;</a></h2><p>This chapter is divided into 5 sections for each kind of data quality audit:</p>
 <ul>
 <li><a href="#Data validity">Validity</a></li>
 <li><a href="#Data accuracy">Accuracy</a></li>
@@ -12396,7 +12372,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12405,11 +12385,15 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Validity-audit">Validity <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Validity-audit">&#194;&#182;</a></h3><p>Validity is about compliance to a schema. The data we have retrieved from OpenStreetMap servers is a XML file. It exists techniques to validate XML structures such as XML Schema. We won't use such technique here because schema is relatively simple and because XML files can be large enough so we want to stick to using SAX parser.</p>
+<h3 id="Validity-audit">Validity <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Validity-audit">&#182;</a></h3><p>Validity is about compliance to a schema. The data we have retrieved from OpenStreetMap servers is a XML file. It exists techniques to validate XML structures such as XML Schema. We won't use such technique here because schema is relatively simple and because XML files can be large enough so we want to stick to using SAX parser.</p>
 <p>Actually, the SAX content handler that has been introduced in previous <a href="#XML data structure">section</a> will be helpful here as it's already able to list ancestors for each element. We can then define a schema in a similar form and compare both to see if there is any issue.</p>
 <p>The schema is a dictionnary structured this way:</p>
 <ul>
@@ -12428,9 +12412,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
@@ -12507,7 +12494,11 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12516,9 +12507,12 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">validity_audit</span> <span class="kn">import</span> <span class="n">DataValidityAudit</span>
@@ -12529,44 +12523,28 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We create a function that will help us parsing and autiting the data:</p>
+<p>We create a function that will help us parsing and autiting the data. This function returns a list of nonconformities.</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">tabulate</span>
-
-<span class="c1">#Define a method to parse and audit</span>
-<span class="k">def</span> <span class="nf">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">audit</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parse XML dataset and perform audit quality.</span>
-<span class="sd">    </span>
-<span class="sd">    - dataset_path: path to the dataset to be parsed and audited</span>
-<span class="sd">    - audit: a sequence of audit objects</span>
-<span class="sd">    - return: sequence of nonconformities</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="n">OpenStreetMapXmlHandler</span><span class="p">()</span> <span class="k">as</span> <span class="n">handler</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">audit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">audit</span><span class="p">:</span>
-                <span class="n">handler</span><span class="o">.</span><span class="n">registerStartEventCallback</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">startEventCallback</span><span class="p">)</span>
-                <span class="n">handler</span><span class="o">.</span><span class="n">registerEndEventCallback</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">endEventCallback</span><span class="p">)</span>
-        <span class="n">parser</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">sax</span><span class="o">.</span><span class="n">make_parser</span><span class="p">()</span>
-        <span class="n">parser</span><span class="o">.</span><span class="n">setContentHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-        <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)</span>
-    <span class="n">nonconformities</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">audit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">audit</span><span class="p">:</span>
-            <span class="n">nonconformities</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">getNonconformities</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">nonconformities</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">parse</span> <span class="kn">import</span> <span class="n">parse_and_audit</span>
 </pre></div>
 
 </div>
@@ -12574,14 +12552,17 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and audit</span>
 <span class="n">audit</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataValidityAudit</span><span class="p">(</span><span class="n">schema</span><span class="p">)]</span>
-<span class="o">%</span><span class="k">time</span> nonconformities = parse_and_audit(dataset_path, audit)
+<span class="n">nonconformities</span> <span class="o">=</span> <span class="n">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">audit</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">nonconformities</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)))</span>
 </pre></div>
 
@@ -12593,23 +12574,7 @@ The file data.osm is re-used from a previous download. Its size is 103241495 byt
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 15 s, sys: 24 ms, total: 15 s
-Wall time: 15 s
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -12622,17 +12587,25 @@ Wall time: 15 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The returned list above shall be empty. It means that no nonconfirmity has been detected for validity audit. The data we get from OpenStreetMap may be trusted in terms of schema compliance.</p>
-<p>The <code>%timeit</code> Jupyter magic command enables to monitor how much time it takes to parse and audit the data. As a reference it takes approximately 15 seconds to parse and audit the dataset of around 100 Mb.</p>
+<p>As a reference it takes approximately 15 seconds to parse and audit the dataset of around 100 Mb.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12641,11 +12614,15 @@ Wall time: 15 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Accuracy-audit">Accuracy <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Accuracy-audit">&#194;&#182;</a></h3><p>Accuracy is a measurement of coformity with gold standard. On a dataset such as the one from OpenStreetMap it may be difficult to find a gold standard. We are then going to limit this audit to values that are sometimes provided in the dataset for items which represents a town:</p>
+<h3 id="Accuracy-audit">Accuracy <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Accuracy-audit">&#182;</a></h3><p>Accuracy is a measurement of coformity with gold standard. On a dataset such as the one from OpenStreetMap it may be difficult to find a gold standard. We are then going to limit this audit to values that are sometimes provided in the dataset for items which represents a town:</p>
 <ul>
 <li>INSEE indentifier (ref:INSEE in the above example)</li>
 <li>Population</li>
@@ -12695,9 +12672,12 @@ Wall time: 15 s
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Used to convert digit in XML with thoudand separators into a Python integer</span>
@@ -12740,7 +12720,11 @@ Wall time: 15 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12749,9 +12733,12 @@ Wall time: 15 s
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">accuracy_audit</span> <span class="kn">import</span> <span class="n">DataAccuracyAudit</span>
@@ -12762,14 +12749,17 @@ Wall time: 15 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and audit</span>
 <span class="n">audit</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataAccuracyAudit</span><span class="p">(</span><span class="n">gold_standard_insee</span><span class="p">)]</span>
-<span class="o">%</span><span class="k">time</span> nonconformities = parse_and_audit(dataset_path, audit)
+<span class="n">nonconformities</span> <span class="o">=</span> <span class="n">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">audit</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">nonconformities</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)))</span>
 </pre></div>
 
@@ -12781,23 +12771,7 @@ Wall time: 15 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 7.72 s, sys: 12 ms, total: 7.74 s
-Wall time: 7.73 s
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -12818,7 +12792,11 @@ Wall time: 7.73 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12829,7 +12807,11 @@ No issue is reported for Tournefeuille because I have manually updated the OpenS
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12838,19 +12820,26 @@ No issue is reported for Tournefeuille because I have manually updated the OpenS
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Completeness-audit">Completeness <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Completeness-audit">&#194;&#182;</a></h3><p>Assessing completeness of data is a difficult task. We'll do the work for pharmacies. We will use another standard: <a href="https://www.pagesjaunes.fr/annuaire/tournefeuille-31/pharmacies">Pages Jaunes</a>. Pages Jaunes provides the same kind of services than Yellow Pages.</p>
+<h3 id="Completeness-audit">Completeness <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Completeness-audit">&#182;</a></h3><p>Assessing completeness of data is a difficult task. We'll do the work for pharmacies. We will use another standard: <a href="https://www.pagesjaunes.fr/annuaire/tournefeuille-31/pharmacies">Pages Jaunes</a>. Pages Jaunes provides the same kind of services than Yellow Pages.</p>
 <p>Here is the list of pharmacies we expect to find:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">gold_standard_pages_jaunes</span> <span class="o">=</span> <span class="p">[</span>
@@ -12870,7 +12859,11 @@ No issue is reported for Tournefeuille because I have manually updated the OpenS
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12879,9 +12872,12 @@ No issue is reported for Tournefeuille because I have manually updated the OpenS
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">completeness_audit</span> <span class="kn">import</span> <span class="n">DataCompletenessAudit</span>
@@ -12892,14 +12888,17 @@ No issue is reported for Tournefeuille because I have manually updated the OpenS
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and audit</span>
 <span class="n">audit</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataCompletenessAudit</span><span class="p">(</span><span class="n">gold_standard_pages_jaunes</span><span class="p">,</span> <span class="n">warnings</span><span class="o">=</span><span class="bp">True</span><span class="p">)]</span>
-<span class="o">%</span><span class="k">time</span> nonconformities = parse_and_audit(dataset_path, audit)
+<span class="n">nonconformities</span> <span class="o">=</span> <span class="n">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">audit</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">nonconformities</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)))</span>
 </pre></div>
 
@@ -12911,23 +12910,7 @@ No issue is reported for Tournefeuille because I have manually updated the OpenS
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 6.69 s, sys: 12 ms, total: 6.7 s
-Wall time: 6.69 s
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -12960,7 +12943,11 @@ Wall time: 6.69 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12975,7 +12962,11 @@ Wall time: 6.69 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -12984,20 +12975,27 @@ Wall time: 6.69 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Consistency-audit">Consistency <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Consistency-audit">&#194;&#182;</a></h3><p>Consistency audit consits in finding contradictory information in the dataset or find issues that prevent us from using some information in the dataset.</p>
+<h3 id="Consistency-audit">Consistency <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Consistency-audit">&#182;</a></h3><p>Consistency audit consits in finding contradictory information in the dataset or find issues that prevent us from using some information in the dataset.</p>
 <p>In a previous <a href="#XML data structure">section</a>, we have seen that <strong>relation</strong> elements refer to <strong>node</strong>, <strong>way</strong> or other <strong>relation</strong> through the <strong>member</strong> element. Similarly, <strong>way</strong> elements refer to nodes throught <strong>nd</strong> item.</p>
 <p>A consistent dataset would provide <strong>relation</strong> and <strong>way</strong> pointing to <strong>node</strong> and <strong>way</strong> also present in the dataset. This is the check we are going to implement:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">consistency_audit</span> <span class="kn">import</span> <span class="n">DataConsistencyAudit</span>
@@ -13008,14 +13006,17 @@ Wall time: 6.69 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and audit</span>
 <span class="n">audit</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataConsistencyAudit</span><span class="p">()]</span>
-<span class="o">%</span><span class="k">time</span> nonconformities = parse_and_audit(dataset_path, audit)
+<span class="n">nonconformities</span> <span class="o">=</span> <span class="n">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">audit</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">nonconformities</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)))</span>
 </pre></div>
 
@@ -13027,23 +13028,7 @@ Wall time: 6.69 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 10.2 s, sys: 28 ms, total: 10.2 s
-Wall time: 10.2 s
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -13058,7 +13043,11 @@ Wall time: 10.2 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13067,7 +13056,11 @@ Wall time: 10.2 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13076,11 +13069,15 @@ Wall time: 10.2 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Uniformity-audit">Uniformity <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Uniformity-audit">&#194;&#182;</a></h3><p>To audit uniformity, we are going to focus on the way addresses are provided in the dataset.</p>
+<h3 id="Uniformity-audit">Uniformity <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Uniformity-audit">&#182;</a></h3><p>To audit uniformity, we are going to focus on the way addresses are provided in the dataset.</p>
 <p>Here is an example:</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;relation</span> <span class="na">id=</span><span class="s">&quot;1246249&quot;</span> <span class="na">version=</span><span class="s">&quot;2&quot;</span> <span class="na">timestamp=</span><span class="s">&quot;2017-08-21T10:30:22Z&quot;</span> <span class="na">changeset=</span><span class="s">&quot;51299391&quot;</span> <span class="na">uid=</span><span class="s">&quot;922338&quot;</span> <span class="na">user=</span><span class="s">&quot;Hervé TUC&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;member</span> <span class="na">type=</span><span class="s">&quot;way&quot;</span> <span class="na">ref=</span><span class="s">&quot;74688949&quot;</span> <span class="na">role=</span><span class="s">&quot;outer&quot;</span><span class="nt">/&gt;</span>
@@ -13098,9 +13095,12 @@ Wall time: 10.2 s
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">uniformity_audit</span> <span class="kn">import</span> <span class="n">DataUniformityAudit</span>
@@ -13111,14 +13111,17 @@ Wall time: 10.2 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and audit</span>
 <span class="n">audit</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataUniformityAudit</span><span class="p">(</span><span class="n">warnings</span><span class="o">=</span><span class="bp">False</span><span class="p">)]</span>
-<span class="o">%</span><span class="k">time</span> nonconformities = parse_and_audit(dataset_path, audit)
+<span class="n">nonconformities</span> <span class="o">=</span> <span class="n">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">audit</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">nonconformities</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)))</span>
 <span class="n">streets_patterns</span> <span class="o">=</span> <span class="n">audit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getStreetsPatterns</span><span class="p">()</span>
 <span class="k">print</span> <span class="n">streets_patterns</span>
@@ -13132,23 +13135,7 @@ Wall time: 10.2 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 7.38 s, sys: 20 ms, total: 7.4 s
-Wall time: 7.39 s
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -13164,11 +13151,7 @@ Wall time: 7.39 s
 
 </div>
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>set([u&#39;Boulevard&#39;, u&#39;Rond-Point&#39;, u&#39;rue&#39;, u&#39;impasse&#39;, u&#39;avenue&#39;, u&#39;Route&#39;, u&#39;Passage&#39;, u&#39;Impasse&#39;, u&#39;Av.&#39;, u&#39;Chemin&#39;, u&#39;place&#39;, u&#39;Clos&#39;, u&#39;Place&#39;, u&#39;all\xe9e&#39;, u&#39;Rue&#39;, u&#39;Avenue&#39;, u&#39;All\xe9e&#39;])
 </pre>
@@ -13179,7 +13162,11 @@ Wall time: 7.39 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13189,7 +13176,11 @@ Wall time: 7.39 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13198,11 +13189,15 @@ Wall time: 7.39 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion-audit">Conclusion <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Conclusion-audit">&#194;&#182;</a></h3><p>The audit performed is rather incomplete in terms of check that can be performed. But we have seen how we can audit any kind of nonconformity (validity, accuracy, completeness, consistency and uniformity).</p>
+<h3 id="Conclusion-audit">Conclusion <em><a href="#Data quality">audit</a></em><a class="anchor-link" href="#Conclusion-audit">&#182;</a></h3><p>The audit performed is rather incomplete in terms of check that can be performed. But we have seen how we can audit any kind of nonconformity (validity, accuracy, completeness, consistency and uniformity).</p>
 <p>Yet, the frontier between each type of audit may be tenuous:</p>
 <ul>
 <li>The completeness issues indentified with missing pharmacies turned out to be an accuracy problem (pharmacies are in the dataset but with a different name).</li>
@@ -13217,15 +13212,18 @@ Wall time: 7.39 s
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and audit</span>
 <span class="n">full_audit</span> <span class="o">=</span> <span class="p">[</span><span class="n">DataValidityAudit</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span> <span class="n">DataAccuracyAudit</span><span class="p">(</span><span class="n">gold_standard_insee</span><span class="p">),</span> 
          <span class="n">DataCompletenessAudit</span><span class="p">(</span><span class="n">gold_standard_pages_jaunes</span><span class="p">),</span> <span class="n">DataConsistencyAudit</span><span class="p">(),</span> <span class="n">DataUniformityAudit</span><span class="p">()]</span>
-<span class="o">%</span><span class="k">time</span> nonconformities = parse_and_audit(dataset_path, full_audit)
+<span class="n">nonconformities</span> <span class="o">=</span> <span class="n">parse_and_audit</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="n">full_audit</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">nonconformities</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">)))</span>
 </pre></div>
 
@@ -13237,23 +13235,7 @@ Wall time: 7.39 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 21.7 s, sys: 40 ms, total: 21.8 s
-Wall time: 21.7 s
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 
 <div class="output_html rendered_html output_subarea ">
 <table>
@@ -13287,7 +13269,11 @@ Wall time: 21.7 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13297,7 +13283,11 @@ Wall time: 21.7 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13306,15 +13296,23 @@ Wall time: 21.7 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-cleaning-top">Data cleaning <em><a href="#Top">top</a></em><a class="anchor-link" href="#Data-cleaning-top">&#194;&#182;</a></h2>
+<h2 id="Data-cleaning-top">Data cleaning <em><a href="#Top">top</a></em><a class="anchor-link" href="#Data-cleaning-top">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13323,11 +13321,15 @@ Wall time: 21.7 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Method-cleaning">Method <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Method-cleaning">&#194;&#182;</a></h3><p>We are not going to clean the XML file we have downloaded from OpenStreetMap. As we need to parse it iteratively, writing a cleaning algorithm would be pretty difficult.</p>
+<h3 id="Method-cleaning">Method <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Method-cleaning">&#182;</a></h3><p>We are not going to clean the XML file we have downloaded from OpenStreetMap. As we need to parse it iteratively, writing a cleaning algorithm would be pretty difficult.</p>
 <p>Here are the steps we are going to follow:</p>
 <ul>
 <li>Export dataset into a Python dictionnary-like structure.</li>
@@ -13342,7 +13344,11 @@ Wall time: 21.7 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13351,11 +13357,15 @@ Wall time: 21.7 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Converting-to-dictionnary-like-structure-cleaning">Converting to dictionnary-like structure <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Converting-to-dictionnary-like-structure-cleaning">&#194;&#182;</a></h3><p>We are going to use a similar technique than the one we had for data quality audit. We are basically going to plug a callback class to the SAX content handler to load OpenStreetMap dataset into a dictonnary-like structure.</p>
+<h3 id="Converting-to-dictionnary-like-structure-cleaning">Converting to dictionnary-like structure <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Converting-to-dictionnary-like-structure-cleaning">&#182;</a></h3><p>We are going to use a similar technique than the one we had for data quality audit. We are basically going to plug a callback class to the SAX content handler to load OpenStreetMap dataset into a dictonnary-like structure.</p>
 <p>First we need to define the dictionnary structure we want to have (this is pseudo-code not actually used in the program):</p>
 <div class="highlight"><pre><span></span><span class="n">schema_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="p">[</span>
@@ -13393,12 +13403,16 @@ Wall time: 21.7 s
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">dictionnary_export</span> <span class="kn">import</span> <span class="n">DictionnaryExport</span>
+<span class="kn">from</span> <span class="nn">parse</span> <span class="kn">import</span> <span class="n">parse</span>
 </pre></div>
 
 </div>
@@ -13406,24 +13420,18 @@ Wall time: 21.7 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="c1">#Parse and extract</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">sax</span><span class="o">.</span><span class="n">make_parser</span><span class="p">()</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Parse and extract</span>
 <span class="n">dataset_dict</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
-<span class="n">extract_class</span> <span class="o">=</span> <span class="n">DictionnaryExport</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">OpenStreetMapXmlHandler</span><span class="p">()</span> <span class="k">as</span> <span class="n">handler</span><span class="p">:</span>
-    <span class="n">handler</span><span class="o">.</span><span class="n">registerStartEventCallback</span><span class="p">(</span><span class="n">extract_class</span><span class="o">.</span><span class="n">startEventCallback</span><span class="p">)</span>
-    <span class="n">handler</span><span class="o">.</span><span class="n">registerEndEventCallback</span><span class="p">(</span><span class="n">extract_class</span><span class="o">.</span><span class="n">endEventCallback</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">setContentHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-    <span class="o">%</span><span class="k">time</span> parser.parse(dataset_path)
-<span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">,</span> <span class="s1">&#39;ways&#39;</span><span class="p">,</span> <span class="s1">&#39;relations&#39;</span><span class="p">]:</span>
-    <span class="k">print</span> <span class="s2">&quot;{} {} exported.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="n">kind</span><span class="p">]),</span> <span class="n">kind</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">DictionnaryExport</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">)</span> <span class="k">as</span> <span class="n">dict_export</span><span class="p">:</span>
+    <span class="n">parse</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">,</span> <span class="p">[</span><span class="n">dict_export</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -13434,15 +13442,9 @@ Wall time: 21.7 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 10.5 s, sys: 100 ms, total: 10.6 s
-Wall time: 10.6 s
-428787 nodes exported.
+<pre>428787 nodes exported.
 71960 ways exported.
 469 relations exported.
 </pre>
@@ -13453,109 +13455,32 @@ Wall time: 10.6 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>All nodes, ways and relations have been exported. We can investigate few items:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">dataset_dict</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
+<p>All nodes, ways and relations have been exported.</p>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;latitude&#39;: 43.5874494, &#39;userid&#39;: 568960, &#39;osmid&#39;: 5053431726, &#39;longitude&#39;: 1.349595, &#39;tags&#39;: [{&#39;value&#39;: u&#39;bicycle_parking&#39;, &#39;key&#39;: u&#39;amenity&#39;}]}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">dataset_dict</span><span class="p">[</span><span class="s1">&#39;ways&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;nodes&#39;: [5052004973, 5052004972, 5052004971, 5052004970, 5052004973], &#39;userid&#39;: 568960, &#39;osmid&#39;: 517760389, &#39;tags&#39;: [{&#39;value&#39;: u&#39;parking&#39;, &#39;key&#39;: u&#39;amenity&#39;}]}
-</pre>
-</div>
-</div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">dataset_dict</span><span class="p">[</span><span class="s1">&#39;relations&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&#39;osmid&#39;: 7494469, &#39;tags&#39;: [{&#39;value&#39;: u&#39;cemetery&#39;, &#39;key&#39;: u&#39;landuse&#39;}, {&#39;value&#39;: u&#39;Cimeti\xe8re de Lardenne&#39;, &#39;key&#39;: u&#39;name&#39;}, {&#39;value&#39;: u&#39;multipolygon&#39;, &#39;key&#39;: u&#39;type&#39;}], &#39;ways&#39;: [24788185, 167601981], &#39;userid&#39;: 922338, &#39;relations&#39;: [], &#39;nodes&#39;: []}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13564,7 +13489,11 @@ Wall time: 10.6 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13573,19 +13502,26 @@ Wall time: 10.6 s
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cleaning-accuracy-issues-cleaning">Cleaning accuracy issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Cleaning-accuracy-issues-cleaning">&#194;&#182;</a></h3><p>In data accuracy audit <a href="#Data accuracy">section</a> we have spotted few accuracy issues regarging city populations. The idea here is just to update nodes and relations having population tag so they match the INSEE standard.</p>
+<h3 id="Cleaning-accuracy-issues-cleaning">Cleaning accuracy issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Cleaning-accuracy-issues-cleaning">&#182;</a></h3><p>In data accuracy audit <a href="#Data accuracy">section</a> we have spotted few accuracy issues regarging city populations. The idea here is just to update nodes and relations having population tag so they match the INSEE standard.</p>
 <p>A simple function may be written for that purpose:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">clean_data</span> <span class="kn">import</span> <span class="n">clean_accuracy</span>
@@ -13596,16 +13532,15 @@ Wall time: 10.6 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%</span><span class="k">time</span> inodes, irelations = clean_accuracy(dataset_dict, gold_standard_insee)
-<span class="k">for</span> <span class="n">inode</span> <span class="ow">in</span> <span class="n">inodes</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">][</span><span class="n">inode</span><span class="p">][</span><span class="s2">&quot;tags&quot;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">irelation</span> <span class="ow">in</span> <span class="n">irelations</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">&quot;relations&quot;</span><span class="p">][</span><span class="n">irelation</span><span class="p">][</span><span class="s2">&quot;tags&quot;</span><span class="p">])</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">inodes</span><span class="p">,</span> <span class="n">irelations</span> <span class="o">=</span> <span class="n">clean_accuracy</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">,</span> <span class="n">gold_standard_insee</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13616,142 +13551,10 @@ Wall time: 10.6 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>node 26691412 (Tournefeuille) is left unchanged.
-updated node 26691742 (Plaisance-du-Touch).
-updated relation 35078 (Colomiers).
-updated relation 35738 (Toulouse).
-updated relation 158881 (Pibrac).
-CPU times: user 412 ms, sys: 40 ms, total: 452 ms
-Wall time: 379 ms
-[{&#39;key&#39;: u&#39;addr:postcode&#39;, &#39;value&#39;: u&#39;31830&#39;},
- {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Plaisance-du-Touch&#39;},
- {&#39;key&#39;: u&#39;name:fr&#39;, &#39;value&#39;: u&#39;Plaisance-du-Touch&#39;},
- {&#39;key&#39;: u&#39;name:oc&#39;, &#39;value&#39;: u&#39;Plasen\xe7a-deu-Toish&#39;},
- {&#39;key&#39;: u&#39;place&#39;, &#39;value&#39;: u&#39;town&#39;},
- {&#39;key&#39;: u&#39;population&#39;, &#39;value&#39;: 17278},
- {&#39;key&#39;: u&#39;ref:FR:SIREN&#39;, &#39;value&#39;: u&#39;213104243&#39;},
- {&#39;key&#39;: u&#39;ref:INSEE&#39;, &#39;value&#39;: u&#39;31424&#39;},
- {&#39;key&#39;: u&#39;source:population&#39;, &#39;value&#39;: &#39;INSEE 2014&#39;},
- {&#39;key&#39;: u&#39;wikidata&#39;, &#39;value&#39;: u&#39;Q608231&#39;}]
-[{&#39;key&#39;: u&#39;addr:postcode&#39;, &#39;value&#39;: u&#39;31770&#39;},
- {&#39;key&#39;: u&#39;admin_level&#39;, &#39;value&#39;: u&#39;8&#39;},
- {&#39;key&#39;: u&#39;boundary&#39;, &#39;value&#39;: u&#39;administrative&#39;},
- {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Colomiers&#39;},
- {&#39;key&#39;: u&#39;name:ca&#39;, &#39;value&#39;: u&#39;Colomi\xe8rs&#39;},
- {&#39;key&#39;: u&#39;name:fa&#39;, &#39;value&#39;: u&#39;\u06a9\u0648\u0644\u0648\u0645\u06cc\u0647&#39;},
- {&#39;key&#39;: u&#39;name:fr&#39;, &#39;value&#39;: u&#39;Colomiers&#39;},
- {&#39;key&#39;: u&#39;name:ja&#39;, &#39;value&#39;: u&#39;\u30b3\u30ed\u30df\u30a8&#39;},
- {&#39;key&#39;: u&#39;name:mzn&#39;, &#39;value&#39;: u&#39;\u06a9\u0648\u0644\u0648\u0645\u06cc\u0647&#39;},
- {&#39;key&#39;: u&#39;name:oc&#39;, &#39;value&#39;: u&#39;Colom\xe8rs&#39;},
- {&#39;key&#39;: u&#39;name:ru&#39;, &#39;value&#39;: u&#39;\u041a\u043e\u043b\u043e\u043c\u044c\u0435&#39;},
- {&#39;key&#39;: u&#39;name:sr&#39;, &#39;value&#39;: u&#39;\u041a\u043e\u043b\u043e\u043c\u0458\u0435&#39;},
- {&#39;key&#39;: u&#39;name:uk&#39;, &#39;value&#39;: u&#39;\u041a\u043e\u043b\u043e\u043c\u2019\u0454&#39;},
- {&#39;key&#39;: u&#39;name:zh&#39;, &#39;value&#39;: u&#39;\u79d1\u6d1b\u7c73\u8036\u5c14&#39;},
- {&#39;key&#39;: u&#39;population&#39;, &#39;value&#39;: 38541},
- {&#39;key&#39;: u&#39;ref:FR:SIREN&#39;, &#39;value&#39;: u&#39;213101496&#39;},
- {&#39;key&#39;: u&#39;ref:INSEE&#39;, &#39;value&#39;: u&#39;31149&#39;},
- {&#39;key&#39;: u&#39;source:addr:postcode&#39;,
-  &#39;value&#39;: u&#39;source of postcode is from osm nodes&#39;},
- {&#39;key&#39;: u&#39;source:population&#39;, &#39;value&#39;: &#39;INSEE 2014&#39;},
- {&#39;key&#39;: u&#39;type&#39;, &#39;value&#39;: u&#39;boundary&#39;},
- {&#39;key&#39;: u&#39;website&#39;, &#39;value&#39;: u&#39;http://www.ville-colomiers.fr/&#39;},
- {&#39;key&#39;: u&#39;wikidata&#39;, &#39;value&#39;: u&#39;Q318071&#39;},
- {&#39;key&#39;: u&#39;wikipedia&#39;, &#39;value&#39;: u&#39;fr:Colomiers&#39;}]
-[{&#39;key&#39;: u&#39;addr:postcode&#39;, &#39;value&#39;: u&#39;31000;31100;31200;31300;31400;31500&#39;},
- {&#39;key&#39;: u&#39;admin_level&#39;, &#39;value&#39;: u&#39;8&#39;},
- {&#39;key&#39;: u&#39;boundary&#39;, &#39;value&#39;: u&#39;administrative&#39;},
- {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Toulouse / Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:am&#39;, &#39;value&#39;: u&#39;\u1271\u1209\u12dd&#39;},
- {&#39;key&#39;: u&#39;name:ar&#39;, &#39;value&#39;: u&#39;\u062a\u0648\u0644\u0648\u0632&#39;},
- {&#39;key&#39;: u&#39;name:az&#39;, &#39;value&#39;: u&#39;Tuluza&#39;},
- {&#39;key&#39;: u&#39;name:be&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u044e\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:bg&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:bo&#39;,
-  &#39;value&#39;: u&#39;\u0f4a\u0f7c\u0f60\u0f74\u0f0b\u0f63\u0f7c\u0f60\u0f74\u0f0b\u0f66\u0f7a\u0f0d&#39;},
- {&#39;key&#39;: u&#39;name:br&#39;, &#39;value&#39;: u&#39;Toloza&#39;},
- {&#39;key&#39;: u&#39;name:ca&#39;, &#39;value&#39;: u&#39;Tolosa de Llenguadoc&#39;},
- {&#39;key&#39;: u&#39;name:ce&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:co&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:csb&#39;, &#39;value&#39;: u&#39;T\xf3l\xf3za&#39;},
- {&#39;key&#39;: u&#39;name:de&#39;, &#39;value&#39;: u&#39;Toulouse&#39;},
- {&#39;key&#39;: u&#39;name:el&#39;, &#39;value&#39;: u&#39;\u03a4\u03bf\u03c5\u03bb\u03bf\u03cd\u03b6&#39;},
- {&#39;key&#39;: u&#39;name:eo&#39;, &#39;value&#39;: u&#39;Tuluzo&#39;},
- {&#39;key&#39;: u&#39;name:es&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:eu&#39;, &#39;value&#39;: u&#39;Tolosa Okzitania&#39;},
- {&#39;key&#39;: u&#39;name:fa&#39;, &#39;value&#39;: u&#39;\u062a\u0648\u0644\u0648\u0632&#39;},
- {&#39;key&#39;: u&#39;name:fr&#39;, &#39;value&#39;: u&#39;Toulouse&#39;},
- {&#39;key&#39;: u&#39;name:frp&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:gl&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:he&#39;, &#39;value&#39;: u&#39;\u05d8\u05d5\u05dc\u05d5\u05d6&#39;},
- {&#39;key&#39;: u&#39;name:hi&#39;, &#39;value&#39;: u&#39;\u0924\u0941\u0932\u0942\u091c\u093c&#39;},
- {&#39;key&#39;: u&#39;name:hy&#39;, &#39;value&#39;: u&#39;\u0539\u0578\u0582\u056c\u0578\u0582\u0566&#39;},
- {&#39;key&#39;: u&#39;name:it&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:ja&#39;, &#39;value&#39;: u&#39;\u30c8\u30a5\u30fc\u30eb\u30fc\u30ba&#39;},
- {&#39;key&#39;: u&#39;name:ka&#39;, &#39;value&#39;: u&#39;\u10e2\u10e3\u10da\u10e3\u10d6\u10d0&#39;},
- {&#39;key&#39;: u&#39;name:kk&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:kn&#39;, &#39;value&#39;: u&#39;\u0ca4\u0cc2\u0cb2\u0cc2\u0cb8\u0ccd&#39;},
- {&#39;key&#39;: u&#39;name:ko&#39;, &#39;value&#39;: u&#39;\ud234\ub8e8\uc988&#39;},
- {&#39;key&#39;: u&#39;name:la&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:lt&#39;, &#39;value&#39;: u&#39;Tul\u016bza&#39;},
- {&#39;key&#39;: u&#39;name:lv&#39;, &#39;value&#39;: u&#39;Tul\u016bza&#39;},
- {&#39;key&#39;: u&#39;name:mhr&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u043e&#39;},
- {&#39;key&#39;: u&#39;name:ml&#39;, &#39;value&#39;: u&#39;\u0d1f\u0d42\u0d33\u0d42\u0d38\u0d4d&#39;},
- {&#39;key&#39;: u&#39;name:mr&#39;, &#39;value&#39;: u&#39;\u0924\u0941\u0932\u0942\u091d&#39;},
- {&#39;key&#39;: u&#39;name:mzn&#39;, &#39;value&#39;: u&#39;\u062a\u0648\u0644\u0648\u0632&#39;},
- {&#39;key&#39;: u&#39;name:nap&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:oc&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:os&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\xe6&#39;},
- {&#39;key&#39;: u&#39;name:pa&#39;, &#39;value&#39;: u&#39;\u0a1f\u0a41\u0a32\u0a42\u0a1c\u0a3c&#39;},
- {&#39;key&#39;: u&#39;name:pl&#39;, &#39;value&#39;: u&#39;Tuluza&#39;},
- {&#39;key&#39;: u&#39;name:pms&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:pnb&#39;, &#39;value&#39;: u&#39;\u062a\u0648\u0644\u0648\u0632&#39;},
- {&#39;key&#39;: u&#39;name:ru&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:sc&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:scn&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;name:sr&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:ta&#39;, &#39;value&#39;: u&#39;\u0ba4\u0bc1\u0bb2\u0bc2\u0bb8\u0bcd&#39;},
- {&#39;key&#39;: u&#39;name:th&#39;, &#39;value&#39;: u&#39;\u0e15\u0e39\u0e25\u0e39\u0e0b&#39;},
- {&#39;key&#39;: u&#39;name:tt&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:uk&#39;, &#39;value&#39;: u&#39;\u0422\u0443\u043b\u0443\u0437\u0430&#39;},
- {&#39;key&#39;: u&#39;name:ur&#39;, &#39;value&#39;: u&#39;\u062a\u0648\u0644\u0648\u0632&#39;},
- {&#39;key&#39;: u&#39;name:vec&#39;, &#39;value&#39;: u&#39;To\u0142oxa&#39;},
- {&#39;key&#39;: u&#39;name:xmf&#39;, &#39;value&#39;: u&#39;\u10e2\u10e3\u10da\u10e3\u10d6\u10d0&#39;},
- {&#39;key&#39;: u&#39;name:yi&#39;, &#39;value&#39;: u&#39;\u05d8\u05d5\u05dc\u05d5\u05d6&#39;},
- {&#39;key&#39;: u&#39;name:yue&#39;, &#39;value&#39;: u&#39;\u5716\u9b6f\u8332&#39;},
- {&#39;key&#39;: u&#39;name:zh&#39;, &#39;value&#39;: u&#39;\u56fe\u5362\u5179&#39;},
- {&#39;key&#39;: u&#39;population&#39;, &#39;value&#39;: 466297},
- {&#39;key&#39;: u&#39;ref:FR:SIREN&#39;, &#39;value&#39;: u&#39;213105554&#39;},
- {&#39;key&#39;: u&#39;ref:INSEE&#39;, &#39;value&#39;: u&#39;31555&#39;},
- {&#39;key&#39;: u&#39;short_name:ca&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;short_name:eu&#39;, &#39;value&#39;: u&#39;Tolosa&#39;},
- {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;ieo-bdtopoc&#39;},
- {&#39;key&#39;: u&#39;source:population&#39;, &#39;value&#39;: &#39;INSEE 2014&#39;},
- {&#39;key&#39;: u&#39;type&#39;, &#39;value&#39;: u&#39;boundary&#39;},
- {&#39;key&#39;: u&#39;website&#39;, &#39;value&#39;: u&#39;http://www.toulouse.fr/&#39;},
- {&#39;key&#39;: u&#39;wikidata&#39;, &#39;value&#39;: u&#39;Q7880&#39;},
- {&#39;key&#39;: u&#39;wikipedia&#39;, &#39;value&#39;: u&#39;fr:Toulouse&#39;}]
-[{&#39;key&#39;: u&#39;addr:postcode&#39;, &#39;value&#39;: u&#39;31820&#39;},
- {&#39;key&#39;: u&#39;admin_level&#39;, &#39;value&#39;: u&#39;8&#39;},
- {&#39;key&#39;: u&#39;boundary&#39;, &#39;value&#39;: u&#39;administrative&#39;},
- {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pibrac&#39;},
- {&#39;key&#39;: u&#39;name:fr&#39;, &#39;value&#39;: u&#39;Pibrac&#39;},
- {&#39;key&#39;: u&#39;name:ru&#39;, &#39;value&#39;: u&#39;\u041f\u0438\u0431\u0440\u0430\u043a&#39;},
- {&#39;key&#39;: u&#39;name:uk&#39;, &#39;value&#39;: u&#39;\u041f\u0456\u0431\u0440\u0430\u043a&#39;},
- {&#39;key&#39;: u&#39;name:zh&#39;, &#39;value&#39;: u&#39;\u76ae\u5e03\u62c9\u514b&#39;},
- {&#39;key&#39;: u&#39;population&#39;, &#39;value&#39;: 8226},
- {&#39;key&#39;: u&#39;ref:FR:SIREN&#39;, &#39;value&#39;: u&#39;213104177&#39;},
- {&#39;key&#39;: u&#39;ref:INSEE&#39;, &#39;value&#39;: u&#39;31417&#39;},
- {&#39;key&#39;: u&#39;source:population&#39;, &#39;value&#39;: &#39;INSEE 2014&#39;},
- {&#39;key&#39;: u&#39;type&#39;, &#39;value&#39;: u&#39;boundary&#39;},
- {&#39;key&#39;: u&#39;website&#39;, &#39;value&#39;: u&#39;http://www.pibrac.fr/&#39;},
- {&#39;key&#39;: u&#39;wikidata&#39;, &#39;value&#39;: u&#39;Q733833&#39;},
- {&#39;key&#39;: u&#39;wikipedia&#39;, &#39;value&#39;: u&#39;fr:Pibrac&#39;}]
+<pre>1 nodes have been updated.
+3 relations have been updated.
 </pre>
 </div>
 </div>
@@ -13760,7 +13563,13 @@ Wall time: 379 ms
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13769,16 +13578,23 @@ Wall time: 379 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cleaning-completeness-issues-cleaning">Cleaning completeness issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Cleaning-completeness-issues-cleaning">&#194;&#182;</a></h3><p>In data completeness audit <a href="#Data completeness">section</a> we have indentified missing records in the dataset. It turned out that issues indentified as completeness issues may be seen as accuracy issues since the pharmacies are not  recorded with the proper name.</p>
+<h3 id="Cleaning-completeness-issues-cleaning">Cleaning completeness issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Cleaning-completeness-issues-cleaning">&#182;</a></h3><p>In data completeness audit <a href="#Data completeness">section</a> we have indentified missing records in the dataset. It turned out that issues indentified as completeness issues may be seen as accuracy issues since the pharmacies are not  recorded with the proper name.</p>
 <p>We can deal with these issues with a simple function:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[33]:</div>
@@ -13792,6 +13608,9 @@ Wall time: 379 ms
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[34]:</div>
@@ -13806,9 +13625,7 @@ Wall time: 379 ms
                     <span class="sa">u</span><span class="s2">&quot;Pharmacie du Centre&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Pharmacie Du Centre&quot;</span><span class="p">,</span>
                     <span class="sa">u</span><span class="s2">&quot;Pharmacie de Pahin&quot;</span><span class="p">:</span> <span class="s2">&quot;Pharmacie De Pahin&quot;</span><span class="p">,</span>
                     <span class="sa">u</span><span class="s2">&quot;Pharmacie CAP 2000&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Pharmacie Cap 2000&quot;</span><span class="p">}</span>
-<span class="o">%</span><span class="k">time</span> inodes = clean_completeness(dataset_dict, pharmacy_mapping)
-<span class="k">for</span> <span class="n">inode</span> <span class="ow">in</span> <span class="n">inodes</span><span class="p">:</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">][</span><span class="n">inode</span><span class="p">])</span>
+<span class="n">inodes</span> <span class="o">=</span> <span class="n">clean_completeness</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">,</span> <span class="n">pharmacy_mapping</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13819,123 +13636,9 @@ Wall time: 379 ms
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Pharmacie Saint-Simon is left unchanged.
-Pharmacie de Lardenne is left unchanged.
-Pharmacie de Pahin has been updated to Pharmacie De Pahin.
-Pharmacie du Touch is left unchanged.
-Pharmacie Bruna Rosso is left unchanged.
-Pharmacie des Marots is left unchanged.
-Pharmacie Édourad Cabane is left unchanged.
-Pharmacie de la Paderne is left unchanged.
-Pharmacie des Jasmins is left unchanged.
-Pharmacie des Pradettes is left unchanged.
-Pharmaccie Arc-en-Ciel has been updated to Pharmacie Arc En Ciel.
-Pharmacie Robin has been updated to Pharmacie Julien Riviére-Sacaze.
-Pharmacie Ribère has been updated to Pharmacie Denise Ribère.
-Pharmacie des Tibaous is left unchanged.
-Pharmacie Hebraud Meneghetti has been updated to La Pharmacie Du Vieux Pigeonnier.
-Pharmacie de la Commanderie has been updated to Pharmacie De La Commanderie.
-Pharmacie de la Ramée has been updated to Pharmacie De La Ramée.
-Pharmacie CAP 2000 has been updated to Pharmacie Cap 2000.
-Pharmacie Sol is left unchanged.
-Pharmacie du Centre has been updated to Pharmacie Du Centre.
-CPU times: user 404 ms, sys: 24 ms, total: 428 ms
-Wall time: 367 ms
-{&#39;latitude&#39;: 43.5900516,
- &#39;longitude&#39;: 1.3166181,
- &#39;osmid&#39;: 496007079,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: &#39;Pharmacie De Pahin&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310015961&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1626}
-{&#39;latitude&#39;: 43.5874398,
- &#39;longitude&#39;: 1.3507017,
- &#39;osmid&#39;: 2157269359,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;addr:postcode&#39;, &#39;value&#39;: u&#39;31170&#39;},
-          {&#39;key&#39;: u&#39;addr:street&#39;, &#39;value&#39;: u&#39;Boulevard Vincent Auriol&#39;},
-          {&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie Arc En Ciel&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310016126&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;survey;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1626}
-{&#39;latitude&#39;: 43.5856034,
- &#39;longitude&#39;: 1.3425341,
- &#39;osmid&#39;: 2345987160,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie Julien Rivi\xe9re-Sacaze&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310016043&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1626}
-{&#39;latitude&#39;: 43.5769559,
- &#39;longitude&#39;: 1.3272867,
- &#39;osmid&#39;: 2638335519,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie Denise Rib\xe8re&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310016076&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1626}
-{&#39;latitude&#39;: 43.5878392,
- &#39;longitude&#39;: 1.359229,
- &#39;osmid&#39;: 3480190235,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;La Pharmacie Du Vieux Pigeonnier&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310019609&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1897475}
-{&#39;latitude&#39;: 43.5758931,
- &#39;longitude&#39;: 1.3484491,
- &#39;osmid&#39;: 3481661049,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;addr:housenumber&#39;, &#39;value&#39;: u&#39;110&#39;},
-          {&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie De La Commanderie&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310016027&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 107257}
-{&#39;latitude&#39;: 43.5604804,
- &#39;longitude&#39;: 1.3461474,
- &#39;osmid&#39;: 3481665294,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie De La Ram\xe9e&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310019401&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1626}
-{&#39;latitude&#39;: 43.5753067,
- &#39;longitude&#39;: 1.3186646,
- &#39;osmid&#39;: 3482415283,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie Cap 2000&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310017264&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 1626}
-{&#39;latitude&#39;: 43.5669856,
- &#39;longitude&#39;: 1.296668,
- &#39;osmid&#39;: 3482512267,
- &#39;tags&#39;: [{&#39;key&#39;: u&#39;addr:city&#39;, &#39;value&#39;: u&#39;Plaisance-du-Touch&#39;},
-          {&#39;key&#39;: u&#39;addr:housenumber&#39;, &#39;value&#39;: u&#39;6&#39;},
-          {&#39;key&#39;: u&#39;addr:postcode&#39;, &#39;value&#39;: u&#39;31830&#39;},
-          {&#39;key&#39;: u&#39;addr:street&#39;, &#39;value&#39;: u&#39;Place Fr\xe9d\xe9ric Bombail&#39;},
-          {&#39;key&#39;: u&#39;amenity&#39;, &#39;value&#39;: u&#39;pharmacy&#39;},
-          {&#39;key&#39;: u&#39;description&#39;, &#39;value&#39;: u&#39;B\xe2timent C&#39;},
-          {&#39;key&#39;: u&#39;dispensing&#39;, &#39;value&#39;: u&#39;yes&#39;},
-          {&#39;key&#39;: u&#39;name&#39;, &#39;value&#39;: u&#39;Pharmacie Du Centre&#39;},
-          {&#39;key&#39;: u&#39;ref:FR:FINESS&#39;, &#39;value&#39;: u&#39;310010244&#39;},
-          {&#39;key&#39;: u&#39;source&#39;, &#39;value&#39;: u&#39;Celtipharm - 10/2014&#39;}],
- &#39;userid&#39;: 567956}
+<pre>9 pharmacies have been updated.
 </pre>
 </div>
 </div>
@@ -13944,7 +13647,13 @@ Wall time: 367 ms
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13953,19 +13662,26 @@ Wall time: 367 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cleaning-consistency-issues-cleaning">Cleaning consistency issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Cleaning-consistency-issues-cleaning">&#194;&#182;</a></h3><p>Some <strong>node</strong>s, <strong>way</strong>s or <strong>relation</strong>s are referenced in <strong>way</strong> or <strong>relation</strong> items but are missing in dataset we have extracted. I have decided to remove any of those items from the dictionnary-like dataset in order to keep a consistent database as output.</p>
+<h3 id="Cleaning-consistency-issues-cleaning">Cleaning consistency issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Cleaning-consistency-issues-cleaning">&#182;</a></h3><p>Some <strong>node</strong>s, <strong>way</strong>s or <strong>relation</strong>s are referenced in <strong>way</strong> or <strong>relation</strong> items but are missing in dataset we have extracted. I have decided to remove any of those items from the dictionnary-like dataset in order to keep a consistent database as output.</p>
 <p>The audit class can be requested to get a set of missing items. Knowing the list, we just have to remove any reference to those items in our cleaned dataset. This can be done with the following function:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">clean_data</span> <span class="kn">import</span> <span class="n">clean_consistency</span>
@@ -13976,15 +13692,18 @@ Wall time: 367 ms
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">missing_nodes</span> <span class="o">=</span> <span class="n">full_audit</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">getMissingNodes</span><span class="p">()</span>
 <span class="n">missing_ways</span> <span class="o">=</span> <span class="n">full_audit</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">getMissingWays</span><span class="p">()</span>
 <span class="n">missing_relations</span> <span class="o">=</span> <span class="n">full_audit</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">getMissingRelations</span><span class="p">()</span>
-<span class="o">%</span><span class="k">time</span> iways, irelations = clean_consistency(dataset_dict, missing_nodes, missing_ways, missing_relations)
+<span class="n">iways</span><span class="p">,</span> <span class="n">irelations</span> <span class="o">=</span> <span class="n">clean_consistency</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">,</span> <span class="n">missing_nodes</span><span class="p">,</span> <span class="n">missing_ways</span><span class="p">,</span> <span class="n">missing_relations</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13995,16 +13714,10 @@ Wall time: 367 ms
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>635 ways updated.
 145 relations updated.
-CPU times: user 84 ms, sys: 20 ms, total: 104 ms
-Wall time: 79.2 ms
 </pre>
 </div>
 </div>
@@ -14013,7 +13726,11 @@ Wall time: 79.2 ms
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14022,7 +13739,11 @@ Wall time: 79.2 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14031,11 +13752,15 @@ Wall time: 79.2 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Clean-uniformity-issues-cleaning">Clean uniformity issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Clean-uniformity-issues-cleaning">&#194;&#182;</a></h3><p>In data quality audit <a href="#Data uniformity">section</a> we have identified two different kinds of nonconformities:</p>
+<h3 id="Clean-uniformity-issues-cleaning">Clean uniformity issues <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Clean-uniformity-issues-cleaning">&#182;</a></h3><p>In data quality audit <a href="#Data uniformity">section</a> we have identified two different kinds of nonconformities:</p>
 <ul>
 <li>missing addr:housenumber or addr:postcode</li>
 <li>non-uniform way of naming streets component</li>
@@ -14052,9 +13777,12 @@ Wall time: 79.2 ms
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">clean_data</span> <span class="kn">import</span> <span class="n">clean_uniformity</span>
@@ -14065,9 +13793,12 @@ Wall time: 79.2 ms
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Reminder of all patterns encountered</span>
@@ -14082,11 +13813,7 @@ Wall time: 79.2 ms
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>set([u&#39;Boulevard&#39;, u&#39;Rond-Point&#39;, u&#39;rue&#39;, u&#39;impasse&#39;, u&#39;avenue&#39;, u&#39;Route&#39;, u&#39;Passage&#39;, u&#39;Impasse&#39;, u&#39;Av.&#39;, u&#39;Chemin&#39;, u&#39;place&#39;, u&#39;Clos&#39;, u&#39;Place&#39;, u&#39;all\xe9e&#39;, u&#39;Rue&#39;, u&#39;Avenue&#39;, u&#39;All\xe9e&#39;])
 </pre>
@@ -14097,9 +13824,12 @@ Wall time: 79.2 ms
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Mapping</span>
@@ -14109,7 +13839,7 @@ Wall time: 79.2 ms
                   <span class="sa">u</span><span class="s2">&quot;Av.&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Avenue&quot;</span><span class="p">,</span>
                   <span class="sa">u</span><span class="s2">&quot;place&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Place&quot;</span><span class="p">,</span>
                   <span class="sa">u</span><span class="s2">&quot;allée&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Allée&quot;</span><span class="p">}</span>
-<span class="o">%</span><span class="k">time</span> inodes, iways, irelations = clean_uniformity(dataset_dict, street_mapping)
+<span class="n">inodes</span><span class="p">,</span> <span class="n">iways</span><span class="p">,</span> <span class="n">irelations</span> <span class="o">=</span> <span class="n">clean_uniformity</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">,</span> <span class="n">street_mapping</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14120,18 +13850,12 @@ Wall time: 79.2 ms
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Items in Toulouse cannot be fixed because there are many postcodes: 31000;31100;31200;31300;31400;31500.
 590 nodes updated.
 2 ways updated.
 0 relations updated.
-CPU times: user 964 ms, sys: 20 ms, total: 984 ms
-Wall time: 911 ms
 </pre>
 </div>
 </div>
@@ -14140,7 +13864,11 @@ Wall time: 911 ms
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14149,7 +13877,11 @@ Wall time: 911 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14158,17 +13890,25 @@ Wall time: 911 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion-cleaning">Conclusion <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Conclusion-cleaning">&#194;&#182;</a></h3><p>Cleaning is far from being perfect, but we have illustrated different techniques to clean a dataset. This is definitely a time-consumming activity :)</p>
+<h3 id="Conclusion-cleaning">Conclusion <em><a href="#Data cleaning">cleaning</a></em><a class="anchor-link" href="#Conclusion-cleaning">&#182;</a></h3><p>Cleaning is far from being perfect, but we have illustrated different techniques to clean a dataset. This is definitely a time-consumming activity :)</p>
 <p>It's now time to export dataset into files and databases.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14177,15 +13917,23 @@ Wall time: 911 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-export-top">Data export <em><a href="#Top">top</a></em><a class="anchor-link" href="#Data-export-top">&#194;&#182;</a></h2>
+<h2 id="Data-export-top">Data export <em><a href="#Top">top</a></em><a class="anchor-link" href="#Data-export-top">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14194,24 +13942,32 @@ Wall time: 911 ms
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="To-JSON-and-MongoDB-export">To JSON and MongoDB <em><a href="#Data export">export</a></em><a class="anchor-link" href="#To-JSON-and-MongoDB-export">&#194;&#182;</a></h3><p>This is the couple I am least confortable with. Luckily, our dictionnary-like structure is really adapted to both transformation to JSON file or for mass import into MongoDB.</p>
+<h3 id="To-JSON-and-MongoDB-export">To JSON and MongoDB <em><a href="#Data export">export</a></em><a class="anchor-link" href="#To-JSON-and-MongoDB-export">&#182;</a></h3><p>This is the couple I am least confortable with. Luckily, our dictionnary-like structure is really adapted to both transformation to JSON file or for mass import into MongoDB.</p>
 <p>Let's start with dumping a JSON file:</p>
 
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">time</span> fobj.write(json.dumps(dataset_dict))
+    <span class="n">fobj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">))</span>
 <span class="k">print</span> <span class="s2">&quot;Size of JSON file {} bytes.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="s1">&#39;data.json&#39;</span><span class="p">))</span>
 </pre></div>
 
@@ -14223,15 +13979,9 @@ Wall time: 911 ms
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 840 ms, sys: 96 ms, total: 936 ms
-Wall time: 937 ms
-Size of JSON file 68692676 bytes.
+<pre>Size of JSON file 68692676 bytes.
 </pre>
 </div>
 </div>
@@ -14240,7 +13990,11 @@ Size of JSON file 68692676 bytes.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14250,13 +14004,16 @@ Size of JSON file 68692676 bytes.
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
-    <span class="o">%</span><span class="k">time</span> dataset_dict = json.loads(fobj.read())
+    <span class="n">dataset_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fobj</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 <span class="k">print</span> <span class="s2">&quot;Dataset with {} nodes, {} ways and {} relations.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">]),</span> 
         <span class="nb">len</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">&quot;ways&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset_dict</span><span class="p">[</span><span class="s2">&quot;relations&quot;</span><span class="p">]))</span>
 </pre></div>
@@ -14269,15 +14026,9 @@ Size of JSON file 68692676 bytes.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 2.19 s, sys: 84 ms, total: 2.27 s
-Wall time: 2.27 s
-Dataset with 428787 nodes, 71960 ways and 469 relations.
+<pre>Dataset with 428787 nodes, 71960 ways and 469 relations.
 </pre>
 </div>
 </div>
@@ -14286,7 +14037,11 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14295,9 +14050,12 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Connect to MongoDB and remove any previous database (if any)</span>
@@ -14311,9 +14069,12 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Mass import from JSON file of documents</span>
@@ -14335,11 +14096,7 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[u&#39;nodes&#39;, u&#39;system.indexes&#39;, u&#39;ways&#39;, u&#39;relations&#39;]
 </pre>
@@ -14350,45 +14107,14 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#What&#39;s in there?</span>
-<span class="k">print</span> <span class="n">nodes</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">ways</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">relations</span><span class="o">.</span><span class="n">find_one</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;osmid&#39;: 8138771, u&#39;tags&#39;: [{u&#39;value&#39;: u&#39;traffic_signals&#39;, u&#39;key&#39;: u&#39;highway&#39;}], u&#39;userid&#39;: 134812, u&#39;longitude&#39;: 1.3904169, u&#39;latitude&#39;: 43.5618389, u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2312c&#39;)}
-{u&#39;nodes&#39;: [26554082, 26554083, 26554084, 26554085, 26554086, 26554087, 26554088, 26554089, 26554090, 26554091, 26554092, 26554093, 26554094, 492014327, 492014294, 26554096, 26554097, 492005005, 492005006, 26554098, 26554099, 26554100, 26554101, 26554102, 26554103, 1824910001, 1824910003, 26554104, 1824910007, 26554105, 1824910010, 26554106, 26554107, 26554108, 26554079, 26554080, 26554082], u&#39;_id&#39;: ObjectId(&#39;59a12ccfc8f8077490d8bc1f&#39;), u&#39;userid&#39;: 125897, u&#39;osmid&#39;: 4357819, u&#39;tags&#39;: []}
-{u&#39;osmid&#39;: 13551, u&#39;tags&#39;: [{u&#39;value&#39;: u&#39;Rue des Catalpas&#39;, u&#39;key&#39;: u&#39;name&#39;}, {u&#39;value&#39;: u&#39;associatedStreet&#39;, u&#39;key&#39;: u&#39;type&#39;}], u&#39;ways&#39;: [6228254], u&#39;userid&#39;: 722137, u&#39;relations&#39;: [], u&#39;nodes&#39;: [265545746, 265545747, 265545748, 265546434, 265546435, 265546436], u&#39;_id&#39;: ObjectId(&#39;59a12cd0c8f8077490d9d537&#39;)}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Request by OpenStreetMap id:</span>
@@ -14404,13 +14130,9 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2312c&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a3326ac8f80762f58a0e3e&#39;),
  u&#39;latitude&#39;: 43.5618389,
  u&#39;longitude&#39;: 1.3904169,
  u&#39;osmid&#39;: 8138771,
@@ -14424,13 +14146,16 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Request east-most nodes (max 3 nodes are returned), SQL LIMIT equivalent</span>
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$gt&#39;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">}})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$gt&#39;</span><span class="p">:</span> <span class="mf">1.39</span><span class="p">}})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 </pre></div>
 
@@ -14442,30 +14167,14 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2312c&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a3326ac8f80762f58a0e3e&#39;),
  u&#39;latitude&#39;: 43.5618389,
  u&#39;longitude&#39;: 1.3904169,
  u&#39;osmid&#39;: 8138771,
  u&#39;tags&#39;: [{u&#39;key&#39;: u&#39;highway&#39;, u&#39;value&#39;: u&#39;traffic_signals&#39;}],
  u&#39;userid&#39;: 134812}
-{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2312d&#39;),
- u&#39;latitude&#39;: 43.5619922,
- u&#39;longitude&#39;: 1.3901005,
- u&#39;osmid&#39;: 8138772,
- u&#39;tags&#39;: [],
- u&#39;userid&#39;: 134812}
-{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2341e&#39;),
- u&#39;latitude&#39;: 43.5702514,
- u&#39;longitude&#39;: 1.3904678,
- u&#39;osmid&#39;: 53869616,
- u&#39;tags&#39;: [],
- u&#39;userid&#39;: 13384}
 </pre>
 </div>
 </div>
@@ -14474,14 +14183,17 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Refined latitude / longitude box (equivalent to City center dataset)</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$gt&#39;</span><span class="p">:</span> <span class="mf">1.3434</span><span class="p">,</span> <span class="s1">&#39;$lt&#39;</span><span class="p">:</span> <span class="mf">1.3496</span><span class="p">},</span> 
-                        <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$gt&#39;</span><span class="p">:</span> <span class="mf">43.5799</span><span class="p">,</span> <span class="s1">&#39;$lt&#39;</span><span class="p">:</span> <span class="mf">43.5838</span><span class="p">}})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                        <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;$gt&#39;</span><span class="p">:</span> <span class="mf">43.5799</span><span class="p">,</span> <span class="s1">&#39;$lt&#39;</span><span class="p">:</span> <span class="mf">43.5838</span><span class="p">}})</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> 
 </pre></div>
 
@@ -14493,13 +14205,9 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2321d&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a3326ac8f80762f58a0f2f&#39;),
  u&#39;latitude&#39;: 43.5827846,
  u&#39;longitude&#39;: 1.3466543,
  u&#39;osmid&#39;: 26691412,
@@ -14515,18 +14223,6 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
            {u&#39;key&#39;: u&#39;wikidata&#39;, u&#39;value&#39;: u&#39;Q328022&#39;},
            {u&#39;key&#39;: u&#39;wikipedia&#39;, u&#39;value&#39;: u&#39;fr:Tournefeuille&#39;}],
  u&#39;userid&#39;: 6523296}
-{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d2331d&#39;),
- u&#39;latitude&#39;: 43.582037,
- u&#39;longitude&#39;: 1.3450115,
- u&#39;osmid&#39;: 51983918,
- u&#39;tags&#39;: [],
- u&#39;userid&#39;: 148173}
-{u&#39;_id&#39;: ObjectId(&#39;59a12cc9c8f8077490d23323&#39;),
- u&#39;latitude&#39;: 43.582536,
- u&#39;longitude&#39;: 1.3440651,
- u&#39;osmid&#39;: 51983992,
- u&#39;tags&#39;: [],
- u&#39;userid&#39;: 148173}
 </pre>
 </div>
 </div>
@@ -14535,9 +14231,12 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Find in document attributes (list)</span>
@@ -14553,13 +14252,9 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12cd0c8f8077490d9d537&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a33272c8f80762f591b249&#39;),
  u&#39;nodes&#39;: [265545746, 265545747, 265545748, 265546434, 265546435, 265546436],
  u&#39;osmid&#39;: 13551,
  u&#39;relations&#39;: [],
@@ -14575,9 +14270,12 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Find in document attributes (dict) with kind of SQL UNION and $and operator:</span>
@@ -14597,11 +14295,7 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{u&#39;name:fr&#39;: u&#39;Tournefeuille&#39;,
  u&#39;population&#39;: u&#39;26674&#39;,
@@ -14631,9 +14325,12 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Look for pharmacies in Tournefeuille either with city name or postcode, combination of and and or operators:</span>
@@ -14652,13 +14349,9 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12ccbc8f8077490d81d31&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a3326dc8f80762f58ffa43&#39;),
  u&#39;latitude&#39;: 43.5874398,
  u&#39;longitude&#39;: 1.3507017,
  u&#39;osmid&#39;: 2157269359L,
@@ -14678,7 +14371,11 @@ Dataset with 428787 nodes, 71960 ways and 469 relations.
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14688,9 +14385,12 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Get major contributors: usage of aggregation, grouping and sorting (descending)</span>
@@ -14698,9 +14398,8 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">nodes</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([{</span><span class="s2">&quot;$group&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;$userid&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;$sum&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}}},</span> <span class="c1">#group by userid and count</span>
                              <span class="p">{</span><span class="s2">&quot;$project&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;$multiply&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;$count&quot;</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">/</span> <span class="n">nodes</span><span class="o">.</span><span class="n">count</span><span class="p">()]}}},</span> <span class="c1"># calculate %</span>
                              <span class="p">{</span><span class="s2">&quot;$sort&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}},</span> <span class="c1">#sort by descending order</span>
-                             <span class="p">{</span><span class="s2">&quot;$limit&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}]):</span> <span class="c1">#limit to 10 users</span>
+                             <span class="p">{</span><span class="s2">&quot;$limit&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}]):</span> <span class="c1">#limit to 3 users</span>
     <span class="k">print</span> <span class="n">item</span>
-<span class="k">print</span> <span class="n">nodes</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -14711,23 +14410,11 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>{u&#39;count&#39;: 68.14245767712174, u&#39;_id&#39;: 1685}
 {u&#39;count&#39;: 8.911184340943171, u&#39;_id&#39;: 306172}
 {u&#39;count&#39;: 4.423175142903119, u&#39;_id&#39;: 115737}
-{u&#39;count&#39;: 2.2099550592718527, u&#39;_id&#39;: 148173}
-{u&#39;count&#39;: 1.865961421405033, u&#39;_id&#39;: 1573648}
-{u&#39;count&#39;: 1.806491334858566, u&#39;_id&#39;: 13384}
-{u&#39;count&#39;: 1.1768080655430317, u&#39;_id&#39;: 125897}
-{u&#39;count&#39;: 0.980906603978199, u&#39;_id&#39;: 571625}
-{u&#39;count&#39;: 0.9356626949977495, u&#39;_id&#39;: 1626}
-{u&#39;count&#39;: 0.9316980225613183, u&#39;_id&#39;: 297482}
-428787
 </pre>
 </div>
 </div>
@@ -14736,7 +14423,11 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14745,9 +14436,12 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#More information about userid 1685</span>
@@ -14763,13 +14457,9 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12ccfc8f8077490d8c270&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a33271c8f80762f5909f82&#39;),
  u&#39;nodes&#39;: [343600511,
             3222241389L,
             343600512,
@@ -14793,7 +14483,11 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14803,15 +14497,18 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#First let&#39;s have a look at what unwind operator does. Match operator enables to use a find in an aggregation</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ways</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([{</span><span class="s2">&quot;$match&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;osmid&quot;</span><span class="p">:</span> <span class="mi">30907996</span><span class="p">}},</span>
                             <span class="p">{</span><span class="s2">&quot;$unwind&quot;</span><span class="p">:</span> <span class="s2">&quot;$nodes&quot;</span><span class="p">},</span>
-                            <span class="p">{</span><span class="s2">&quot;$limit&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}]):</span>
+                            <span class="p">{</span><span class="s2">&quot;$limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}]):</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 </pre></div>
 
@@ -14823,13 +14520,9 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>{u&#39;_id&#39;: ObjectId(&#39;59a12ccfc8f8077490d8c270&#39;),
+<pre>{u&#39;_id&#39;: ObjectId(&#39;59a33271c8f80762f5909f82&#39;),
  u&#39;nodes&#39;: 343600511,
  u&#39;osmid&#39;: 30907996,
  u&#39;tags&#39;: [{u&#39;key&#39;: u&#39;highway&#39;, u&#39;value&#39;: u&#39;tertiary&#39;},
@@ -14838,17 +14531,8 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
            {u&#39;key&#39;: u&#39;source&#39;,
             u&#39;value&#39;: u&#39;cadastre-dgi-fr source : Direction G\xe9n\xe9rale des Imp\xf4ts - Cadastre. Mise \xe0 jour : 2009&#39;}],
  u&#39;userid&#39;: 1685}
-{u&#39;_id&#39;: ObjectId(&#39;59a12ccfc8f8077490d8c270&#39;),
+{u&#39;_id&#39;: ObjectId(&#39;59a33271c8f80762f5909f82&#39;),
  u&#39;nodes&#39;: 3222241389L,
- u&#39;osmid&#39;: 30907996,
- u&#39;tags&#39;: [{u&#39;key&#39;: u&#39;highway&#39;, u&#39;value&#39;: u&#39;tertiary&#39;},
-           {u&#39;key&#39;: u&#39;junction&#39;, u&#39;value&#39;: u&#39;roundabout&#39;},
-           {u&#39;key&#39;: u&#39;name&#39;, u&#39;value&#39;: u&#39;Rond-Point Ut\xe9bo&#39;},
-           {u&#39;key&#39;: u&#39;source&#39;,
-            u&#39;value&#39;: u&#39;cadastre-dgi-fr source : Direction G\xe9n\xe9rale des Imp\xf4ts - Cadastre. Mise \xe0 jour : 2009&#39;}],
- u&#39;userid&#39;: 1685}
-{u&#39;_id&#39;: ObjectId(&#39;59a12ccfc8f8077490d8c270&#39;),
- u&#39;nodes&#39;: 343600512,
  u&#39;osmid&#39;: 30907996,
  u&#39;tags&#39;: [{u&#39;key&#39;: u&#39;highway&#39;, u&#39;value&#39;: u&#39;tertiary&#39;},
            {u&#39;key&#39;: u&#39;junction&#39;, u&#39;value&#39;: u&#39;roundabout&#39;},
@@ -14864,7 +14548,11 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14873,9 +14561,12 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Now let&#39;s join</span>
@@ -14901,11 +14592,7 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Your version of MongoDB does not support $lookup operator.
 </pre>
@@ -14916,7 +14603,11 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14932,7 +14623,11 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14941,11 +14636,15 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="To-csv-and-SQLite-export">To csv and SQLite <em><a href="#Data export">export</a></em><a class="anchor-link" href="#To-csv-and-SQLite-export">&#194;&#182;</a></h3><p>I have not re-writen another SAX content handler for csv export. I am just going to make use of dictionnary-like structure to export csv files matching the way I am going to structure the SQL database.</p>
+<h3 id="To-csv-and-SQLite-export">To csv and SQLite <em><a href="#Data export">export</a></em><a class="anchor-link" href="#To-csv-and-SQLite-export">&#182;</a></h3><p>I have not re-writen another SAX content handler for csv export. I am just going to make use of dictionnary-like structure to export csv files matching the way I am going to structure the SQL database.</p>
 <p>I will create the following files:</p>
 <table>
 <thead><tr>
@@ -14998,9 +14697,12 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">export_data</span> <span class="kn">import</span> <span class="n">export_to_csv</span>
@@ -15011,9 +14713,12 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Reload a dataset from JSON (the one we have is linked to MongoDB)</span>
@@ -15021,7 +14726,7 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
     <span class="n">dataset_csv</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fobj</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 <span class="c1">#Export to csv</span>
-<span class="o">%</span><span class="k">time</span> export_to_csv(dataset_csv)
+<span class="n">export_to_csv</span><span class="p">(</span><span class="n">dataset_csv</span><span class="p">)</span>
 
 <span class="c1">#Clean dataset</span>
 <span class="k">del</span> <span class="n">dataset_csv</span>
@@ -15031,27 +14736,12 @@ The cleaning made is insufficiant because we haven't been able to affect postcod
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>CPU times: user 4.48 s, sys: 48 ms, total: 4.52 s
-Wall time: 4.6 s
-</pre>
-</div>
 </div>
 
-</div>
-</div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15060,9 +14750,12 @@ Wall time: 4.6 s
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">sql_schema</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -15128,9 +14821,12 @@ Wall time: 4.6 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Create the database</span>
@@ -15157,9 +14853,12 @@ Wall time: 4.6 s
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">export_data</span> <span class="kn">import</span> <span class="n">import_csv_into_sqlite</span>
@@ -15175,11 +14874,7 @@ Wall time: 4.6 s
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Importing nodes.csv [16052487 bytes]... done
 Importing nodes_tags.csv [1381735 bytes]... done
@@ -15200,7 +14895,11 @@ Database data.sql ready [35205120 bytes].
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15210,9 +14909,12 @@ Database data.sql ready [35205120 bytes].
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Request by OpenStreetMap id:</span>
@@ -15228,11 +14930,7 @@ Database data.sql ready [35205120 bytes].
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(8138771, 43.5618389, 1.3904169, 134812)]
 </pre>
@@ -15243,9 +14941,12 @@ Database data.sql ready [35205120 bytes].
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Request east-most nodes (max 3 nodes are returned)</span>
@@ -15261,11 +14962,7 @@ Database data.sql ready [35205120 bytes].
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(8138771, 43.5618389, 1.3904169, 134812),
  (8138772, 43.5619922, 1.3901005, 134812),
@@ -15278,9 +14975,12 @@ Database data.sql ready [35205120 bytes].
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="prompt input_prompt">In&nbsp;[63]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Refined latitude / longitude box (equivalent to City center dataset)</span>
@@ -15299,11 +14999,7 @@ Database data.sql ready [35205120 bytes].
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(26691412, 43.5827846, 1.3466543, 6523296),
  (51983918, 43.582037, 1.3450115, 148173),
@@ -15316,9 +15012,12 @@ Database data.sql ready [35205120 bytes].
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Find in list attributes (contrary to MongoDB we need a join here)</span>
@@ -15337,11 +15036,7 @@ Database data.sql ready [35205120 bytes].
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(13551, 722137)]
 </pre>
@@ -15352,9 +15047,12 @@ Database data.sql ready [35205120 bytes].
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Find in dict attributes</span>
@@ -15379,11 +15077,7 @@ Database data.sql ready [35205120 bytes].
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(26691412, u&#39;name:fr&#39;, u&#39;Tournefeuille&#39;),
  (26691412, u&#39;population&#39;, u&#39;26674&#39;),
@@ -15401,7 +15095,11 @@ Database data.sql ready [35205120 bytes].
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15412,14 +15110,17 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Get major contributors - we can make arithmetics in SQL requests</span>
 <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT userid, count(*) * 100. / (SELECT count(*) FROM nodes) as n </span>
-<span class="s2">                  FROM nodes GROUP BY userid ORDER BY n DESC LIMIT 10&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="s2">                  FROM nodes GROUP BY userid ORDER BY n DESC LIMIT 3&quot;&quot;&quot;</span><span class="p">)</span>
 <span class="n">pprint</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 </pre></div>
 
@@ -15431,22 +15132,11 @@ Having a list of tags key / value is highly flexible because new tags may be add
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(1685, 68.14245767712174),
  (306172, 8.911184340943173),
- (115737, 4.42317514290312),
- (148173, 2.209955059271853),
- (1573648, 1.8659614214050333),
- (13384, 1.806491334858566),
- (125897, 1.1768080655430317),
- (571625, 0.980906603978199),
- (1626, 0.9356626949977495),
- (297482, 0.9316980225613183)]
+ (115737, 4.42317514290312)]
 </pre>
 </div>
 </div>
@@ -15455,9 +15145,12 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#More info on user 1685</span>
@@ -15478,11 +15171,7 @@ Having a list of tags key / value is highly flexible because new tags may be add
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(u&#39;source&#39;,
   u&#39;cadastre-dgi-fr source : Direction G\xe9n\xe9rale des Imp\xf4ts - Cadastre. Mise \xe0 jour : 2014&#39;)]
@@ -15494,7 +15183,11 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15503,9 +15196,12 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 </div>
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Now let&#39;s join</span>
@@ -15523,11 +15219,7 @@ Having a list of tags key / value is highly flexible because new tags may be add
 <div class="output">
 
 
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
+<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[(343600511,),
  (3222241389,),
@@ -15545,9 +15237,12 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 
 </div>
+
+
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#We are done with the database</span>
@@ -15559,7 +15254,11 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15570,7 +15269,11 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15579,11 +15282,15 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conclusions-top">Conclusions <em><a href="#Top">top</a></em><a class="anchor-link" href="#Conclusions-top">&#194;&#182;</a></h2><p>Udacity instructors said thad many data analysts report spending most of their time (up to around 75%) wrangling data, at the end of this project I can say that I now better understand that statement :)</p>
+<h2 id="Conclusions-top">Conclusions <em><a href="#Top">top</a></em><a class="anchor-link" href="#Conclusions-top">&#182;</a></h2><p>Udacity instructors said thad many data analysts report spending most of their time (up to around 75%) wrangling data, at the end of this project I can say that I now better understand that statement :)</p>
 <p>You can refer to this <a href="https://www.forbes.com/sites/gilpress/2016/03/23/data-preparation-most-time-consuming-least-enjoyable-data-science-task-survey-says/#4ed61cb66f63">Forbes article</a> for data analysts survey results or to New York Times <a href="https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html?_r=1">one</a> for sources.</p>
 <p>Wrangling data is making compromises:</p>
 <ul>
@@ -15606,7 +15313,55 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='Further work'/></p>
+
+</div>
+</div>
+</div>
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Further-work-top">Further work <em><a href="#Top">top</a></em><a class="anchor-link" href="#Further-work-top">&#182;</a></h2><p>We have cleaned pharmacies data in this project, so let's stick to it and say we want to build a dataset to map all pharmacies in France with the following attributes:</p>
+<ul>
+<li>full address (housenumber, street, city)</li>
+<li><a href="http://finess.sante.gouv.fr/fininter/jsp/index.jsp">FINESS</a> identifier (already in dataset as a tag with ref:FR:FINESS key) (this is a reference number provided by Ministry of Health in France)</li>
+</ul>
+<p>We know that we will have some troubles:</p>
+<ul>
+<li>addresses are not given in a uniform way</li>
+<li>addr:city and addr:postcode may be both missing</li>
+<li>we are not sure that evrey single pharmacie exists in the database</li>
+<li>if we want to map all pharmacies in France, the dataset is going to be huge !</li>
+<li>the way we have structured our database in not optimal in terms of use (querying from tag value requires quite compex queries and we want to make data as easy to use as possible)</li>
+<li>we do not want to sacrify potential reuse of dataset if we need to map doctors, hospitals, clinics...</li>
+</ul>
+<p>We have seen that fixing uniformity in addresses is easily doable.</p>
+<p>To fix addr:city and addr:postcode we can use information provided in OpenStreetMap data: city boundaries. It is given in the form of a collection of ways in relations which define a polygon. This <a href="http://geomalgorithms.com/a03-_inclusion.html">site</a> provides algorithms to check inclusion of a 2D point into a 2D polygon. That means that we would be able to link each pharmacy node (latitude, longitude) to one of those city boundaries. Yet, it's not clear if we can find boundaries which have unique postcode. This would be probably demanding in terms of calculation and we might be tempted to go to parallel calculations.</p>
+<p>We could web-scrap data from Pages Jaunes for each department in France and then compare this list to the one we have in OpenStreetMap and make sure they match (and fix it if they don't). To implement missing pharmacies in our dataset would require to get latitude and longitude from a given random address. That would require probably to get ways and existing node in the proximity and make an educated "guess" on probable coordinates.</p>
+<p>Dataset is going to be huge and it would request to re-work our cleaning algorithms as we would not be able to have a full dataset in memory. For example, we could try to first iteratively store an uncleaned dataset into MongoDB and then implement cleaning algorithms on top of it. We could combine this with a sliding-window box selection of OpenStreetMap so that we can reduce chunk of data we collect, store and clean. This might help in writing parallel algorithms as well. The only downside is that we take the risk of having uncomplete city boundaries in relation items.</p>
+<p>To make the cleaned dataset reusable and still friendly to use by dataset customers we could keep a structure like the one we have used in this project but with addition of views (<a href="https://sqlite.org/lang_createview.html">SQLite</a> and <a href="https://docs.mongodb.com/manual/core/views/">MongoDB</a>). Creating such view would require to "pivot" the tags (which are stored in rows in database) so that they can be stored as fields (columns). SQLite does not support PIVOT instruction but can be emulated as explained <a href="https://stackoverflow.com/questions/1237068/pivot-in-sqlite">here</a>. There is no such capability in MongoDB but can be emulated with an <a href="https://stackoverflow.com/questions/15499115/mongo-and-pivot">aggregate</a>. The idea would be then to expose only the views to dataset users, update views as per their request and eventually to extend to other medical amenities (hospitals, clinics...).</p>
+
+</div>
+</div>
+</div>
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15615,19 +15370,27 @@ Having a list of tags key / value is highly flexible because new tags may be add
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Appendix-top">Appendix <em><a href="#Top">top</a></em><a class="anchor-link" href="#Appendix-top">&#194;&#182;</a></h2>
+<h2 id="Appendix-top">Appendix <em><a href="#Top">top</a></em><a class="anchor-link" href="#Appendix-top">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="References">References<a class="anchor-link" href="#References">&#194;&#182;</a></h3><p><a href="http://wiki.openstreetmap.org/wiki/Main_Page">OpenStreetData wiki</a><hr>
+<h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><p><a href="http://wiki.openstreetmap.org/wiki/Main_Page">OpenStreetData wiki</a><hr>
 <a href="https://www.insee.fr/en/accueil">INSEE</a> is French National Institute of Statistics and Economic Information. In this project, it is used as <em>gold</em> standard.<hr>
 <a href="https://www.pagesjaunes.fr/annuaire/tournefeuille-31/pharmacies">Pages Jaunes</a> used as another <em>gold</em> standard.<hr>
 Validating XML tree with <a href="https://www.w3schools.com/xml/schema_intro.asp">XML Schema</a> can be done with <a href="http://lxml.de/validation.html">lxml</a> library. This technique has not been used here as the structure of XML is simple enough. Additionaly, XML Schema validation requires to have XML data into memory and may not be suitable for large files like the ones we might have here.<hr>
@@ -15639,11 +15402,18 @@ MongoDB <a href="https://docs.mongodb.com/manual/">manual</a>.<hr>
 Geometry algorithms for <a href="http://geomalgorithms.com/a03-_inclusion.html">inclusion</a> checks.<hr>
 StackOverflow for <a href="https://stackoverflow.com/questions/tagged/mongodb">MongoDB</a>.<hr>
 Ned Batchelder talk at Pycon 2012 on <a href="https://www.youtube.com/watch?v=sgHbC6udIqc">YouTube</a>: How to stop unicode pain ?<hr>
-Python SQLite import from csv on <a href="https://stackoverflow.com/a/2888042/8500344">StackOverflow</a>.<hr></p>
+Python SQLite import from csv on <a href="https://stackoverflow.com/a/2888042/8500344">StackOverflow</a>.<hr>
+<a href="http://nbconvert.readthedocs.io/en/latest/customizing.html">Customization</a> of templates for nbconvert exports to python and html.<hr></p>
 
 </div>
 </div>
 </div>
+
+
+
+
+
+
     </div>
   </div>
 </body>

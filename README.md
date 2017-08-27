@@ -13,6 +13,7 @@
 | P1 re-submitted | 18/08/2017 |
 | P1 accepted     | 18/08/2017 |
 | P2 released     | 26/08/2017 |
+| P2 re-submitted | 27/08/2017 |
 
 ## Usefull links
 
@@ -39,6 +40,10 @@
 [Monitoring memory consumption](https://timothymonteath.com/monitoring-memory-usage-in-jupyter-notebooks/)
 
 [Tips and shortcuts](https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)
+
+[Hiding cells](https://stackoverflow.com/questions/33159518/collapse-cell-in-jupyter-notebook)
+
+[nbconvert](http://nbconvert.readthedocs.io/en/latest/customizing.html) configuration for custom templates (python and html export).
 
 ### Git
 

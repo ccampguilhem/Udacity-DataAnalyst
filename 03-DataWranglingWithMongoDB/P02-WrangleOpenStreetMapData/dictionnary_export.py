@@ -15,6 +15,19 @@ class DictionnaryExport(object):
             self._data['ways'] = [ ]
         if not self._data.has_key('relations'):
             self._data['relations'] = [ ]
+            
+    def __enter__(self):
+        """
+        Context manager entry point.
+        """
+        return self
+    
+    def __exit__(self, *args):
+        """
+        Context manager exit point.
+        """
+        for kind in ['nodes', 'ways', 'relations']:
+            print "{} {} exported.".format(len(self._data[kind]), kind)
         
     """
     Method called back when a start event is encountered.

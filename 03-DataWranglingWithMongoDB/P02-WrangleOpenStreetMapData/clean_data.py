@@ -4,7 +4,7 @@ Data cleaning
 Contains functions used to clean data.
 """
 
-def clean_accuracy(dataset, standard):
+def clean_accuracy(dataset, standard, warnings=False):
     """
     Clean accuracy issues according to INSEE standard.
     
@@ -12,6 +12,7 @@ def clean_accuracy(dataset, standard):
     
     - dataset: dataset to be cleaned
     - standard: gold standard for accuracy criteria (INSEE gold standard)
+    - warnings: toggle messages printed by function
     - return: list of updated nodes index and list of updated relations index
     """
     nodes = [ ]
@@ -34,19 +35,23 @@ def clean_accuracy(dataset, standard):
             if item['tags'][source_population_index]['value'] != standard[city]['source:population'][1]:
                 item['tags'][source_population_index]['value'] = standard[city]['source:population'][1]
                 item['tags'][population_index]['value'] = standard[city]['population'][1]
-                print "updated {} {} ({}).".format(kind.rstrip('s'), item["osmid"], city)
+                if warnings:
+                    print "updated {} {} ({}).".format(kind.rstrip('s'), item["osmid"], city)
                 modified.append(iitem)
             else:
-                print "{} {} ({}) is left unchanged.".format(kind.rstrip('s'), item["osmid"], city)
+                if warnings:
+                    print "{} {} ({}) is left unchanged.".format(kind.rstrip('s'), item["osmid"], city)
     #Process nodes
     process_item("nodes", nodes)
     #Process relations
-    process_item("relations", relations)    
+    process_item("relations", relations)
+    print "{} nodes have been updated.".format(len(nodes))
+    print "{} relations have been updated.".format(len(relations))
     return nodes, relations
 
 
 
-def clean_completeness(dataset, mapping):
+def clean_completeness(dataset, mapping, warnings=False):
     """
     Clean completeness issues according to Pages Jaunes standard.
     
@@ -54,8 +59,10 @@ def clean_completeness(dataset, mapping):
     
     - dataset: dataset to be cleaned
     - mapping: mapping of phamarcy names
+    - warnings: toggle messages printed by function
     - return: list of updated nodes index
     """
+    nb_updates = 0
     nodes = [ ]
     for inode, node in enumerate(dataset["nodes"]):
         tag_keys = [tag['key'] for tag in node['tags']]
@@ -74,11 +81,15 @@ def clean_completeness(dataset, mapping):
         try:
             fixed_name = mapping[name]
         except KeyError:
-            print u"{} is left unchanged.".format(name)
+            if warnings:
+                print u"{} is left unchanged.".format(name)
         else:
             node["tags"][name_index]["value"] = fixed_name
             nodes.append(inode)
-            print u"{} has been updated to {}.".format(name, fixed_name)
+            nb_updates += 1
+            if warnings:
+                print u"{} has been updated to {}.".format(name, fixed_name)
+    print u"{} pharmacies have been updated.".format(nb_updates)
     return nodes
 
 
