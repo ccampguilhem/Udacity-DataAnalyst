@@ -14,6 +14,7 @@
 | P1 accepted     | 18/08/2017 |
 | P2 released     | 26/08/2017 |
 | P2 re-submitted | 27/08/2017 |
+| P2 accepted     | 28/08/2017 |
 
 ## Usefull links
 
@@ -73,6 +74,10 @@
 
 [dbPedia the database ](http://wiki.dbpedia.org/)
 
+[1001 datasets](https://dreamtolearn.com/ryan/1001_datasets)
+
+[Huge collection of datasets](https://catalog.data.gov/dataset)
+
 ### Pandas
 
 [Official documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
@@ -111,4 +116,15 @@
 
 [Requests Python library for http queries](http://requests.readthedocs.io/en/master/)
 
+### Statistics material
+
+[Hypothesis testing](http://blog.minitab.com/blog/adventures-in-statistics-2/understanding-hypothesis-tests:-significance-levels-alpha-and-p-values-in-statistics)
+
+[Reporting statistics](https://www.youtube.com/watch?time_continue=34&v=xNbzHOnSx5Q)
+
+[Reporting confidence interval](https://www.youtube.com/watch?time_continue=9&v=pr-2ZaCDzPY)
+
+[Reporting confidence interval(2)](https://www.youtube.com/watch?v=eVTzjsolEwI)
+
+[Reporting effect size](https://www.youtube.com/watch?time_continue=3&v=jjByXJIiCLs)
 
