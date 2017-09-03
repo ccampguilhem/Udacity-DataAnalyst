@@ -1,6 +1,6 @@
 # Udacity DataAnalyst Nanodegree
 
-[Classroom](https://classroom.udacity.com/nanodegrees/nd002-airbus/parts/2a7da92a-8585-473e-a7c0-c5203eff32e9/modules/317671873575460/lessons/5430778793/concepts/53961386130923)
+[Classroom](https://classroom.udacity.com/me)
 
 ## History
 
@@ -15,6 +15,7 @@
 | P2 released     | 26/08/2017 |
 | P2 re-submitted | 27/08/2017 |
 | P2 accepted     | 28/08/2017 |
+| P3 submitted    | 03/09/2017 |
 
 ## Usefull links
 
