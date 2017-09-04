@@ -15,7 +15,8 @@
 | P2 released     | 26/08/2017 |
 | P2 re-submitted | 27/08/2017 |
 | P2 accepted     | 28/08/2017 |
-| P3 submitted    | 03/09/2017 |
+| P3 released     | 03/09/2017 |
+| P3 re-submitted | 04/09/2017 |
 
 ## Usefull links
 
