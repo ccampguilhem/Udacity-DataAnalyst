@@ -11,13 +11,13 @@
 | P0 accepted     | 08/07/2017 | [link](./00-WelcomeToTheNanodegree/P0-BayAreaBikeShare/Bay_Area_Bike_Share_Analysis.ipynb)|
 | P1 released     | 14/08/2017 |                                                                                           |
 | P1 re-submitted | 18/08/2017 |                                                                                           |
-| P1 accepted     | 18/08/2017 |                                                                                           |
+| P1 accepted     | 18/08/2017 | [link](./02-IntoToDataAnalysis/P01-InvestigateADataset/baseball.ipynb)                    |
 | P2 released     | 26/08/2017 |                                                                                           |
 | P2 re-submitted | 27/08/2017 |                                                                                           |
-| P2 accepted     | 28/08/2017 |                                                                                           |
+| P2 accepted     | 28/08/2017 | [link](./03-DataWranglingWithMongoDB/P02-WrangleOpenStreetMapData/data_wrangling.ipynb)   |
 | P3 released     | 03/09/2017 |                                                                                           |
 | P3 re-submitted | 04/09/2017 |                                                                                           |
-| P3 accepted     | 05/09/2017 |                                                                                           |
+| P3 accepted     | 05/09/2017 | [link](./04-InferentialStatistics/ 03-TestAPerceptualPhenomenom/inferential_statistics.ipynb)|
 
 ## Usefull links
 
