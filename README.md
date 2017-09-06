@@ -17,7 +17,7 @@
 | P2 accepted     | 28/08/2017 | [link](./03-DataWranglingWithMongoDB/P02-WrangleOpenStreetMapData/data_wrangling.ipynb)   |
 | P3 released     | 03/09/2017 |                                                                                           |
 | P3 re-submitted | 04/09/2017 |                                                                                           |
-| P3 accepted     | 05/09/2017 | [link](./04-InferentialStatistics/ 03-TestAPerceptualPhenomenom/inferential_statistics.ipynb)|
+| P3 accepted     | 05/09/2017 | [link](./04-InferentialStatistics/03-TestAPerceptualPhenomenom/inferential_statistics.ipynb)|
 
 ## Usefull links
 
