@@ -8,7 +8,7 @@
 | --------------- | ---------- | ----------------------------------------------------------------------------------------- |
 | Started         | 05/07/2017 |                                                                                           |
 | P0 released     | 08/07/2017 |                                                                                           |
-| P0 accepted     | 08/07/2017 | [link](./00-WelcomeToTheNanodegree/P0-BayAreaBikeShare/Bay_Area_Bike_Share_Analysis.html) |
+| P0 accepted     | 08/07/2017 | [link](./00-WelcomeToTheNanodegree/P0-BayAreaBikeShare/Bay_Area_Bike_Share_Analysis.ipynb)|
 | P1 released     | 14/08/2017 |                                                                                           |
 | P1 re-submitted | 18/08/2017 |                                                                                           |
 | P1 accepted     | 18/08/2017 |                                                                                           |
