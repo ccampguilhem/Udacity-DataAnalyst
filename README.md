@@ -130,3 +130,12 @@
 
 [Reporting effect size](https://www.youtube.com/watch?time_continue=3&v=jjByXJIiCLs)
 
+### Scikit-learn
+
+Naive Bayes classifier [GaussianNB](http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html).
+
+Checking [accuracy](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) of classifier.
+
+Support Vector Machines [classifier](http://scikit-learn.org/stable/modules/svm.html#svm)
+
+
