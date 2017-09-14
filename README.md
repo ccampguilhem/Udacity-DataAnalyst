@@ -151,10 +151,15 @@ git lfs install --force
 
 ### Scikit-learn
 
-Naive Bayes classifier [GaussianNB](http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html).
+[Algorithm map](http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html).
+
+Naive Bayes classifier [GaussianNB](http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html)..
 
 Checking [accuracy](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html) of classifier.
 
-Support Vector Machines [classifier](http://scikit-learn.org/stable/modules/svm.html#svm)
+Support Vector Machines [classifier](http://scikit-learn.org/stable/modules/svm.html#svm).
+
+Decision Trees [classifier](http://scikit-learn.org/stable/modules/tree.html=.
+
 
 
