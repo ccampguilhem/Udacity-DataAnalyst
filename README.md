@@ -161,5 +161,8 @@ Support Vector Machines [classifier](http://scikit-learn.org/stable/modules/svm.
 
 Decision Trees [classifier](http://scikit-learn.org/stable/modules/tree.html=.
 
+Calculating entropy and impurity with [scipy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.entropy.html).
+
+AdaBoost [classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier).
 
 
