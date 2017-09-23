@@ -165,4 +165,6 @@ Calculating entropy and impurity with [scipy](https://docs.scipy.org/doc/scipy/r
 
 AdaBoost [classifier](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier).
 
+Linear [regression](http://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares).
+
 
