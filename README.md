@@ -169,6 +169,6 @@ Linear [regression](http://scikit-learn.org/stable/modules/linear_model.html#ord
 
 K-means [clustring](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans).
 
-
+Min-max scaler [pre-processing](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html).
 
 
