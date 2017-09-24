@@ -167,4 +167,8 @@ AdaBoost [classifier](http://scikit-learn.org/stable/modules/generated/sklearn.e
 
 Linear [regression](http://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares).
 
+K-means [clustring](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans).
+
+
+
 
