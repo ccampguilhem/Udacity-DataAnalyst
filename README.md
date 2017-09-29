@@ -171,4 +171,14 @@ K-means [clustring](http://scikit-learn.org/stable/modules/generated/sklearn.clu
 
 Min-max scaler [pre-processing](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html).
 
+### Working with text
+
+Natural Language Toolkit [nltk](http://www.nltk.org/).
+
+Stem workds with [nltk](http://www.nltk.org/api/nltk.stem.html?highlight=snowballstemmer#nltk.stem.snowball.SnowballStemmer).
+
+TF-IDF (Term Frequency Inverse Document Frequency) vectorizer from [scikit-learn](http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).
+
+
+
 
