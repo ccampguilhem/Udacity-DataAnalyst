@@ -75,6 +75,9 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             ### use parseOutText to extract the text from the opened email
             out = parseOutText(email)
             ### use str.replace() to remove any instances of the words
+            #Next line is for L12-FeatureSelection
+            #words = ["sara", "shackleton", "chris", "germani", "sshacklensf", "cgermannsf"]
+            #This line is for L11-TextLearning
             words = ["sara", "shackleton", "chris", "germani"]
             for word in words:
                 out = out.replace(word, "")
