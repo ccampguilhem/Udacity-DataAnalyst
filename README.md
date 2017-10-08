@@ -171,6 +171,12 @@ K-means [clustring](http://scikit-learn.org/stable/modules/generated/sklearn.clu
 
 Min-max scaler [pre-processing](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html).
 
+Principal components analysis [PCA](http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).
+
+Cross [validation](http://scikit-learn.org/stable/modules/cross_validation.html).
+
+Optimizing classifier and regression algorithms with a [grid search](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV).
+
 ### Working with text
 
 Natural Language Toolkit [nltk](http://www.nltk.org/).
