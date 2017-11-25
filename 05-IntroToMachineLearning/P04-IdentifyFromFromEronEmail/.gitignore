@@ -1,0 +1,11 @@
+.ipynb_checkpoints
+*.tar.gz
+ref/
+dataset/maildir
+dataset/emails_by_address
+dataset/enron61702insiderpay.pdf
+dataset/final_project_dataset_modified.pkl
+dataset/final_project_dataset.pkl
+my_classifier.pkl
+my_dataset.pkl
+my_feature_list.pkl

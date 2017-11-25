@@ -18,6 +18,7 @@
 | P3 released     | 03/09/2017 |                                                                                           |
 | P3 re-submitted | 04/09/2017 |                                                                                           |
 | P3 accepted     | 05/09/2017 | [link](./04-InferentialStatistics/P03-TestAPerceptualPhenomenom/inferential_statistics.ipynb)|
+| P4 released     | 25/11/2017 | [link](./05-IntroToMachineLearning/P04-IdentifyFromFromEronEmail/enron_fraud.ipynb)       |
 
 ## Usefull links
 
