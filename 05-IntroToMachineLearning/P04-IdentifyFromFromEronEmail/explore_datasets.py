@@ -12,7 +12,7 @@ sns.set_style('whitegrid')
 sns.despine()
 
 
-def convertProjectDictToDataFrame(data_dict):
+def convert_project_dict_to_data_frame(data_dict):
     """
     Convert project data dictionnary into a pandas dataframe.
     

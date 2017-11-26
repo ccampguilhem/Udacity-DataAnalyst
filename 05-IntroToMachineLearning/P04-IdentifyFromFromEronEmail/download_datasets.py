@@ -17,12 +17,12 @@ import pickle
 import requests
 
 
-#URL of Eron email dataset
+#URL of Enron email dataset
 ENRON_EMAIL = 'https://www.cs.cmu.edu/~./enron/enron_mail_20150507.tar.gz'
 UD120_ZIP = 'https://github.com/udacity/ud120-projects/archive/master.zip'
 
 
-def downloadFile(url):
+def download_file(url):
     """
     Download file at given URL.
     
@@ -36,7 +36,7 @@ def downloadFile(url):
     return filename
 
 
-def downloadEnronEmailDataset(force=False):
+def download_enron_email_dataset(force=False):
     """
     Download Enron email dataset.
     
@@ -50,7 +50,7 @@ def downloadEnronEmailDataset(force=False):
     else:
         print "Now downloading Enron dataset. This may take a while... ",
         sys.stdout.flush()
-        filename = downloadFile(ENRON_EMAIL)
+        filename = download_file(ENRON_EMAIL)
         print "done"
         print "Now extracting Enron dataset. This may take a while... ",
         sys.stdout.flush()
@@ -59,9 +59,11 @@ def downloadEnronEmailDataset(force=False):
         os.remove(filename)
         
         
-def downloadUd120Project(force=False):
+def download_ud120_project(force=False):
     """
     Download Udacity 120 project (into to machine learning course) from GitHub.
+    
+    - force: force download of dataset even if dataset is already downloaded
     """
     #List of files to be retrieved from archive
     datasets = ["enron61702insiderpay.pdf", "final_project_dataset.pkl", 
@@ -77,7 +79,7 @@ def downloadUd120Project(force=False):
     if download or force:
         print "Now downloading Udacity 120 project... ",
         sys.stdout.flush()
-        filename = downloadFile(UD120_ZIP)
+        filename = download_file(UD120_ZIP)
         print "done"
     else:
         return
@@ -114,24 +116,28 @@ def downloadUd120Project(force=False):
     print "done"
 
         
-def downloadDatasets(force=False):
+def download_datasets(force=False):
     """
     Download all datasets required for project.
     
     - force: force dataset download even if dataset has been previously 
              downloaded.
     """
-    downloadEnronEmailDataset(force)
-    downloadUd120Project(force)
+    download_enron_email_dataset(force)
+    download_ud120_project(force)
     
 
-def loadProjectData():
+def load_project_data():
     """
     Load project data from downloaded pickle file
     
     - returns: data dictionnary
     """
-    with open("./dataset/final_project_dataset.pkl", "r") as data_file:
-        return pickle.load(data_file)
+    if os.path.exists("final_project_dataset.pkl"):
+        with open("final_project_dataset.pkl", "r") as data_file:
+            return pickle.load(data_file)
+    else:
+        with open("./dataset/final_project_dataset.pkl", "r") as data_file:
+            return pickle.load(data_file)
 
 

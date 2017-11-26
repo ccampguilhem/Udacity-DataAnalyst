@@ -77,10 +77,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import f1_score
-from sklearn.model_selection import StratifiedKFold
+from sklearn.cross_validation import StratifiedShuffleSplit
 
 
-from download_datasets import downloadDatasets, loadProjectData
+from download_datasets import load_project_data
 from explore_datasets import *
 
 
@@ -95,14 +95,11 @@ def main():
     - my_dataset.pkl
     - my_feature_list.pkl
     """
-    #First download all datasets required for analysis
-    downloadDatasets()
-    
     #Load project data
-    data_dict = loadProjectData()
+    data_dict = load_project_data()
     
     #Convert to a dataframe
-    df = convertProjectDictToDataFrame(data_dict)
+    df = convert_project_dict_to_data_frame(data_dict)
     
     #Get financial data
     financial_data = df.loc[:, ['salary', 'bonus', 'long_term_incentive', 'deferral_payments', 'other', 'expenses', 
@@ -136,8 +133,8 @@ def main():
     
     #Machine learning
     slt = RFE(estimator=DecisionTreeClassifier(), n_features_to_select=8)
-    clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2), n_estimators=25)
-    cv = StratifiedKFold(n_splits=8, shuffle=True, random_state=1234)
+    clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2), n_estimators=50)
+    cv = StratifiedShuffleSplit(dataset_cleaned['poi'], 1000, random_state = 42)
     
     pipeline = Pipeline([('select', slt), ('classify', clf)])
     grid = GridSearchCV(pipeline, {}, cv=cv, scoring=['accuracy', 'f1', 'precision', 'recall'], refit='f1', n_jobs=6, verbose=0)
