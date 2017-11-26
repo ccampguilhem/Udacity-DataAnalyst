@@ -11806,6 +11806,7 @@ div#notebook {
 </ul>
 </li>
 <li><a href="#Conclusion">Conclusion</a></li>
+<li><a href="#Pro Tips">Pro tips</a></li>
 <li><a href="#Appendix">Appendix</a></li>
 </ul>
 
@@ -18926,9 +18927,64 @@ AElFTkSuQmCC
 </table>
 <p>This is not an absolute comparison of the algorithms as some of them appears to be more difficult to tune (MLP especially). Overall the simplicity (conceptually and in terms of configuration) of AdaBoost with decision tree classifier combined with decent fitting time makes it a top notch choice for this problem !</p>
 <p>It actually takes some time to identify relevant parameters for grid search technique with support vector classifier and neural network while it was pretty simple with AdaBoost and decision tree. A first bad configuration of MLP (using default number of hidden layers) led to very low maximum F1 score (below 0.2 !).</p>
-<p>Even if the score of AdaBoost-tree meets project expectation, I wouldn't rely solely on it to send people to jail for fraud as we still have a huge chance (7%) of being wrong :)</p>
+<p>Even if the score of AdaBoost-tree meets project expectation, I wouldn't rely solely on it to send people to jail for fraud as we still have a huge chance (13%) of being wrong :)</p>
 <p>It also appears that feature selection may be a difficult task. In our case we were limited to 12 features which is not much and we have seen that many different combination of features may be selected with the various tested algorithms. Introducing new features may also be a complicated task, relying on prior knowledge on the problem.</p>
 <p>I still have the feeling that both SVC and MLP might be improved. There are also numerous of other techniques which could be tried with Scikit-Learn package (different grid search techniques, different base estimators with AdaBoost, better feature selection or dimension reduction (principal component analysis).</p>
+
+</div>
+</div>
+</div>
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='Pro Tips'/></p>
+
+</div>
+</div>
+</div>
+
+
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pro-tips-top">Pro tips <a href="#Top"><em>top</em></a><a class="anchor-link" href="#Pro-tips-top">&#182;</a></h2><p><strong>Note</strong>: This section has been added after project submission and contains advices from reviewer.</p>
+<p>There are several other options to deal with missing values like:</p>
+<ul>
+<li>Replacing the values with means or medians.</li>
+<li>Remove the features that have an exceeding number of missing values.</li>
+<li>More complex approaches rely on analysing the distribution of missing values: <a href="https://en.wikipedia.org/wiki/Missing_data">https://en.wikipedia.org/wiki/Missing_data</a>, <a href="http://scikit-learn.org/stable/modules/preprocessing.html">http://scikit-learn.org/stable/modules/preprocessing.html</a></li>
+</ul>
+<p>We can leverage the power of recursive feature selection to automate the selection process and find a good indication of the number of relevant features, here is an example of how the code might look like:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">RFECV</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+
+<span class="n">rfecv</span> <span class="o">=</span> <span class="n">RFECV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
+          <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
+<span class="n">rfecv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Optimal number of features : </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">rfecv</span><span class="o">.</span><span class="n">n_features_</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">rfecv</span><span class="o">.</span><span class="n">support_</span>
+<span class="n">features</span><span class="o">=</span><span class="n">features</span><span class="p">[:,</span><span class="n">rfecv</span><span class="o">.</span><span class="n">support_</span><span class="p">]</span>
+<span class="c1"># Plot number of features VS. cross-validation scores</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of features selected&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cross validation score (nb of correct classifications)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rfecv</span><span class="o">.</span><span class="n">grid_scores_</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rfecv</span><span class="o">.</span><span class="n">grid_scores_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+<p>Xgboost is one of Kaggle’s top algorithms and should be given a try. In the recent years one algorithm emerged as favourite in the machine learning community, it is actually one of the most used in Kaggle: Xgboost.
+Here is an informative discussion on why that is the case: <a href="https://www.quora.com/Why-is-xgboost-given-so-much-less-attention-than-deep-learning-despite-its-ubiquity-in-winning-Kaggle-solutions">https://www.quora.com/Why-is-xgboost-given-so-much-less-attention-than-deep-learning-despite-its-ubiquity-in-winning-Kaggle-solutions</a>. The algorithm is not available Scikit Learn, here is how we can start working with it:<a href="http://machinelearningmastery.com/develop-first-xgboost-model-python-scikit-learn/">http://machinelearningmastery.com/develop-first-xgboost-model-python-scikit-learn/</a></p>
+<p>We could actually fully exploit pipelines and parameterize the whole process through cross validation. It means we can try out several algorithms automatically! Watch out though this is pretty advanced stuff, here is a great, informative, top notch tutorial from Zac Sewart: <a href="http://zacstewart.com/2014/08/05/pipelines-of-featureunions-of-pipelines.html">http://zacstewart.com/2014/08/05/pipelines-of-featureunions-of-pipelines.html</a></p>
 
 </div>
 </div>
@@ -18954,19 +19010,7 @@ AElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<id a="Appendix"/>
-</div>
-</div>
-</div>
-
-
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Appendix-top">Appendix <a href="#Top">top</a><a class="anchor-link" href="#Appendix-top">&#182;</a></h2>
+<h2 id="Appendix-top">Appendix <a href="#Top"><em>top</em></a><a class="anchor-link" href="#Appendix-top">&#182;</a></h2>
 </div>
 </div>
 </div>
