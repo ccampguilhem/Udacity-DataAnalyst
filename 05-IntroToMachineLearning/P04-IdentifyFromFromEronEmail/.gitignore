@@ -9,3 +9,4 @@ dataset/final_project_dataset.pkl
 my_classifier.pkl
 my_dataset.pkl
 my_feature_list.pkl
+enron_fraud.zip

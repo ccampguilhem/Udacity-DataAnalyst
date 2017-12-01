@@ -1,0 +1,227 @@
+# Example using pseudo Facebook data
+
+Load data (the file as a tab separator)
+```{r}
+if (basename(getwd()) != 'dataset') {
+  setwd('./dataset')
+}
+list.files()
+pf = read.csv("pseudo_facebook.tsv", sep="\t")
+```
+
+See dataframe structure
+```{r}
+str(pf)
+names(pf)
+```
+
+First visualization
+```{r}
+library(ggplot2)
+qplot(x=dob_day, data=pf)
+```
+
+Change the x ticks
+```{r}
+qplot(x=dob_day, data=pf) +
+  scale_x_continuous(breaks = 1:31)
+```
+
+
+Run the following code in R to get other themes.
+
+```
+install.packages('ggthemes', dependencies = TRUE)
+library(ggthemes)
+```
+
+The ggthemes package was developed by Jeffery Arnold. Check out examples of the themes on the github page.
+
+Chris is using theme_minimal()with the font size set to 24, which is why his output might look slightly different than yours. You can set the same theme in R by running the following code, or you can set the theme to a choice of your own.
+theme_set(theme_minimal(24))
+
+
+Instead of using the qplot() function, you can also use the ggplot() function to create the histogram:
+
+```
+ggplot(aes(x = dob_day), data = pf) +
+  geom_histogram(binwidth = 1) +
+  scale_x_continuous(breaks = 1:31)
+```
+
+Try with a different theme. See more info [here](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html):
+```{r}
+#install.packages('ggthemes', dependencies = TRUE)
+library(ggthemes)
+theme_set(theme_economist())
+qplot(x=dob_day, data=pf) +
+  scale_x_continuous(breaks = 1:31)
+```
+
+Facets
+```{r}
+qplot(x=dob_day, data=pf) +
+  scale_x_continuous(breaks = 1:31) +
+  facet_wrap(~dob_month, ncol=3)
+```
+
+We can see that most people are born the first of January (this is the default birth date when creating an account on Facebook).
+
+Let's now plot friends !
+```{r}
+qplot(x=friend_count, data=pf)
+```
+
+We can change the X axis using two different ways:
+
+```{r}
+qplot(x=friend_count, data=pf, xlim=c(0, 1000))
+```
+
+Or using a layer:
+
+```{r}
+qplot(x=friend_count, data=pf) +
+  scale_x_continuous(limits=c(0, 1000))
+```
+
+We can also change the bin width:
+
+```{r}
+qplot(x=friend_count, data=pf, binwidth=25) +
+  scale_x_continuous(limits=c(0, 1000))
+```
+
+And the x ticks (breaks)
+
+```{r}
+qplot(x=friend_count, data=pf, binwidth=25) +
+  scale_x_continuous(limits=c(0, 1000), breaks=seq(0, 1000, 50))
+```
+
+We can use facet to make distinction between males and females:
+
+```{r}
+qplot(x=friend_count, data=pf, binwidth=25) +
+  scale_x_continuous(limits=c(0, 1000), breaks=seq(0, 1000, 50)) +
+  facet_wrap(~gender, ncol = 1)
+```
+
+All of this may be written with ggplot syntax:
+
+```{r}
+ggplot(aes(x = friend_count), data = pf) +
+  geom_histogram(binwidth = 25) +
+  scale_x_continuous(limits = c(0, 1000), breaks = seq(0, 1000, 50)) +
+  facet_wrap(~gender, ncol = 1)
+```
+
+We have one histogram with NA, we can subset the dataframe to avoid this:
+
+```{r}
+qplot(x=friend_count, data=subset(pf, !is.na(gender)), binwidth=25) +
+  scale_x_continuous(limits=c(0, 1000), breaks=seq(0, 1000, 50)) +
+  facet_wrap(~gender, ncol = 1)
+```
+
+What is the number of friends per gender ?
+
+```{r}
+table(pf$gender)
+by(pf$friend_count, pf$gender, summary)
+```
+
+From the histograms, we may have the feeling that males have more friends. But actually it's not the case.
+
+We can have a look to tenure parameter with custom colors:
+
+```{r}
+qplot(x=tenure, data=pf, color=I("black"), fill=I("#099DD9"))
+```
+
+Let's tume the histogram so that it is years instead if days in x axis:
+
+```{r}
+qplot(x=tenure/365.25, data=pf, binwidth=0.25, color=I("black"), fill=I("#099DD9")) + 
+  labs(x="years") +
+  scale_x_continuous(breaks=c(0:8))
+```
+
+We can also create grid of plots:
+
+```{r}
+#install.packages("gridExtra")
+library(gridExtra)
+p1 = qplot(x=friend_count, data=pf, bins=50, color=I("black"), fill=I("#099DD9")) + 
+  scale_x_continuous(limits=c(0, 1500), breaks=(seq(0, 1500, 100))) +
+  labs(x="Number of friends (continuous)")
+p2 = qplot(x=friend_count, data=pf, bins=50, color=I("black"), fill=I("#099DD9")) + 
+  scale_x_log10(limits=c(1, 1500), breaks=c(1, 10, 50, 100, 500, 1000)) +
+  labs(x="Number of friends (log10)")
+p3 = qplot(x=friend_count, data=pf, bins=50, color=I("black"), fill=I("#099DD9")) +
+  scale_x_sqrt(limits=c(0, 1500)) + 
+  labs(x="Number of friends (sqrt)")
+
+# arrange plots in grid
+grid.arrange(p1, p2, p3, ncol=1)
+```
+
+We can use frequency plot instead of histograms:
+
+```{r}
+qplot(x=friend_count, y=..count../sum(..count..),
+      data=subset(pf, !is.na(gender)), binwidth=10, 
+      geom="freqpoly", color=gender) +
+  scale_x_continuous(limits=c(0, 1000), breaks=seq(0, 1000, 50)) + 
+  labs(y="Proportion of users with that friend count", x="Friend count")
+```
+
+We can use frequency plot for likes as well:
+
+```{r}
+qplot(x=www_likes, data=subset(pf, !is.na(gender)), geom="freqpoly", color=gender, bins=40) + 
+  scale_x_log10(limits=c(1, 5000), breaks=c(1, 5, 10, 50, 100, 150, 1000, 5000))
+```
+
+Use calculus to see www_likes:
+
+```{r}
+by(pf$www_likes, pf$gender, sum)
+```
+
+Now let's use box plots:
+
+```{r}
+qplot(y=friend_count, x=gender,
+      data=subset(pf, !is.na(gender)),
+      geom="boxplot") + 
+  scale_y_continuous(limits=c(0, 1000), breaks=seq(0, 1000, 100))
+```
+
+Problem with this code is that samples are removed with the scale_y_continuous/limits. There is an alternative:
+
+```{r}
+qplot(y=friend_count, x=gender,
+      data=subset(pf, !is.na(gender)),
+      geom="boxplot") + 
+  coord_cartesian(ylim=c(0, 1000)) +
+  scale_y_continuous(breaks=seq(0, 1000, 100))
+```
+
+Getting logical
+
+```{r}
+summary(pf$mobile_likes)
+summary(pf$mobile_likes > 0)
+```
+
+Or creating a new variable:
+
+```{r}
+pf$mobile_check_in <- NA
+pf$mobile_check_in <- factor(ifelse(pf$mobile_likes > 0, 1, 0))
+```
+
+
+
+

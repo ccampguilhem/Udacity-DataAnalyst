@@ -102,6 +102,8 @@ git lfs install --force
 
 [Huge collection of datasets](https://catalog.data.gov/dataset)
 
+Google provides statistics about google search in [trends](https://trends.google.com/trends/)
+
 ### Pandas
 
 [Official documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
@@ -187,6 +189,34 @@ Natural Language Toolkit [nltk](http://www.nltk.org/).
 Stem workds with [nltk](http://www.nltk.org/api/nltk.stem.html?highlight=snowballstemmer#nltk.stem.snowball.SnowballStemmer).
 
 TF-IDF (Term Frequency Inverse Document Frequency) vectorizer from [scikit-learn](http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html).
+
+### Markdown
+
+A video [tutorial](https://www.youtube.com/watch?v=6A5EpqqDOdk).
+
+### R language
+
+[Quick R](https://www.statmethods.net/).
+
+[R cookbook](http://www.cookbook-r.com/).
+
+R [data types](https://www.statmethods.net/input/datatypes.html).
+
+R news and tutorials on [R bloggers](https://www.r-bloggers.com/).
+
+Coding style from [Google](https://google.github.io/styleguide/Rguide.xml).
+
+Loading and formatting data in R [tutorial](http://flowingdata.com/2015/02/18/loading-data-and-basic-formatting-in-r/).
+
+[Subsetting](https://www.statmethods.net/management/subset.html) dataframes in R.
+
+Using [facets](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/) in ggplot.
+
+Changing [theme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html) in ggplot.
+
+### Other tools used for Data Analytics and Big Data
+
+Presto is the tool used in Facebook, see [here](https://prestodb.io/)
 
 
 
