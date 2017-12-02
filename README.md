@@ -116,6 +116,8 @@ Google provides statistics about google search in [trends](https://trends.google
 
 [Seaborn visualization library](https://seaborn.pydata.org/index.html)
 
+Bivariate data analysis [introduction](http://dept.stat.lsa.umich.edu/~kshedden/Courses/Stat401/Notes/401-bivariate-slides.pdf).
+
 ### JSON
 
 [JSON tutorial in W3Schools](https://www.w3schools.com/js/js_json_intro.asp)
@@ -204,7 +206,7 @@ R [cheatsheets](https://www.rstudio.com/resources/cheatsheets/).
 
 R [data types](https://www.statmethods.net/input/datatypes.html).
 
-[Dates](https://www.r-bloggers.com/date-formats-in-r/) in R.
+[Dates](https://www.r-bloggers.com/date-formats-in-r/) in R.git 
 
 R news and tutorials on [R bloggers](https://www.r-bloggers.com/).
 
@@ -220,7 +222,17 @@ Changing [theme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggth
 
 Customizing axes with ggplot [in french](http://www.sthda.com/french/wiki/ggplot2-graduation-des-axes-guide-pour-personnaliser-les-etiquettes-des-graduations-logiciel-r-et-visualisation-de-donnees).
 
+### Data wrangling in R
+
 Data wrangling in R with [tidyr and dplyr](https://s3.amazonaws.com/udacity-hosted-downloads/ud651/DataWranglingWithR.pdf).
+
+Introduction to [dplyr](http://rstudio-pubs-static.s3.amazonaws.com/11068_8bc42d6df61341b2bed45e9a9a3bf9f4.html).
+
+dplyr tutorial [introduction](https://www.r-bloggers.com/hadley-wickham-presents-dplyr-at-user-2014/).
+
+dplyr tutorial [part 1](https://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-1/).
+
+dplyr tutorial [part 2](https://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-2/).
 
 ### Other tools used for Data Analytics and Big Data
 

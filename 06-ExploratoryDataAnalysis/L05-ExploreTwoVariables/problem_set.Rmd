@@ -1,0 +1,145 @@
+# Problem set: explore two variables
+
+## Load data
+
+```{r}
+library(ggplot2) #must load the ggplot package first
+data(diamonds) #loads the diamonds data set since it comes with the ggplot package
+summary(diamonds)
+str(diamonds)
+?diamonds
+```
+
+## Price vs x, y and z
+
+```{r}
+ggplot(aes(x=x, y=price), data=diamonds) + 
+  geom_point(alpha=0.2, color=I("#3e4444")) + 
+  geom_smooth(color=I("#82b74b")) +
+  xlim(3, 9) +
+  theme(panel.background = element_rect(fill = I("#f1f1f1")))
+```
+
+```{r}
+library(gridExtra)
+p1 <- ggplot(aes(x=x, y=price), data=diamonds) + 
+        geom_point(alpha=0.2, color=I("#3e4444")) + 
+        geom_smooth(color=I("#82b74b")) +
+        xlim(3, 9) +
+        theme(panel.background = element_rect(fill = I("#f1f1f1")))
+p2 <- ggplot(aes(x=y, y=price), data=diamonds) + 
+        geom_point(alpha=0.2, color=I("#3e4444")) + 
+        geom_smooth(color=I("#82b74b")) +
+        xlim(3, 9) +
+        theme(panel.background = element_rect(fill = I("#f1f1f1")))
+p3 <- ggplot(aes(x=z, y=price), data=diamonds) + 
+        geom_point(alpha=0.2, color=I("#3e4444")) + 
+        geom_smooth(color=I("#82b74b")) +
+        xlim(2, 6) +
+        theme(panel.background = element_rect(fill = I("#f1f1f1")))
+grid.arrange(p1, p2, p3, ncol = 1)
+```
+
+```{r}
+with(diamonds, cor.test(x, price, method="pearson"))
+with(diamonds, cor.test(y, price, method="pearson"))
+with(diamonds, cor.test(z, price, method="pearson"))
+```
+
+## Price vs depth
+
+```{r}
+ggplot(aes(x=depth, y=price), data=diamonds) + 
+  geom_point(alpha=0.01, color=I("#3e4444")) + 
+  geom_smooth(color=I("#82b74b")) +
+  scale_x_continuous(breaks=seq(55, 70, 2), limits=c(55, 70)) +
+  theme(panel.background = element_rect(fill = I("#f1f1f1")))
+```
+
+```{r}
+with(diamonds, cor.test(depth, price, method="pearson"))
+```
+
+## Price vs carat
+
+```{r}
+ggplot(aes(x=carat, y=price), data=diamonds) + 
+  geom_point(alpha=0.01, color=I("#3e4444")) + 
+  geom_smooth(color=I("#82b74b")) +
+  scale_x_continuous(breaks=seq(0, 2.5, 0.5), limits=c(0, quantile(diamonds$carat, 0.99))) +
+  theme(panel.background = element_rect(fill = I("#f1f1f1")))
+```
+
+```{r}
+with(diamonds, cor.test(carat, price, method="pearson"))
+```
+
+## Price vs volume
+
+```{r}
+diamonds$volume <- with(diamonds, x * y *z)
+```
+
+```{r}
+ggplot(aes(x=volume, y=price), data=diamonds) + 
+  geom_point(alpha=1, color=I("#3e4444")) + 
+  theme(panel.background = element_rect(fill = I("#f1f1f1")))
+```
+
+```{r}
+#library(plyr)
+count(diamonds$volume == 0)
+#detach("package:plyr", unload=TRUE)
+```
+
+```{r}
+with(subset(diamonds, volume > 0. & volume <= 800.), cor.test(volume, price, method="pearson"))
+```
+
+```{r}
+ggplot(aes(x=volume, y=price), data=subset(diamonds, volume > 0. & volume <= 800.)) + 
+  geom_point(alpha=0.1, color=I("#3e4444")) + 
+  geom_smooth(method="lm", color=I("#82b74b")) +
+  scale_y_continuous(limits=c(0, 20000)) +
+  theme(panel.background = element_rect(fill = I("#f1f1f1")))
+```
+
+## Grouping by clarity
+
+```{r}
+library(dplyr)
+suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))
+```
+
+```{r}
+diamondsByClarity <- diamonds %>%
+  group_by(clarity) %>%
+  summarise(mean_price = mean(price),
+          median_price = median(price),
+          min_price = min(price),
+          max_price = max(price),
+          n = n()) %>%
+  arrange(desc(median_price))
+head(diamondsByClarity, 10)
+```
+
+```{r}
+diamonds_by_clarity <- group_by(diamonds, clarity)
+diamonds_mp_by_clarity <- summarise(diamonds_by_clarity, mean_price = mean(price))
+
+diamonds_by_color <- group_by(diamonds, color)
+diamonds_mp_by_color <- summarise(diamonds_by_color, mean_price = mean(price))
+
+p1 <- ggplot(aes(x=clarity, y=mean_price, color=clarity, fill=clarity), data=diamonds_mp_by_clarity) + 
+  geom_bar(stat="identity") + 
+  theme(legend.position="none")
+
+p2 <- ggplot(aes(x=color, y=mean_price, color=color, fill=color), data=diamonds_mp_by_color) + 
+  geom_bar(stat="identity") +
+  theme(legend.position="none")
+
+grid.arrange(p1, p2, ncol = 1)
+```
+
+
