@@ -220,6 +220,8 @@ Or creating a new variable:
 ```{r}
 pf$mobile_check_in <- NA
 pf$mobile_check_in <- factor(ifelse(pf$mobile_likes > 0, 1, 0))
+percentage <- sum(pf$mobile_check_in == 1) / length(pf$mobile_check_in) * 100
+percentage
 ```
 
 

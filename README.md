@@ -196,11 +196,15 @@ A video [tutorial](https://www.youtube.com/watch?v=6A5EpqqDOdk).
 
 ### R language
 
+R [cheatsheets](https://www.rstudio.com/resources/cheatsheets/).
+
 [Quick R](https://www.statmethods.net/).
 
 [R cookbook](http://www.cookbook-r.com/).
 
 R [data types](https://www.statmethods.net/input/datatypes.html).
+
+[Dates](https://www.r-bloggers.com/date-formats-in-r/) in R.
 
 R news and tutorials on [R bloggers](https://www.r-bloggers.com/).
 
@@ -213,6 +217,10 @@ Loading and formatting data in R [tutorial](http://flowingdata.com/2015/02/18/lo
 Using [facets](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/) in ggplot.
 
 Changing [theme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html) in ggplot.
+
+Customizing axes with ggplot [in french](http://www.sthda.com/french/wiki/ggplot2-graduation-des-axes-guide-pour-personnaliser-les-etiquettes-des-graduations-logiciel-r-et-visualisation-de-donnees).
+
+Data wrangling in R with [tidyr and dplyr](https://s3.amazonaws.com/udacity-hosted-downloads/ud651/DataWranglingWithR.pdf).
 
 ### Other tools used for Data Analytics and Big Data
 
