@@ -118,6 +118,10 @@ Google provides statistics about google search in [trends](https://trends.google
 
 Bivariate data analysis [introduction](http://dept.stat.lsa.umich.edu/~kshedden/Courses/Stat401/Notes/401-bivariate-slides.pdf).
 
+### Data analysis
+
+Bias - variance trade-off [explained](http://scott.fortmann-roe.com/docs/BiasVariance.html).
+
 ### JSON
 
 [JSON tutorial in W3Schools](https://www.w3schools.com/js/js_json_intro.asp)
@@ -221,6 +225,8 @@ Using [facets](http://www.cookbook-r.com/Graphs/Facets_(ggplot2)/) in ggplot.
 Changing [theme](https://cran.r-project.org/web/packages/ggthemes/vignettes/ggthemes.html) in ggplot.
 
 Customizing axes with ggplot [in french](http://www.sthda.com/french/wiki/ggplot2-graduation-des-axes-guide-pour-personnaliser-les-etiquettes-des-graduations-logiciel-r-et-visualisation-de-donnees).
+
+An explanation about long and wide formats with [reshape2](http://seananderson.ca/2013/10/19/reshape.html).
 
 ### Data wrangling in R
 
