@@ -4,23 +4,24 @@
 
 ## History
 
-| Status          | Date       | Link                                                                                      |
-| --------------- | ---------- | ----------------------------------------------------------------------------------------- |
-| Started         | 05/07/2017 |                                                                                           |
-| P0 released     | 08/07/2017 |                                                                                           |
-| P0 accepted     | 08/07/2017 | [link](./00-WelcomeToTheNanodegree/P0-BayAreaBikeShare/Bay_Area_Bike_Share_Analysis.ipynb)|
-| P1 released     | 14/08/2017 |                                                                                           |
-| P1 re-submitted | 18/08/2017 |                                                                                           |
-| P1 accepted     | 18/08/2017 | [link](./02-IntoToDataAnalysis/P01-InvestigateADataset/baseball.ipynb)                    |
-| P2 released     | 26/08/2017 |                                                                                           |
-| P2 re-submitted | 27/08/2017 |                                                                                           |
-| P2 accepted     | 28/08/2017 | [link](./03-DataWranglingWithMongoDB/P02-WrangleOpenStreetMapData/data_wrangling.ipynb)   |
-| P3 released     | 03/09/2017 |                                                                                           |
-| P3 re-submitted | 04/09/2017 |                                                                                           |
-| P3 accepted     | 05/09/2017 | [link](./04-InferentialStatistics/P03-TestAPerceptualPhenomenom/inferential_statistics.ipynb)|
-| P4 released     | 25/11/2017 |                                                                                           |
-| P4 re-submitted | 26/11/2017 |                                                                                           |
-| P4 accepted     | 26/11/2017 | [link](./05-IntroToMachineLearning/P04-IdentifyFromFromEronEmail/enron_fraud.ipynb)       |
+| Status          | Date       | Link                                                                                                       |
+| --------------- | ---------- | ---------------------------------------------------------------------------------------------------------- |
+| Started         | 05/07/2017 |                                                                                                            |
+| P0 released     | 08/07/2017 |                                                                                                            |
+| P0 accepted     | 08/07/2017 | [Welcome to nanodegree](./00-WelcomeToTheNanodegree/P0-BayAreaBikeShare/Bay_Area_Bike_Share_Analysis.ipynb)|
+| P1 released     | 14/08/2017 |                                                                                                            |
+| P1 re-submitted | 18/08/2017 |                                                                                                            |
+| P1 accepted     | 18/08/2017 | [Investigate a dataset](./02-IntoToDataAnalysis/P01-InvestigateADataset/baseball.ipynb)                    |
+| P2 released     | 26/08/2017 |                                                                                                            |
+| P2 re-submitted | 27/08/2017 |                                                                                                            |
+| P2 accepted     | 28/08/2017 | [Data wrangling](./03-DataWranglingWithMongoDB/P02-WrangleOpenStreetMapData/data_wrangling.ipynb)          |
+| P3 released     | 03/09/2017 |                                                                                                            |
+| P3 re-submitted | 04/09/2017 |                                                                                                            |
+| P3 accepted     | 05/09/2017 | [Test a perceptual phenomenom](./04-InferentialStatistics/P03-TestAPerceptualPhenomenom/inferential_statistics.ipynb)|
+| P4 released     | 25/11/2017 |                                                                                                            |
+| P4 re-submitted | 26/11/2017 |                                                                                                            |
+| P4 accepted     | 26/11/2017 | [Intro to machine learning](./05-IntroToMachineLearning/P04-IdentifyFromFromEronEmail/enron_fraud.ipynb)   |
+| P5 released     | 10/12/2017 | [Explore and summarize](./06-ExploratoryDataAnalysis/P05-ExploreAndSummarizeData/explore_and_summarize.Rmd)|
 
 ## Usefull links
 
