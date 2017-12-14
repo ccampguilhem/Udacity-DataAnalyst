@@ -1,3 +1,7 @@
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
 # Explore and Summarize Data
 
 [Cédric Campguilhem](https://www.github.com/ccampguilhem/Udacity-DataAnalyst), December 2017
@@ -106,7 +110,7 @@ We have another variable which is a wine id (per familly):
 
 First, we are going to merge both datasets. Before that, we will add a factor variable to identify the type of wine (red or white):
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 #install.packages('dplyr')
 library(dplyr)
 
@@ -128,13 +132,14 @@ wine_data <- rbind(red_wine, white_wine)
 
 In this section, we are mainly interested by the main differences between red and white wines. We will use independent distribution of input and output variables across type of wine. We can start by looking the distribution of quality of wines:
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 #install.packages('ggplot2')
 #install.packages('gridExtra')
 library(ggplot2)
 library(gridExtra)
 
-#This function from John Colby (see Appendix) generates color sequence replicating the ones from ggplot2
+#This function from John Colby (see Appendix) generates color sequence 
+#replicating the ones from ggplot2
 gg_color_hue <- function(n) {
   hues = seq(15, 375, length = n + 1)
   hcl(h = hues, l = 65, c = 100)[1:n]
@@ -235,7 +240,8 @@ In the next views, we are going to find different ways of visualizing those dist
 - alcohol because over overplotting
 
 ```{r}
-ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physiochemical == "residual.sugar")) + 
+ggplot(aes(x=value, weight=prop, color=type), 
+       data=subset(wine_data.long, physiochemical == "residual.sugar")) + 
   geom_freqpoly(bins=60) + 
   scale_x_log10(breaks=c(1, 1.3, 2, 3, 5, 10, 15, 20)) +
   labs(x="Residual sugar (g / dm^3)", y="proportion of wines in dataset") +
@@ -250,9 +256,11 @@ This visualization confirms what we seen in faceted histogram plot: distribution
 This was not seen in the faceted plot due to the linear scale.
 
 ```{r}
-ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physiochemical == "chlorides")) + 
+ggplot(aes(x=value, weight=prop, color=type), 
+       data=subset(wine_data.long, physiochemical == "chlorides")) + 
   geom_freqpoly(bins=90) + 
-  scale_x_log10(breaks=c(0.01, 0.02, 0.05, 0.08, 0.1, 0.15, 0.2, 0.3), limits=c(0.01, 0.3)) +
+  scale_x_log10(breaks=c(0.01, 0.02, 0.05, 0.08, 0.1, 0.15, 0.2, 0.3), 
+                limits=c(0.01, 0.3)) +
   labs(x="Sodium chloride (g / dm^3)", y="proportion of wines in dataset") +
   ggtitle("Distribution of sodium chlorides per type of wine")
 ```
@@ -260,7 +268,8 @@ ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physio
 This visualization confirms what we saw earlier, distributions have similar shape but red wines have more chlorides.
 
 ```{r}
-ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physiochemical == "free.sulfur.dioxide")) + 
+ggplot(aes(x=value, weight=prop, color=type), 
+       data=subset(wine_data.long, physiochemical == "free.sulfur.dioxide")) + 
   geom_freqpoly(bins=30) + 
   scale_x_log10(breaks=c(1, 2, 6, 10, 16, 20, 35, 45, 100), limits=c(2, 100)) +
   labs(x="Free sulfur dioxid (mg / dm^3)", y="proportion of wines in dataset") + 
@@ -270,7 +279,8 @@ ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physio
 This plot confirms that white wines have more free sulfure dioxid but reveals that the distribution across red wines is multimodal.
 
 ```{r}
-ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physiochemical == "alcohol")) + 
+ggplot(aes(x=value, weight=prop, color=type), 
+       data=subset(wine_data.long, physiochemical == "alcohol")) + 
   geom_freqpoly(bins=50) + 
   scale_x_continuous(limits=c(8, 14), breaks=seq(8, 14, 0.5)) +
   labs(x="Alcohol (% per volume)", y="proportion of wines in dataset") +
@@ -278,6 +288,14 @@ ggplot(aes(x=value, weight=prop, color=type), data=subset(wine_data.long, physio
 ```
 
 Distributions are really similar, with common peaks around 9.5 % per vol and 10 % per vol.
+
+Finally, the below table sums up the main statistics for each dataframe variable:
+
+```{r}
+wine_data.summary <- summary(wine_data)
+knitr::kable(head(wine_data.summary))
+```
+
 
 <a id='Bivariate'>
 
@@ -291,7 +309,10 @@ The following code calculates correlation matrices with 3 different methods (Pea
 
 ```{r}
 #Create list of features of interest
-features = c("fixed.acidity", "volatile.acidity", "citric.acid", "residual.sugar", "chlorides", "free.sulfur.dioxide",     "total.sulfur.dioxide", "density", "pH", "sulphates", "alcohol", "quality")
+features = c("fixed.acidity", "volatile.acidity", "citric.acid", 
+             "residual.sugar", "chlorides", "free.sulfur.dioxide",
+             "total.sulfur.dioxide", "density", "pH", "sulphates", "alcohol", 
+             "quality")
 
 #Calculate correlation matrices with different methods
 cormat_pearson <- round(cor(wine_data[,features], method = "pearson"), 2)
@@ -344,7 +365,8 @@ heatmap(cormat_spearman.long, "Spearman correlation matrix", "Spearman\nCorrelat
 ```
 
 ```{r}
-heatmap(cormat_kendall.long, "Kendall's Tau correlation matrix", "Kendall's tau\nCorrelation")
+heatmap(cormat_kendall.long, "Kendall's Tau correlation matrix", 
+        "Kendall's tau\nCorrelation")
 ```
 
 The three methods may calculate different values for each correlation. But we can make the following observations:
@@ -400,10 +422,14 @@ scatter_plot <- function(x, xlabel, title, outlier=0.05) {
 }
 
 #Create plots
-p1 <- scatter_plot(wine_data$alcohol, "Alcohol (% by volume)", "Quality vs Alcohol", 0.05)
-p2 <- scatter_plot(wine_data$density, "Density (g / cm^3)", "Quality vs Density", 0.05)
-p3 <- scatter_plot(wine_data$chlorides, "Chlorides (g / dm^3)", "Quality vs Chlorides", 0.05)
-p4 <- scatter_plot(wine_data$volatile.acidity, "Volatile acidity (g / dm^3)", "Quality vs Acetic acid", 0.05)
+p1 <- scatter_plot(wine_data$alcohol, "Alcohol (% by volume)", 
+                   "Quality vs Alcohol", 0.05)
+p2 <- scatter_plot(wine_data$density, "Density (g / cm^3)", 
+                   "Quality vs Density", 0.05)
+p3 <- scatter_plot(wine_data$chlorides, "Chlorides (g / dm^3)", 
+                   "Quality vs Chlorides", 0.05)
+p4 <- scatter_plot(wine_data$volatile.acidity, "Volatile acidity (g / dm^3)", 
+                   "Quality vs Acetic acid", 0.05)
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
 
@@ -419,7 +445,8 @@ scatter_plot <- function(x, xlabel, title, outlier=0.05) {
     geom_smooth(color="black", method="lm") +
     facet_wrap(~ type, scales="free") +
     scale_x_continuous(limits=c(quantile(x, outlier), quantile(x, 1-outlier))) +
-    scale_y_continuous(limits=c(quantile(wine_data$density, outlier), quantile(wine_data$density, 1-outlier))) +
+    scale_y_continuous(limits=c(quantile(wine_data$density, outlier), 
+                                quantile(wine_data$density, 1-outlier))) +
     labs(x=xlabel, y="Density (g / cm^3)") +
     ggtitle(title) + 
     theme(legend.position="none",
@@ -428,10 +455,14 @@ scatter_plot <- function(x, xlabel, title, outlier=0.05) {
 }
 
 #Create plots
-p1 <- scatter_plot(wine_data$alcohol, "Alcohol (% by volume)", "Density vs Alcohol", 0.05)
-p2 <- scatter_plot(wine_data$residual.sugar, "Residual sugar (g / dm^3)", "Density vs Residual sugar", 0.05)
-p3 <- scatter_plot(wine_data$chlorides, "Chlorides (g / dm^3)", "Density vs Chlorides", 0.05)
-p4 <- scatter_plot(wine_data$fixed.acidity, "Fixed acidity (g / dm^3)", "Density vs Tartaric acid", 0.05)
+p1 <- scatter_plot(wine_data$alcohol, "Alcohol (% by volume)", 
+                   "Density vs Alcohol", 0.05)
+p2 <- scatter_plot(wine_data$residual.sugar, "Residual sugar (g / dm^3)", 
+                   "Density vs Residual sugar", 0.05)
+p3 <- scatter_plot(wine_data$chlorides, "Chlorides (g / dm^3)", 
+                   "Density vs Chlorides", 0.05)
+p4 <- scatter_plot(wine_data$fixed.acidity, "Fixed acidity (g / dm^3)", 
+                   "Density vs Tartaric acid", 0.05)
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
 
@@ -441,13 +472,16 @@ We continue with correlations with total sulfure dioxide:
 
 ```{r}
 #Function to create scatter plot with total sulfure dioxide, outliers are removed from plot
-scatter_plot <- function(x, xlabel, title, outlier=0.05) {
+scatter_plot <- function(x, xlabel, title, outlier=0.05, alpha=0.05) {
   p <- ggplot(aes(x=x, y=total.sulfur.dioxide, color=type), data=wine_data) +
-    geom_point(alpha=0.05, position="jitter") +
+    geom_point(alpha=alpha, position="jitter") +
     geom_smooth(color="black", method="lm") +
     facet_wrap(~ type, scales="free") +
-    scale_x_continuous(limits=c(quantile(x, outlier), quantile(x, 1-outlier))) +
-    scale_y_continuous(limits=c(quantile(wine_data$total.sulfur.dioxide, outlier), quantile(wine_data$total.sulfur.dioxide, 1-outlier))) +
+    scale_x_continuous(limits=c(quantile(x, outlier), 
+                                quantile(x, 1-outlier))) +
+    scale_y_continuous(limits=c(
+      quantile(wine_data$total.sulfur.dioxide, outlier),
+      quantile(wine_data$total.sulfur.dioxide, 1-outlier))) +
     labs(x=xlabel, y="Total sulfur dioxide (mg / dm^3)") +
     ggtitle(title) + 
     theme(legend.position="none",
@@ -456,10 +490,15 @@ scatter_plot <- function(x, xlabel, title, outlier=0.05) {
 }
 
 #Create plots
-p1 <- scatter_plot(wine_data$free.sulfur.dioxide, "Free sulfur dioxide (mg / dm^3)", "Total sulfur dioxide vs Free sulfur dioxide", 0.05)
-p2 <- scatter_plot(wine_data$residual.sugar, "Residual sugar (g / dm^3)", "Total sulfur dioxide vs Residual sugar", 0.05)
-p3 <- scatter_plot(wine_data$fixed.acidity, "Fixed acidity (g / dm^3)", "Total sulfur dioxide vs Tartaric acid", 0.05)
-p4 <- scatter_plot(wine_data$volatile.acidity, "Volatile acidity (g / dm^3)", "Total sulfur dioxide vs Acetic acid", 0.05)
+p1 <- scatter_plot(wine_data$free.sulfur.dioxide, 
+                   "Free sulfur dioxide (mg / dm^3)", 
+                   "Total sulfur dioxide vs Free sulfur dioxide", 0.05)
+p2 <- scatter_plot(wine_data$residual.sugar, "Residual sugar (g / dm^3)", 
+                   "Total sulfur dioxide vs Residual sugar", 0.05)
+p3 <- scatter_plot(wine_data$fixed.acidity, "Fixed acidity (g / dm^3)", 
+                   "Total sulfur dioxide vs Tartaric acid", 0.05)
+p4 <- scatter_plot(wine_data$volatile.acidity, "Volatile acidity (g / dm^3)", 
+                   "Total sulfur dioxide vs Acetic acid", 0.05)
 grid.arrange(p1, p2, p3, p4, ncol = 2)
 ```
 
@@ -468,10 +507,11 @@ We see a strong correlation between total and free sulfur dioxide. For the rest 
 The rest of combinations are processed in the following chunks:
 
 ```{r}
-#Function to create scatter plot with total sulfure dioxide, outliers are removed from plot
-scatter_plot <- function(x, y, xlabel, ylabel, title, outlier=0.05) {
+#Function to create scatter plot with total sulfure dioxide, outliers are 
+#removed from plot
+scatter_plot <- function(x, y, xlabel, ylabel, title, outlier=0.05, alpha=0.05) {
   p <- ggplot(aes(x=x, y=y, color=type), data=wine_data) +
-    geom_point(alpha=0.05, position="jitter") +
+    geom_point(alpha=alpha, position="jitter") +
     geom_smooth(color="black", method="lm") +
     facet_wrap(~ type, scales="free") +
     scale_x_continuous(limits=c(quantile(x, outlier), quantile(x, 1-outlier))) +
@@ -486,9 +526,15 @@ scatter_plot <- function(x, y, xlabel, ylabel, title, outlier=0.05) {
 
 ```{r}
 #Create plots for chlorides
-p1 <- scatter_plot(wine_data$volatile.acidity, wine_data$chlorides, "Volatile acidity (g / dm^3)", "Chlorides (g / dm^3)", "Chlorides vs Acetic acid")
-p2 <- scatter_plot(wine_data$fixed.acidity, wine_data$chlorides, "Fixed acidity (g / dm^3)", "Chlorides (g / dm^3)", "Chlorides vs Tartaric acide")
-p3 <- scatter_plot(wine_data$sulphates, wine_data$chlorides, "Sulphates (g / dm^3)", "Chlorides (g / dm^3)", "Chlorides vs Sulphates")
+p1 <- scatter_plot(wine_data$volatile.acidity, wine_data$chlorides, 
+                   "Volatile acidity (g / dm^3)", "Chlorides (g / dm^3)", 
+                   "Chlorides vs Acetic acid")
+p2 <- scatter_plot(wine_data$fixed.acidity, wine_data$chlorides, 
+                   "Fixed acidity (g / dm^3)", "Chlorides (g / dm^3)", 
+                   "Chlorides vs Tartaric acide")
+p3 <- scatter_plot(wine_data$sulphates, wine_data$chlorides, 
+                   "Sulphates (g / dm^3)", "Chlorides (g / dm^3)", 
+                   "Chlorides vs Sulphates")
 grid.arrange(p1, p2, p3, ncol = 2)
 ```
 
@@ -498,9 +544,14 @@ There is no obvious correlation between chlorides and sulphates.
 
 ```{r}
 #Create plots for citric acid
-p1 <- scatter_plot(wine_data$volatile.acidity, wine_data$citric.acid, "Volatile acidity (g / dm^3)", "Citric acid (g / dm^3)", "Citric acide vs Acetic acid")
-p2 <- scatter_plot(wine_data$fixed.acidity, wine_data$citric.acid, "Fixed acidity (g / dm^3)", "Citric acid (g / dm^3)", "Citric acide vs Tartaric acid")
-p3 <- scatter_plot(wine_data$pH, wine_data$citric.acid, "pH", "Citric acid (g / dm^3)", "Citric acide vs pH")
+p1 <- scatter_plot(wine_data$volatile.acidity, wine_data$citric.acid, 
+                   "Volatile acidity (g / dm^3)", "Citric acid (g / dm^3)", 
+                   "Citric acide vs Acetic acid")
+p2 <- scatter_plot(wine_data$fixed.acidity, wine_data$citric.acid, 
+                   "Fixed acidity (g / dm^3)", "Citric acid (g / dm^3)", 
+                   "Citric acide vs Tartaric acid")
+p3 <- scatter_plot(wine_data$pH, wine_data$citric.acid, "pH", 
+                   "Citric acid (g / dm^3)", "Citric acide vs pH")
 grid.arrange(p1, p2, p3, ncol = 2)
 ```
 
@@ -508,7 +559,9 @@ For these features we see differences between red and white wines. Correlations 
 
 ```{r}
 #Create plot for alcohol and residual sugar
-scatter_plot(wine_data$residual.sugar, wine_data$alcohol, "Residual sugar (g / dm^3)", "Alcohol (% by volume)", "Alcohol vs residual sugar", 0.05)
+scatter_plot(wine_data$residual.sugar, wine_data$alcohol, 
+             "Residual sugar (g / dm^3)", "Alcohol (% by volume)", 
+             "Alcohol vs residual sugar", 0.05, 0.2)
 ```
 
 Plots are not easy to analyse. The smooth error seems high for red wine. Plot tend to show that the correlation is opposed for red wines and white wines, let's check with numerical values:
@@ -552,28 +605,34 @@ In order to do this we need to create buckets for citric acid and residual sugar
 ```{r}
 #Create citric acid and residual sugar buckets for red wines
 wine_data_red$citric.acid.bucket <- cut(wine_data_red$citric.acid, 
-                                        quantile(wine_data_red$citric.acid, c(0., 0.5, 1.0)), 
+                                        quantile(wine_data_red$citric.acid,
+                                                 c(0., 0.5, 1.0)), 
                                         include.lowest = TRUE, 
-                                        labels=c("low citric acid", "high citric acid"))
+                                        labels=c("low citric acid", 
+                                                 "high citric acid"))
 levels(wine_data_red$citric.acid.bucket)
 wine_data_red$residual.sugar.bucket <- cut(wine_data_red$residual.sugar, 
-                                           quantile(wine_data_red$residual.sugar, c(0., 0.5, 1.0)), 
+                                           quantile(wine_data_red$residual.sugar, 
+                                                    c(0., 0.5, 1.0)), 
                                            include.lowest = TRUE, 
-                                           labels=c("low residual sugar", "high residual sugar"))
+                                           labels=c("low residual sugar", 
+                                                    "high residual sugar"))
 levels(wine_data_red$residual.sugar.bucket)
 ```
 
 ```{r}
 #Create citric acid and residual sugar buckets for white wines
 wine_data_white$citric.acid.bucket <- cut(wine_data_white$citric.acid, 
-                                          quantile(wine_data_white$citric.acid, c(0., 0.5, 1.0)), 
+                                          quantile(wine_data_white$citric.acid, 
+                                                   c(0., 0.5, 1.0)), 
                                           include.lowest = TRUE, 
-                                          labels=c("low citric acid", "high citric acid"))
+                                          labels=c("low citric acid", 
+                                                   "high citric acid"))
 levels(wine_data_white$citric.acid.bucket)
-wine_data_white$residual.sugar.bucket <- cut(wine_data_white$residual.sugar, 
-                                             quantile(wine_data_white$residual.sugar, c(0., 0.5, 1.0)), 
-                                             include.lowest = TRUE, 
-                                             labels=c("low residual sugar", "high residual sugar"))
+wine_data_white$residual.sugar.bucket <- cut(
+  wine_data_white$residual.sugar, quantile(wine_data_white$residual.sugar, 
+                                           c(0., 0.5, 1.0)), 
+  include.lowest = TRUE, labels=c("low residual sugar", "high residual sugar"))
 levels(wine_data_white$residual.sugar.bucket)
 ```
 
@@ -583,8 +642,8 @@ We now create a plot function that will be used for red and white wines. The tut
 grid_plot <- function(data, title, midpoint=median(data$pH), size=2) {
   p <- ggplot(aes(y=volatile.acidity, x=fixed.acidity), data=data) +
     geom_point(aes(color=pH), size=size) +
-    scale_color_gradient2(midpoint=midpoint,  low=I("#5F50A1"), mid=I("#FFFFBE"),
-                  high=I("#9F0444"), space="Lab") + 
+    scale_color_gradient2(midpoint=midpoint,  low=I("#5F50A1"), 
+                          mid=I("#FFFFBE"), high=I("#9F0444"), space="Lab") + 
     labs(x="Tartaric acid (g / dm^3)", y="Acetic acid (g / dm^3)", color="pH") + 
     facet_grid(citric.acid.bucket ~ residual.sugar.bucket, scales="fixed") + 
     ggtitle(title)
@@ -631,29 +690,29 @@ In order to do this we need to create buckets for volatile acidity and chlorides
 
 ```{r}
 #Create volatile acidity and chlorides buckets for red wines
-wine_data_red$volatile.acidity.bucket <- cut(wine_data_red$volatile.acidity, 
-                                          quantile(wine_data_red$volatile.acidity, c(0., 0.5, 1.0)), 
-                                          include.lowest = TRUE, 
-                                          labels=c("low volatile acidity", "high volatile acidity"))
+wine_data_red$volatile.acidity.bucket <- cut(
+  wine_data_red$volatile.acidity, quantile(wine_data_red$volatile.acidity, 
+                                           c(0., 0.5, 1.0)), 
+  include.lowest = TRUE, labels=c("low volatile acidity", 
+                                  "high volatile acidity"))
 levels(wine_data_red$volatile.acidity.bucket)
-wine_data_red$chlorides.bucket <- cut(wine_data_red$chlorides, 
-                                             quantile(wine_data_red$chlorides, c(0., 0.5, 1.0)), 
-                                             include.lowest = TRUE, 
-                                             labels=c("low chlorides", "high chlorides"))
+wine_data_red$chlorides.bucket <- cut(
+  wine_data_red$chlorides, quantile(wine_data_red$chlorides, c(0., 0.5, 1.0)), 
+  include.lowest = TRUE, labels=c("low chlorides", "high chlorides"))
 levels(wine_data_red$chlorides.bucket)
 ```
 
 ```{r}
 #Create volatile acidity and chlorides buckets for white wines
-wine_data_white$volatile.acidity.bucket <- cut(wine_data_white$volatile.acidity, 
-                                          quantile(wine_data_white$volatile.acidity, c(0., 0.5, 1.0)), 
-                                          include.lowest = TRUE, 
-                                          labels=c("low volatile acidity", "high volatile acidity"))
+wine_data_white$volatile.acidity.bucket <- cut(
+  wine_data_white$volatile.acidity, quantile(wine_data_white$volatile.acidity, 
+                                             c(0., 0.5, 1.0)), 
+  include.lowest = TRUE, labels=c("low volatile acidity", "high volatile acidity"))
 levels(wine_data_white$volatile.acidity.bucket)
-wine_data_white$chlorides.bucket <- cut(wine_data_white$chlorides, 
-                                             quantile(wine_data_white$chlorides, c(0., 0.5, 1.0)), 
-                                             include.lowest = TRUE, 
-                                             labels=c("low chlorides", "high chlorides"))
+wine_data_white$chlorides.bucket <- cut(
+  wine_data_white$chlorides, quantile(wine_data_white$chlorides, 
+                                      c(0., 0.5, 1.0)), 
+  include.lowest = TRUE, labels=c("low chlorides", "high chlorides"))
 levels(wine_data_white$chlorides.bucket)
 ```
 
@@ -662,10 +721,12 @@ We now create a plot function that will be used for red and white wines:
 ```{r}
 grid_plot <- function(data, title, midpoint=median(data$quality), size=2) {
   p <- ggplot(aes(y=density, x=alcohol), data=data) +
-    geom_point(aes(color=quality), size=size) +
-    scale_color_gradient2(midpoint=midpoint,  low=I("#5F50A1"), mid=I("#FFFFBE"),
-                  high=I("#9F0444"), space="Lab") + 
-    labs(x="Alcohol (% by volume)", y="Density (g / dm^3)", color="Quality (over 10)") + 
+    geom_point(aes(color=as.factor(quality)), size=size) +
+    scale_color_brewer(palette="Spectral", direction=-1) + 
+    #scale_color_gradient2(midpoint=midpoint,  low=I("#5F50A1"), 
+    #                      mid=I("#FFFFBE"), high=I("#9F0444"), space="Lab") + 
+    labs(x="Alcohol (% by volume)", y="Density (g / dm^3)", 
+         color="Quality (over 10)") + 
     facet_grid(volatile.acidity.bucket ~ chlorides.bucket, scales="free") + 
     ggtitle(title)
   return(p)
@@ -692,8 +753,10 @@ with(wine_data_red, cor(quality, volatile.acidity))
 The correlation seen from plot between between density and quality seems stronger than it really is. The numbers confirm than the correlation is mainly with low values of chlorides:
 
 ```{r}
-with(subset(wine_data_red, chlorides.bucket == "low chlorides"), cor(quality, density))
-with(subset(wine_data_red, chlorides.bucket == "high chlorides"), cor(quality, density))
+with(subset(wine_data_red, chlorides.bucket == "low chlorides"), 
+     cor(quality, density))
+with(subset(wine_data_red, chlorides.bucket == "high chlorides"), 
+     cor(quality, density))
 ```
 
 We create the plot for white wines:
@@ -714,8 +777,10 @@ with(wine_data_white, cor(quality, volatile.acidity))
 If we have a look to correlation with density at low or high level of chlorides:
 
 ```{r}
-with(subset(wine_data_white, chlorides.bucket == "low chlorides"), cor(quality, density))
-with(subset(wine_data_white, chlorides.bucket == "high chlorides"), cor(quality, density))
+with(subset(wine_data_white, chlorides.bucket == "low chlorides"), 
+     cor(quality, density))
+with(subset(wine_data_white, chlorides.bucket == "high chlorides"), 
+     cor(quality, density))
 ```
 
 We observe the same behaviour than with red wine but with higher values. The correlation between quality and density decreases with high chlorides.
@@ -726,45 +791,55 @@ We observe the same behaviour than with red wine but with higher values. The cor
 
 Here are the three plots selected for final discussion:
 
-```{r}
-ggplot(aes(x=type, y=value), data=wine_data.long) +
-  geom_boxplot() + 
-  facet_wrap(~ wine_data.long$physiochemical, scales = "free_y") + 
-  labs(x = "Type of wine") + 
-  ggtitle("Distribution of physiochemical properties per type of wine")
+```{r echo=FALSE}
+ggplot(aes(x=value, weight=prop, color=type), 
+       data=subset(wine_data.long, physiochemical == "residual.sugar")) + 
+  geom_freqpoly(bins=60) + 
+  scale_x_log10(breaks=c(1, 1.3, 2, 3, 5, 10, 15, 20)) +
+  labs(x="Residual sugar (g / dm^3)", y="proportion of wines in dataset") +
+  ggtitle("Distribution of residual sugar per type of wine")
 ```
 
-This box plot shows major differences between red and white whine in terms of physiochemical properties:
+This plot illustrates one of the major difference between analyzed red and white wines. For red wines, the distribution is much narrower in terms of residual sugar. The quantity of residual sugar is higher in white wines, with a broader distirbution making visible two families below and above 3.0 g / dm^3.
 
-- alcohol at comparable levels
-- less sulfur dioxide in red wine (either free or total)
-- higher fixed and volatile acidity in red wine but comparable means in terms of citric acid and lower pH for white wines in general
-- higher quantity of sulphates in red wine
-- higher quantity of residual sugar in white wine
-
-```{r}
-heatmap(cormat_pearson.long, "Pearson correlation matrix", "Pearson\nCorrelation")
+```{r echo=FALSE}
+scatter_plot <- function(x, xlabel, title, outlier=0.05, alpha=0.05) {
+  p <- ggplot(aes(x=x, y=total.sulfur.dioxide, color=type), data=wine_data) +
+    geom_point(alpha=alpha, position="jitter") +
+    geom_smooth(color="black", method="lm") +
+    facet_wrap(~ type, scales="free") +
+    scale_x_continuous(limits=c(quantile(x, outlier), 
+                                quantile(x, 1-outlier))) +
+    scale_y_continuous(limits=c(
+      quantile(wine_data$total.sulfur.dioxide, outlier),
+      quantile(wine_data$total.sulfur.dioxide, 1-outlier))) +
+    labs(x=xlabel, y="Total sulfur dioxide (mg / dm^3)") +
+    ggtitle(title) + 
+    theme(legend.position="none",
+          axis.text.x = element_text(angle = 45, hjust = 1)) 
+  return(p)
+}
+scatter_plot(wine_data$free.sulfur.dioxide, 
+             "Free sulfur dioxide (mg / dm^3)", 
+             "Total sulfur dioxide vs Free sulfur dioxide", 0.05, 0.2)
 ```
 
-This heatmap has been key to orient the bivariate analysis by identifying strongest correlations in the dataset:
+These two plots show the strong correlation between free and total sulfur dioxide. This is the case for both types of wines. The overall correlation coefficient in above 0.7.
+As variables are correlated, we would remove one of them from the dataframe if we have to train a regression algorithm on the data.
 
-- the negative correlation between alcohol and density, and the positive correlation of density with residual sugar
-- the alcohol being positively correlated to quality.
-- the strong correlation between total sulfur dioxide which enabled to let one of these parameter out of bivariate analysis.
-
-It also helped me in selecting variables for multivariate analysis for wine quality:
-
-```{r}
-p1 <- grid_plot(wine_data_red, "Quality of red wines")
-p2 <- grid_plot(wine_data_white, "Quality of white wines")
-grid.arrange(p1, p2, ncol=1)
+```{r, echo=FALSE, fig.width=14, fig.height=8}
+levels(wine_data_red$volatile.acidity.bucket) <- c(
+  "volatile acidity <= 0.52 g / dm^3", "volatile acidity > 0.52 g / dm^3")
+levels(wine_data_red$chlorides.bucket) <- c(
+  "chlorides <= 0.079 g / dm^3", "chlorides > 0.079 g / dm^3")
+grid_plot(wine_data_red, "Quality of red wines")
 ```
 
 This plot illustrates in the single visualization the relations between the parameters identified with the heatmap and confirms the observations while providing a bit more information:
 
-- the correlation of density and quality is different with low and high level of chlorides (a similar effect is observed with white wine)
-- but the correlation between high volatile acidity is stronger with red whine than with white one and seems to be the major difference between quality scores for white and red wines
-- the correlation with alcohol is visible (and equivalent to the correlation found for white wines)
+- the correlation of density and quality is stronger with low level of chlorides than with a higher one
+- the correlation between high volatile acidity and quality
+- the correlation of quality with alcohol
 
 <a id='Conclusion'>
 
