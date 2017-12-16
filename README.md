@@ -21,9 +21,11 @@
 | P4 released     | 25/11/2017 |                                                                                                            |
 | P4 re-submitted | 26/11/2017 |                                                                                                            |
 | P4 accepted     | 26/11/2017 | [Intro to machine learning](./05-IntroToMachineLearning/P04-IdentifyFromFromEronEmail/enron_fraud.ipynb)   |
-| P5 released     | 10/12/2017 | [Explore and summarize](./06-ExploratoryDataAnalysis/P05-ExploreAndSummarizeData/explore_and_summarize.Rmd)|
+| P5 released     | 10/12/2017 |                                                                                                            |
+| P5 re-submitted | 14/12/2017 |                                                                                                            |
+| P5 accepted     | 15/12/2017 | [Explore and summarize](./06-ExploratoryDataAnalysis/P05-ExploreAndSummarizeData/explore_and_summarize.Rmd)|
 
-## Usefull links
+## Usefull resources
 
 ### Google drive files used during course
 
@@ -109,15 +111,6 @@ Google provides statistics about google search in [trends](https://trends.google
 
 [Official documentation](https://pandas.pydata.org/pandas-docs/stable/index.html)
 
-### Data visualization
-
-[Nice plots with matplotlib](http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/)
-
-[Plotly and matplotlib in Jupyter notebooks](http://nbviewer.jupyter.org/github/plotly/python-user-guide/blob/master/s6_matplotlylib/s6_matplotlylib.ipynb)
-
-[Seaborn visualization library](https://seaborn.pydata.org/index.html)
-
-Bivariate data analysis [introduction](http://dept.stat.lsa.umich.edu/~kshedden/Courses/Stat401/Notes/401-bivariate-slides.pdf).
 
 ### Data analysis
 
@@ -240,6 +233,124 @@ dplyr tutorial [introduction](https://www.r-bloggers.com/hadley-wickham-presents
 dplyr tutorial [part 1](https://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-1/).
 
 dplyr tutorial [part 2](https://www.r-bloggers.com/hadley-wickhams-dplyr-tutorial-at-user-2014-part-2/).
+
+### A/B tests
+
+How many subjects are needed for an A/B test [webapp](http://www.evanmiller.org/ab-testing/sample-size.html).
+
+z-score [table](http://www.stat.ufl.edu/~athienit/Tables/Ztable.pdf).
+
+Brainstorming and validating metrics [article](https://storage.googleapis.com/supplemental_media/udacityu/3954679115/additional_techniques.pdf).
+
+### Data visualization
+
+#### General purpose
+
+Wikipedia [page](https://en.wikipedia.org/wiki/Information_visualization) on information visualization.
+
+Wikipedia [page](https://en.wikipedia.org/wiki/Human%E2%80%93computer_interaction) on human-computer interaction.
+
+Bivariate data analysis [introduction](http://dept.stat.lsa.umich.edu/~kshedden/Courses/Stat401/Notes/401-bivariate-slides.pdf).
+
+#### Recommendations for data visualization
+
+Three [steps](http://www.vizwiz.com/2013/01/alberto-cairo-three-steps-to-become.html) to become a visualization/infographics designer.
+
+Interactive Data Visualizaion for the Web [book](http://shop.oreilly.com/product/0636920026938.do?intcmp=il-npa-books-video-product_chimera).
+
+Storytelling with data [book](https://www.amazon.com/gp/product/1119002257?ie=UTF8&creativeASIN=1119002257&linkCode=xm2&tag=storytellingwithdata-20).
+
+Why you need to visualize data: the Anscombe's quartet on [Wikipedia](https://en.wikipedia.org/wiki/Anscombe's_quartet).
+
+How much the eye tells tje brain [article](https://www.eurekalert.org/pub_releases/2006-07/uops-prc072606.php).
+
+Some rules for values encoding [article](http://www.perceptualedge.com/articles/b-eye/encoding_values_in_graph.pdf).
+
+Graphical perception and graphical methods for analyzing scientific data [article](https://web.cs.dal.ca/~sbrooks/csci4166-6406/seminars/readings/Cleveland_GraphicalPerception_Science85.pdf).
+
+Graphical perception: learn the fundamentals first [article](http://flowingdata.com/2010/03/20/graphical-perception-learn-the-fundamentals-first/).
+
+The TLDR; on [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn't_read).
+
+Visual encoding [article](https://www.targetprocess.com/articles/visual-encoding/).
+
+#### Communauties
+
+Examples of story telling with data [website](http://www.storytellingwithdata.com/).
+
+NYT Graphics [twitter](https://twitter.com/nytgraphics) page.
+
+Flowing Data [website](http://flowingdata.com/).
+
+The functional art [website](http://www.thefunctionalart.com/2014/03/infographics-to-reveal-visualizations.html).
+
+Visual Business Intelligence [blog](http://www.perceptualedge.com/blog/?p=1245).
+
+The Policy Viz [website](https://policyviz.com/).
+
+Visualizing Data [website](http://www.visualisingdata.com/).
+
+#### Examples of visualizations
+
+Hans Rosling's from BBC video on [YouTube](https://www.youtube.com/watch?v=jbkSRLYSojo).
+
+Win, lose or draw [example](http://video.udacity-data.com.s3.amazonaws.com/topher/2016/September/57e9a683_l1-winloseordraw/l1-winloseordraw.png).
+
+The facebook offering: how it compares [example](http://www.nytimes.com/interactive/2012/05/17/business/dealbook/how-the-facebook-offering-compares.html?_r=0).
+
+UK temperature history [example](http://charts.animateddata.co.uk/uktemperaturelines/).
+
+#### For Python and Jupyter
+
+[Nice plots with matplotlib](http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/)
+
+[Plotly and matplotlib in Jupyter notebooks](http://nbviewer.jupyter.org/github/plotly/python-user-guide/blob/master/s6_matplotlylib/s6_matplotlylib.ipynb)
+
+[Seaborn visualization library](https://seaborn.pydata.org/index.html)
+
+#### Tools
+
+The tools are sorted with from high level (max expressivity) to low level (max flexibility):
+
+- [RAWGraphs](http://rawgraphs.io/)
+- [CHARTIO](https://chartio.com/)
+- [Rixkshaw](http://code.shutterstock.com/rickshaw/) specialized for time series
+- [dimple](http://dimplejs.org/) build on top of D3.js
+- [NVD3](http://nvd3.org/) build on top of D3.js
+- [D3.js](https://d3js.org/) data driven documents
+- [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
+- [WebGL](https://en.wikipedia.org/wiki/WebGL)
+- [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+
+### D3.js Data Drive Documents
+
+#### Web fundamentals
+
+Web basics [article](http://chimera.labs.oreilly.com/books/1230000000345/ch03.html).
+
+Web scripting client-side and server-side simple [video](https://study.com/academy/lesson/web-scripting-client-side-and-server-side.html#lesson) tutorial.
+
+Asynchronous requests with [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)).
+
+Http protocol [explained](http://eloquentjavascript.net/17_http.html).
+
+#### html, css, svg fundamentals
+
+Fundametals of html, css and svg for D3.js [extract](http://alignedleft.com/tutorials/d3/fundamentals).
+
+An html / css [course](https://dash.generalassemb.ly/).
+
+A great text editor to work with html / css: [Sublime Text](http://www.sublimetext.com/3).
+
+#### D3.js library
+
+A D3.js [tutorial](http://alignedleft.com/tutorials/d3).
+
+D3.js [GitHub](https://github.com/d3/d3) page.
+
+Bar chart tutorial [part one](https://bost.ocks.org/mike/bar/) and [part two](https://bost.ocks.org/mike/bar/2/).
+
+Tutorial on [selections](https://bost.ocks.org/mike/selection/) with D3.js
 
 ### Other tools used for Data Analytics and Big Data
 
