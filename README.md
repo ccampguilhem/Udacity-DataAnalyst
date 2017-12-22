@@ -264,7 +264,7 @@ Why you need to visualize data: the Anscombe's quartet on [Wikipedia](https://en
 
 How much the eye tells tje brain [article](https://www.eurekalert.org/pub_releases/2006-07/uops-prc072606.php).
 
-Some rules for values encoding [article](http://www.perceptualedge.com/articles/b-eye/encoding_values_in_graph.pdf).
+Some rules for values encoding [article](http://www.perceptualedge.com/articles/b-eye/encoding_values_in_graph.pdf) and [here](http://www.perceptualedge.com/articles/ie/visual_perception.pdf).
 
 Graphical perception and graphical methods for analyzing scientific data [article](https://web.cs.dal.ca/~sbrooks/csci4166-6406/seminars/readings/Cleveland_GraphicalPerception_Science85.pdf).
 
@@ -273,6 +273,19 @@ Graphical perception: learn the fundamentals first [article](http://flowingdata.
 The TLDR; on [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn't_read).
 
 Visual encoding [article](https://www.targetprocess.com/articles/visual-encoding/).
+
+Jitter to avoid overplotting [blog post](http://zevross.com/blog/2014/05/05/unhide-hidden-data-using-jitter-in-the-r-package-ggplot2/).
+
+Grid lines are rarely usefull [article](http://www.perceptualedge.com/articles/dmreview/grid_lines.pdf).
+
+Bad examples in catastrophe [blog](https://cartastrophe.wordpress.com/).
+
+Pre-attentive processing [definition](https://en.wikipedia.org/wiki/Pre-attentive_processing) and [examples](http://www.infovis.net/printMag.php?num=179&lang=2).
+
+Graph selection [matrix](http://www.perceptualedge.com/articles/misc/Graph_Selection_Matrix.pdf), 
+[article](http://www.perceptualedge.com/articles/ie/the_right_graph.pdf), 
+[flowchart](https://apandre.files.wordpress.com/2011/02/chartchooserincolor.jpg)
+and [application](http://labs.juiceanalytics.com/chartchooser/index.html).
 
 #### Communauties
 
@@ -300,6 +313,52 @@ The facebook offering: how it compares [example](http://www.nytimes.com/interact
 
 UK temperature history [example](http://charts.animateddata.co.uk/uktemperaturelines/).
 
+A zoomable dashboard made with [DC js](http://dc-js.github.io/dc.js/).
+
+A disk-shape [visualization](https://www.theguardian.com/world/interactive/2012/may/08/gay-rights-united-states).
+
+A bullet-graph [example](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
+
+An introduction to [cycle plots](http://www.perceptualedge.com/articles/guests/intro_to_cycle_plots.pdf).
+
+Lot of examples of networks, treemaps... [here](http://queue.acm.org/detail.cfm?id=1805128) and [there](https://guides.library.duke.edu/datavis/vis_types).
+
+[Cartograms](https://en.wikipedia.org/wiki/Cartogram) and [choropleths](https://en.wikipedia.org/wiki/Choropleth_map).
+
+Stacked barcharts [examples](https://solomonmessing.wordpress.com/2014/10/11/when-to-use-stacked-barcharts/).
+
+#### The grammar of graphics
+
+An introduction to grammar of graphics [article](http://www.science-craft.com/2014/07/08/introducing-the-grammar-of-graphics-plotting-concept/).
+
+The grammar of graphics with [R and ggplot2](https://ramnathv.github.io/pycon2014-r/visualize/ggplot2.html).
+
+A layered grammar of graphics [article](http://byrneslab.net/classes/biol607/readings/wickham_layered-grammar.pdf).
+
+A [book](https://www.amazon.com/The-Grammar-Graphics-Statistics-Computing/dp/0387245448) on grammar of graphics.
+
+#### The Gesalt principles
+
+The Gesalt laws of perception [presentation](https://www.slideshare.net/luisaepv/the-gestalt-laws-of-perception).
+
+Gesalt principles for visaulization [article](http://emeeks.github.io/gestaltdataviz/section1.html), [another article](http://graphicdesign.spokanefalls.edu/tutorials/process/gestaltprinciples/gestaltprinc.htm) and a [last one](http://jimsaw.com/design/gestalt.html).
+
+#### Choosing colors for data visualization
+
+The color wheel from [Adobe](https://color.adobe.com/fr/create/color-wheel).
+
+Color advice for cartography with [ColorBrewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3).
+
+Articles on color blindness [here](http://www.color-blindness.com/color-blindness-tests/) and [there](https://en.wikipedia.org/wiki/Color_blindness) and what color blindness [feels](http://www.color-blindness.com/coblis/coblis.html).
+
+Colors and [ggplot2](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/).
+
+Choosing color palette part [one](https://www.r-bloggers.com/choosing-colour-palettes-part-i-introduction/) and [two](https://www.r-bloggers.com/choosing-colour-palettes-part-ii-educated-choices/).
+
+Raindow color considered as [harmful](http://www.rkriz.net/Projects//create_color_table/color_07.pdf).
+
+Practical [rules](http://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf) for using colors in charts.
+
 #### For Python and Jupyter
 
 [Nice plots with matplotlib](http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/)
@@ -322,7 +381,7 @@ The tools are sorted with from high level (max expressivity) to low level (max f
 - [WebGL](https://en.wikipedia.org/wiki/WebGL)
 - [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 
-### D3.js Data Drive Documents
+### D3.js Data Driven Documents
 
 #### Web fundamentals
 
