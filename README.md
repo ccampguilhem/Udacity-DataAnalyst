@@ -287,6 +287,10 @@ Graph selection [matrix](http://www.perceptualedge.com/articles/misc/Graph_Selec
 [flowchart](https://apandre.files.wordpress.com/2011/02/chartchooserincolor.jpg)
 and [application](http://labs.juiceanalytics.com/chartchooser/index.html).
 
+Clarity vs Aesthetics [part 1](http://dataremixed.com/2012/05/data-visualization-clarity-or-aesthetics/), 
+[part 2](http://dataremixed.com/2012/05/clarity-or-aesthetics-part-2-a-tale-of-four-quadrants/) and 
+[part 3](http://dataremixed.com/2012/06/clarity-or-aesthetics-part-3-tips-for-achieving-both/).
+
 #### Communauties
 
 Examples of story telling with data [website](http://www.storytellingwithdata.com/).
@@ -303,6 +307,8 @@ The Policy Viz [website](https://policyviz.com/).
 
 Visualizing Data [website](http://www.visualisingdata.com/).
 
+Five Thirty Eight data [journalism](https://fivethirtyeight.com/features/what-the-fox-knows/).
+
 #### Examples of visualizations
 
 Hans Rosling's from BBC video on [YouTube](https://www.youtube.com/watch?v=jbkSRLYSojo).
@@ -317,7 +323,8 @@ A zoomable dashboard made with [DC js](http://dc-js.github.io/dc.js/).
 
 A disk-shape [visualization](https://www.theguardian.com/world/interactive/2012/may/08/gay-rights-united-states).
 
-A bullet-graph [example](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf).
+A bullet-graph [example](http://www.perceptualedge.com/articles/misc/Bullet_Graph_Design_Spec.pdf) 
+and Wikipedia [page](https://en.wikipedia.org/wiki/Bullet_graph).
 
 An introduction to [cycle plots](http://www.perceptualedge.com/articles/guests/intro_to_cycle_plots.pdf).
 
@@ -326,6 +333,11 @@ Lot of examples of networks, treemaps... [here](http://queue.acm.org/detail.cfm?
 [Cartograms](https://en.wikipedia.org/wiki/Cartogram) and [choropleths](https://en.wikipedia.org/wiki/Choropleth_map).
 
 Stacked barcharts [examples](https://solomonmessing.wordpress.com/2014/10/11/when-to-use-stacked-barcharts/).
+
+Tornado diagram on [Wikipedia](https://en.wikipedia.org/wiki/Tornado_diagram).
+
+Examples not to follow [here](http://www.designyourway.net/blog/inspiration/when-infographics-go-bad-or-how-not-to-design-data-visualization/) and
+[there](http://viz.wtf/).
 
 #### The grammar of graphics
 
@@ -374,7 +386,7 @@ The tools are sorted with from high level (max expressivity) to low level (max f
 - [RAWGraphs](http://rawgraphs.io/)
 - [CHARTIO](https://chartio.com/)
 - [Rixkshaw](http://code.shutterstock.com/rickshaw/) specialized for time series
-- [dimple](http://dimplejs.org/) build on top of D3.js
+- [dimple](http://dimplejs.org/) build on top of D3.js, and its Github [wiki](https://github.com/PMSI-AlignAlytics/dimple/wiki).
 - [NVD3](http://nvd3.org/) build on top of D3.js
 - [D3.js](https://d3js.org/) data driven documents
 - [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)
@@ -401,6 +413,14 @@ An html / css [course](https://dash.generalassemb.ly/).
 
 A great text editor to work with html / css: [Sublime Text](http://www.sublimetext.com/3).
 
+#### Javascript documentation
+
+Using strict mode to avoid silent [errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
+
+Using `console.table` to [debug](https://blog.mariusschulz.com/2013/11/13/advanced-javascript-debugging-with-consoletable) in Javascript.
+
+An AJAX [introduction](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started).
+
 #### D3.js library
 
 A D3.js [tutorial](http://alignedleft.com/tutorials/d3).
@@ -409,7 +429,11 @@ D3.js [GitHub](https://github.com/d3/d3) page.
 
 Bar chart tutorial [part one](https://bost.ocks.org/mike/bar/) and [part two](https://bost.ocks.org/mike/bar/2/).
 
-Tutorial on [selections](https://bost.ocks.org/mike/selection/) with D3.js
+Tutorial on [selections](https://bost.ocks.org/mike/selection/) with D3.js.
+
+Dealing with [margins](https://bl.ocks.org/mbostock/3019563) in D3.js.
+
+A D3.js [gallery](https://github.com/d3/d3/wiki/Gallery).
 
 ### Other tools used for Data Analytics and Big Data
 

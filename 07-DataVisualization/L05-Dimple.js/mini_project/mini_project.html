@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+  <style>
+  	:root {
+  		--phoenix-color: #FF0000;
+  		--raleigh-color: #F79301;
+  		--minneapolis-color: #FDCD11;
+  	}
+  	.temp-table table {
+  		max-width: 600px;
+  	}
+  	.temp-chart h3 {
+  		font-size: 14px;
+  		margin-left: 300px;
+  	}
+  	th.Phoenix {
+  		color: var(--phoenix-color);
+  	}
+  	th.Raleigh {
+  		color: var(--raleigh-color);
+  	}
+  	th.Minneapolis {
+  		color: var(--minneapolis-color);
+  	}
+  	path.dimple-line {
+  		fill: none !important;
+  		stroke-width: 2px !important;  		
+  	}
+
+  	path.dimple-phoenix {
+  		stroke: var(--phoenix-color) !important;
+  	}
+  	circle.dimple-phoenix {
+  		fill: var(--phoenix-color) !important;
+  		stroke: var(--phoenix-color) !important;	
+  	}
+  	path.dimple-raleigh {
+  		stroke: var(--raleigh-color) !important;
+  	}
+  	circle.dimple-raleigh {
+  		fill: var(--raleigh-color) !important;
+  		stroke: var(--raleigh-color) !important;	
+  	}
+  	path.dimple-minneapolis {
+  		stroke: var(--minneapolis-color) !important;
+  	}
+  	circle.dimple-minneapolis {
+  		fill: var(--minneapolis-color) !important;
+  		stroke: var(--minneapolis-color) !important;	
+  	}
+  </style>
+  <script type="text/javascript">
+    	function draw(data) {
+	      	// Re write data to long format
+	      	var cities = ["Phoenix", "Raleigh", "Minneapolis"];
+	      	var dataLong = [];
+	      	for (i = 0; i < data.length; ++i) {
+	      		for (j = 0; j < cities.length; ++j) {
+	      			var row = {};
+	      			row["Month"] = data[i]["Month"];
+	      			row["City"] = cities[j];
+	      			row["Temperature"] = data[i][cities[j]];
+	      			dataLong.push(row);
+	      		}
+	      	}
+	      	// D3.js setup
+			d3.select("body").select("div.temp-chart")
+	      		.append("h3")
+	      	  		.text("Average (Mean) Monthly Temperatures in 2003");
+	        var svg = dimple.newSvg("div.temp-chart", 860, 350);
+	        var tab = d3.select("body").select("div.temp-table")
+	      		.append("table")
+	      	  		.attr('class', 'table');
+	      	// Create table
+			var header = tab.append("tr");
+			header.append('th');
+			for (i = 0; i < data.length; ++i) {
+				header.append('th').text(data[i]["Month"]);
+			};
+			var dataTransposed = {};
+		    for (i = 0; i < data.length; ++i) {
+		    	for (j = 0; j < cities.length; ++j) {
+			    	if (i == 0) {
+			    		dataTransposed[cities[j]] = [];
+			    	};
+			    	dataTransposed[cities[j]].push(data[i][cities[j]]);
+		    	};
+		    };
+		    for (i = 0; i < cities.length; ++i) {
+		    	var row = tab.append("tr");
+		    	row.append("th")
+		    		.attr("class", cities[i])
+		    		.text(cities[i]);
+		    	for (j = 0; j < data.length; ++j) {
+		    		row.append("td").text(dataTransposed[cities[i]][j]);
+		    	};
+		    };
+		    // Create plot
+		    var tempChart = new dimple.chart(svg, dataLong);
+		    //tempChart.setBounds("5%", "5%", 600, 300);
+		    //tempChart.noFormats = true; //prevent from adding style to DOM
+		    var x = tempChart.addCategoryAxis("x", "Month");
+		    x.addOrderRule(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+		    x.title = null;
+		    var y = tempChart.addMeasureAxis("y", "Temperature");
+		    y.showGridlines = false;
+		    y.title = "Fahrenheit";
+          	var series = tempChart.addSeries("City", dimple.plot.line);
+          	series.addEventHandler("mouseover", null);
+          	series.addEventHandler("mousemove", null);
+          	tempChart.assignColor("Phoenix", "#FF0000", null, 1.);
+          	tempChart.assignColor("Raleigh", "#F79301", null, 1.);
+          	tempChart.assignColor("Minneapolis", "#FDCD11", null, 1.);
+          	//tempChart.addSeries("City", dimple.plot.scatter);
+          	tempChart.addLegend(430, 200, 100, 50);
+          	tempChart.draw();
+          	// Remove style to created lines so that css can be used to custom
+          	//d3.selectAll("path.dimple-line").attr('style', null);
+          	//d3.selectAll("circle.dimple-marker").attr('style', null);
+        };
+    </script>
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Example of visualization with Dimple.js</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Example of bad visualization</h3>
+			<p>The example is taken from <a href="http://www.perceptualedge.com/example2.php">here</a>:</p>
+			<img src="bad.gif"/>
+			<p>Few problems with the graphics:</p>
+			<ul>
+				<li>The light blue background color and red lines around the chart area.</li>
+				<li>The labels with temperature of charts may not be readable.</li>
+				<li>Different shapes of markers bring no information</li>
+				<li>Months are displayed as numeric values and force to make conversion.</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>An improvement suggestion</h3>
+			<p>
+				The improvement idea is suggested from <a href="http://www.perceptualedge.com/example2.php">here</a>. I have just tried to mimic this
+				plot with Dimple.js. The table is made using html and uses d3 js to select and modify html.
+			</p>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="col-md-12 temp-chart">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 temp-table">
+		</div>
+	</div>	
+	<script type="text/javascript">
+		/*
+		Use D3 (not dimple.js) to load the TSV file
+		and pass the contents of it to the draw function
+		*/
+		d3.csv("temp.csv", draw);
+	</script>	
+</body>
+</body>
+</html>
