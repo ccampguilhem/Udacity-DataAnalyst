@@ -280,6 +280,8 @@ Grid lines are rarely usefull [article](http://www.perceptualedge.com/articles/d
 
 Bad examples in catastrophe [blog](https://cartastrophe.wordpress.com/).
 
+Why avoiding [pie charts](http://www.perceptualedge.com/articles/visual_business_intelligence/save_the_pies_for_dessert.pdf).
+
 Pre-attentive processing [definition](https://en.wikipedia.org/wiki/Pre-attentive_processing) and [examples](http://www.infovis.net/printMag.php?num=179&lang=2).
 
 Graph selection [matrix](http://www.perceptualedge.com/articles/misc/Graph_Selection_Matrix.pdf), 
@@ -290,6 +292,14 @@ and [application](http://labs.juiceanalytics.com/chartchooser/index.html).
 Clarity vs Aesthetics [part 1](http://dataremixed.com/2012/05/data-visualization-clarity-or-aesthetics/), 
 [part 2](http://dataremixed.com/2012/05/clarity-or-aesthetics-part-2-a-tale-of-four-quadrants/) and 
 [part 3](http://dataremixed.com/2012/06/clarity-or-aesthetics-part-3-tips-for-achieving-both/).
+
+[Narrative](http://vis.stanford.edu/files/2010-Narrative-InfoVis.pdf) data visualization.
+
+How to [lie](https://visualisingadvocacy.org/blog/disinformation-visualization-how-lie-datavis) with data visualization or 
+with [statistics](https://medium.com/i-data/misleading-with-statistics-c63780efa928).
+
+Spurious correlations [here](http://tylervigen.com/spurious-correlations) and 
+on [Wikipedia](https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation#Examples_of_illogically_inferring_causation_from_correlation).
 
 #### Communauties
 
@@ -308,6 +318,9 @@ The Policy Viz [website](https://policyviz.com/).
 Visualizing Data [website](http://www.visualisingdata.com/).
 
 Five Thirty Eight data [journalism](https://fivethirtyeight.com/features/what-the-fox-knows/).
+
+Data journalism [handbook](http://datajournalismhandbook.org/1.0/en/getting_data_3.html) 
+and [five minute guide](http://datajournalismhandbook.org/1.0/en/getting_data_0.html).
 
 #### Examples of visualizations
 
@@ -338,6 +351,14 @@ Tornado diagram on [Wikipedia](https://en.wikipedia.org/wiki/Tornado_diagram).
 
 Examples not to follow [here](http://www.designyourway.net/blog/inspiration/when-infographics-go-bad-or-how-not-to-design-data-visualization/) and
 [there](http://viz.wtf/).
+
+Life index [example](http://www.oecdbetterlifeindex.org/#/00000002025).
+
+US gun deaths [example](https://guns.periscopic.com/?year=2013).
+
+Pakistan drone attacks [example](http://drones.pitchinteractive.com/).
+
+US elections [example](http://www.nytimes.com/interactive/2012/11/02/us/politics/paths-to-the-white-house.html).
 
 #### The grammar of graphics
 
@@ -413,19 +434,32 @@ An html / css [course](https://dash.generalassemb.ly/).
 
 A great text editor to work with html / css: [Sublime Text](http://www.sublimetext.com/3).
 
-#### Javascript documentation
+svg [alignment](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline) and
+text [anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor).
+
+#### JavaScript documentation
+
+Mozilla documentation on [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
 Using strict mode to avoid silent [errors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode).
 
-Using `console.table` to [debug](https://blog.mariusschulz.com/2013/11/13/advanced-javascript-debugging-with-consoletable) in Javascript.
+Using `console.table` to [debug](https://blog.mariusschulz.com/2013/11/13/advanced-javascript-debugging-with-consoletable) in JavaScript.
 
 An AJAX [introduction](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started).
+
+The unary + operator for [type casting](http://xkr.us/articles/javascript/unary-add/).
+
+Arithmetic [operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators) in JavaScript.
+
+[Slicing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) arrays in JavaScript.
 
 #### D3.js library
 
 A D3.js [tutorial](http://alignedleft.com/tutorials/d3).
 
 D3.js [GitHub](https://github.com/d3/d3) page.
+
+An overview [tutorial](overview) of D3.js mechanisms.
 
 Bar chart tutorial [part one](https://bost.ocks.org/mike/bar/) and [part two](https://bost.ocks.org/mike/bar/2/).
 
@@ -434,6 +468,18 @@ Tutorial on [selections](https://bost.ocks.org/mike/selection/) with D3.js.
 Dealing with [margins](https://bl.ocks.org/mbostock/3019563) in D3.js.
 
 A D3.js [gallery](https://github.com/d3/d3/wiki/Gallery).
+
+D3.js [axes](https://www.dashingd3js.com/d3js-axes) and custom css for [axes](http://alignedleft.com/tutorials/d3/axes).
+
+D3.js scales, domains and ranges [tutorial](http://www.d3noob.org/2012/12/setting-scales-domains-and-ranges-in.html).
+
+How [selections](https://bost.ocks.org/mike/selection/) work.
+
+The [join-like](https://bost.ocks.org/mike/join/) model behind D3.js.
+
+[Binding](http://alignedleft.com/tutorials/d3/binding-data) data to visualization.
+
+Books for D3.js: [here](http://ritchiesking.com/book/).
 
 ### Other tools used for Data Analytics and Big Data
 

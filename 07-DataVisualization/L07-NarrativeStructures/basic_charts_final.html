@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+    
+    <style>
+
+      svg circle {
+        stroke: none;
+        opacity: 0.4;
+        transition: 200ms;
+        transition-timing-function: ease-in-out;
+        -webkit-transition: 200ms;
+        -webkit-transition-timing-function: ease-in-out;
+      }
+
+      svg circle.host {
+        fill: #d32f2f;
+      }
+
+      svg circle:hover {
+        opacity: 1.0;
+      }
+
+      svg .axis text {
+        fill: #757575 !important; /* overwrites style set by D3 js */
+      }
+
+      svg .axis path {
+        stroke: #757575 !important;
+      }
+
+      svg .axis .tick line {
+        stroke: #757575 !important;
+      }
+
+      h2 {
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function draw(data) {
+        //
+        //D3.js setup code
+        //
+        "use strict"; //avoid silent errors in JavaScript code
+        var margin = 75,
+            width = 1400 - margin,
+            height = 600 - margin,
+            radius = 6,
+            jitterSwitch = true, //(de)activate jitter in plot
+            jitterValue = 20; //number of pixels to jitter points
+
+        d3.select("body")
+          .append("h2")
+          .text("World Cup Attendance")
+
+        var svg = d3.select("body")
+          .append("svg")
+            .attr("width", width + margin)
+            .attr("height", height + margin)
+          .append("g")
+            .attr("class","scatter");
+        //
+        // D3.js construction code
+        //
+        d3.select("svg")          //select svg element
+          .select("g")            //select group
+          .selectAll("circle")    //select all circles in the svg (empty selection when first called)
+          .data(data)             //binds data to the svg
+          .enter()                //select data not yet displayed in the svg (all data rows when first called)
+          .append("circle")       //create circle for each row in the data
+        //
+        // Get the range (extent) of variables used as axes
+        //
+        var date_extent = d3.extent(data, function(d) {     //this callback function is called for each row 'd' in data
+          return d["date"];
+        });
+        console.log("date extent:" + date_extent);
+        var attendance_extent = d3.extent(data, function(d) {     //this callback function is called for each row 'd' in data
+          return d["attendance"];
+        }); 
+        console.log("attendance extent:" + attendance_extent);
+        attendance_extent = [0., 180000.]; //we re-define extent manually
+        date_extent[0] = new Date(1929, 1, 1); //we re-define x min value so that jitter does not plot outside of plot area
+        //
+        // Create scaling function for both axes
+        // date is used as X axis and attendance as Y axis
+        //
+        var date_scale = d3.scaleTime()
+          .range([margin, width]) // pixel domain in svg
+          .domain(date_extent);   // actual date domain
+        var attendance_scale = d3.scaleLinear()
+          .range([height, margin]) // pixel domain (reversed because svg Y axis goes downward and we want it upward)
+          .domain(attendance_extent); // actual attendance domain
+        //
+        // Create axes
+        //
+        var date_axis = d3.axisBottom() //bottom indicates that tickes are placed at the bottom of axis
+          .scale(date_scale)
+          .ticks(d3.timeYear.every(2)); //place ticks every two years
+        var attendance_axis = d3.axisLeft() //left indicates that ticks are placed at the left of the axis
+          .scale(attendance_scale)
+          .tickValues(d3.range(0, 200000, 20000)); //Manually specify ticks
+        //
+        // Draw axes
+        //
+        d3.select("svg")
+          .append("g")              // this is like a div in html
+          .attr("class", "x axis")  // we add a class to the axis
+          .attr("transform", "translate(0, " + height + ")") // this moves the axis to the bottom of the visualization
+          .call(date_axis) // and we pass the axis we have created to svg
+          .append("text")
+          .attr("transform", "translate(" + width / 2.0 + ", 35)")
+          .attr("font-size", "20")
+          .text("Date");
+        d3.select("svg")
+          .append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + margin + ", 0)")
+          .call(attendance_axis)
+          .append("text")
+          .attr("transform", "translate(-55, " + height / 2.0 + ")rotate(-90)")
+          .attr("font-size", "20")
+          .text("Attendance");
+        //
+        // Draw circles
+        //
+        d3.select("svg")
+          .select("g.scatter")
+          .selectAll("circle")
+          .attr("cx", function(d) {
+            //If jitter is activated, the x coordinate is modified
+            if (jitterSwitch) {
+              var pixel = date_scale(d["date"]);
+              pixel += Math.floor((Math.random() * jitterValue) - jitterValue / 2.);
+              return pixel;
+            } else {
+              return date_scale(d["date"]);
+            }
+          })
+          .attr("cy", function(d) {
+            return attendance_scale(d["attendance"]);
+          })
+          .attr("r", radius)
+          .attr("class", function(d) {
+            //if host team takes part in the game, change the class (used by css to color circle differently)
+            if (d["home"] === d["team1"] || d["home"] === d["team2"]) {
+              return "host";
+            } else {
+              return "other";
+            }
+            
+          })
+        //
+        // Draw legend
+        //
+        var legend = d3.select("svg")
+          .append("g")
+          .attr("transform", "translate(" + (width - 200) + ", " + 100 + ")")
+          .attr("class", "legend")
+          .selectAll()
+          .data(["Host games", "Other games"]) //we can bind any data :)
+          .enter()
+          .append("g");
+        legend.append("circle")
+          .attr("cx", function(d, i) {
+            return 0.;      //as legend is going to be translated we can use 0 for x
+          })
+          .attr("cy", function(d, i) {
+            return 30. * i; //y is incremented for each label
+          })
+          .attr("r", function(d, i) {
+            return radius;
+          })
+          .attr("class", function(d, i) { // i is the index of row in data. Here i == 0 is for host games
+            if (i === 0) {
+              return "host"; // we set the class so that css will color both plot and legend
+            } else {
+              return "other";
+            }
+          });
+        legend.append("text")
+          .attr("x", function(d, i) {
+            return radius + 5.;  // text is written with a small offset on x axis not to overlap with circle
+          })
+          .attr("y", function(d, i) {
+            return 30. * i + radius ; // text is written with a small offset on y axis to align text with circle
+          })
+          .text(function(d) {
+            return d;
+          });
+        // we select again the g legend element and get its bounding box
+        legend = d3.select("svg")
+          .select("g.legend");
+        var legendBbox = legend.node().getBBox();
+        // we draw a rectangle to act as a border around the legend
+        d3.select("svg")
+          .select("g.legend")
+          .append("g")
+          .attr("class", "border")
+          .append("rect")
+          .attr("x", legendBbox.x - 5.)
+          .attr("y", legendBbox.y - 5.)
+          .attr("width", legendBbox.width + 10)
+          .attr("height", legendBbox.height + 10)
+          .attr("rx", 5.)
+          .attr("ry", 5.)
+          .attr("fill", "none")
+          .attr("stroke", "#BDBDBD")
+          .attr("stroke-width", "1")
+          .attr("style", "box-shadow: 3px 3px 1px #BDBDBD;");
+      };
+    </script>
+  </head>
+<body>
+  <script type="text/javascript">
+    //
+    // Use D3 to load the TSV file
+    // and pass the contents of it to the draw function.
+    // The data read is passed through the lambda function to change types
+    //
+    var date_parser = d3.timeParse("%d-%m-%Y (%H:%M h)"); //creates a function parser for dates
+    console.log(date_parser);
+    d3.tsv("world_cup_geo.tsv", function(d) {
+      d["attendance"] = +d["attendance"]; //converts string to numeric value
+      d["date"] = date_parser(d["date"]); //convert string to timestamp
+      return d;
+    }, draw);
+  </script>
+</body>
+</html>
