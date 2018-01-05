@@ -437,6 +437,8 @@ A great text editor to work with html / css: [Sublime Text](http://www.sublimete
 svg [alignment](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/alignment-baseline) and
 text [anchor](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor).
 
+Svg path [animation](https://css-tricks.com/svg-line-animation-works/).
+
 #### JavaScript documentation
 
 Mozilla documentation on [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
@@ -452,6 +454,11 @@ The unary + operator for [type casting](http://xkr.us/articles/javascript/unary-
 Arithmetic [operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators) in JavaScript.
 
 [Slicing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) arrays in JavaScript.
+
+map function with [arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).
+
+[this](http://tomhicks.github.io/code/2014/08/11/some-of-this.html) keyword explanation, 
+and also [here](http://javascriptissexy.com/understand-javascripts-this-with-clarity-and-master-it/).
 
 #### D3.js library
 
@@ -480,6 +487,42 @@ The [join-like](https://bost.ocks.org/mike/join/) model behind D3.js.
 [Binding](http://alignedleft.com/tutorials/d3/binding-data) data to visualization.
 
 Books for D3.js: [here](http://ritchiesking.com/book/).
+
+Update data [dynamically](http://www.d3noob.org/2013/02/update-d3js-data-dynamically.html).
+
+[Animation](http://blog.andreaskoller.com/2014/02/d3-and-ui-animations/) with D3.js, 
+see also [here](http://synthesis.sbecker.net/articles/2012/07/10/learning-d3-part-3-animation-interaction) and 
+[here](http://www.jeromecukier.net/blog/2012/07/16/animations-and-transitions/).
+
+A lot of [examples](https://bost.ocks.org/mike/example/).
+
+An example of [brush](https://bl.ocks.org/mbostock/87746f16b83cb9d5371394a001cbd772) with D3.js.
+
+[How to](http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html) add tooltips to plots.
+
+Another tutorial with [animations](http://christopheviau.com/d3_tutorial/).
+
+Mouse [events](http://www.stator-afm.com/tutorial/d3-js-mouse-events/) with D3.js.
+
+#### Map data
+
+Map school, an [introduction](http://mapschool.io/) to use maps.
+
+A [tutorial](https://bost.ocks.org/mike/map/) by the creator of D3.js.
+
+[How to](https://bost.ocks.org/mike/bubble-map/) make a bubble map.
+
+[How to](https://blog.webkid.io/multiple-maps-d3/) make multiple maps with D3.js.
+
+Another tutorial from [d3noob](http://www.d3noob.org/2013/03/a-simple-d3js-map-explained.html).
+
+[How to](https://visual.ly/blog/how-to-make-choropleth-maps-in-d3/) make choropleth with D3.js.
+
+Alternatives to make map plots with [R](https://cran.r-project.org/web/packages/maps/maps.pdf) and [Python](https://pypi.python.org/pypi/basemap).
+
+Conversion of maps data: [from shapefiles to geoJson](https://ben.balter.com/2013/06/26/how-to-convert-shapefiles-to-geojson-for-use-on-github/).
+
+Ogre [tool](http://ogre.adc4gis.com/) to make conversions.
 
 ### Other tools used for Data Analytics and Big Data
 

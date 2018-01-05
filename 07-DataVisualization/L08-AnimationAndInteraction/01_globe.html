@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+    <style>
+    </style>
+    <script type="text/javascript">  
+      function draw(geo_data) {
+        "use strict";
+        var margin = 75,
+            width = 1680 - margin,
+            height = 850 - margin;
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width + margin)
+            .attr("height", height + margin)
+            .append('g')
+            .attr('class', 'map');
+
+        var projection = d3.geoMercator()
+            .scale(200)
+            .translate([width / 2., 450.]);
+        var path = d3.geoPath().projection(projection);
+
+        var map = svg.selectAll("path")
+            .data(geo_data.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .style("fill", "#607d8b")
+            .style("stroke", "white")
+            .style("stroke-width", 1.);
+
+        //Aggregation function to be use with d3.nest
+        function agg_year(data) {
+            //calculate total attendance
+            var total = d3.sum(data, function(d) {
+                return d["attendance"];
+            });
+            //calculate projected coordinates of stadium applied to all elements in group
+            var coords = data.map(function(d) {
+                return projection([+d["long"], +d["lat"]]);
+            });
+            //calculate an average of longitude and latitude
+            var coord_x = d3.mean(coords, function(d) {
+                return d[0];
+            });
+            var coord_y = d3.mean(coords, function(d) {
+                return d[1];
+            });
+            //return aggregate results
+            return {
+                "attendance": total,
+                "x": coord_x,
+                "y": coord_y
+            };            
+        }
+
+        function plot_points(data) {
+            // create an aggregation
+            var nested = d3.nest()
+                .key(function(d) { // group by
+                    return d["date"].getUTCFullYear();
+                })
+                .rollup(agg_year) // aggregate
+                .entries(data) // bind data
+            console.table(nested);
+            console.log(nested);
+            
+            //create a scale for attendance
+            var attendance_max = d3.max(nested, function(d){
+                return d.value["attendance"];
+            });
+            var radius_scale = d3.scaleSqrt()
+                .domain([0, attendance_max]) // from 0 to maximum of attendance
+                .range([0, 12]); //from 0 to 12 pixels
+
+            // plot circles
+            svg.append("g")
+                .attr("class", "bubble")
+                .selectAll("circle")
+                .data(nested.sort(function(a, b) {
+                    return b.value["attendance"] - a.value["attendance"];
+                })) // sort data by attendance so that smaller attendance are written last make sure that all circles are visible
+                .enter()
+                .append("circle")
+                .attr("cx", function(d) {
+                    return d.value["x"];
+                })
+                .attr("cy", function(d) {
+                    return d.value["y"];
+                })
+                .attr("r", function(d) {
+                    return radius_scale(d.value["attendance"]);
+                })
+                .attr("stroke", "black")
+                .attr("stroke-width", 0.7)
+                .attr("fill", "#cddc39")
+                .attr("opacity", 0.7);
+        }
+
+        var date_parser = d3.timeParse("%d-%m-%Y (%H:%M h)"); //creates a function parser for dates
+        d3.tsv("../L07-NarrativeStructures/world_cup_geo.tsv", function(d) {
+            d["attendance"] = +d["attendance"]; //converts string to numeric value
+            d["date"] = date_parser(d["date"]); //convert string to timestamp
+            return d;
+        }, plot_points);
+
+
+      };
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 to load the GeoJSON file
+    */
+    
+d3.json("world_countries.json", draw);
+  </script>
+</body>
+</html>
