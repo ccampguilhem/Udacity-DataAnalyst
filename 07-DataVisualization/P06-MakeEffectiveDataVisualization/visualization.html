@@ -10,9 +10,13 @@
         <script src="js/visualization.js"></script>
 
         <style>
-            h2, h3 {
+            /*h2, h3 {
                 text-align: center;
-            }
+            }*/
+
+            /*h3 {
+                font-size: 16px;
+            }*/
 
             g.states, path {
                 /*fill: #cfd8dc;*/
@@ -44,7 +48,7 @@
             div.tooltip {   
                 position: absolute;
                 text-align: left;         
-                width: 275px;                    
+                width: 320px;                    
                 height: 66px;                   
                 padding: 4px;               
                 font: 12px sans-serif;      
@@ -60,26 +64,7 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>2008's US Domestic Flights</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="map"></div>
-                </div>
-            </div>
-            <div class="row">            
-                <div class="col-md-12">
-                    <p class="note"><small>
-                        The GeoJSON data used is taken from <a href="https://github.com/PublicaMundi/MappingAPI">PublicaMundi</a>.<br>
-                        Uses the Darkly theme from <a href="https://bootswatch.com/">bootswatch.com</a>.<br>
-                        The Jupyter notebook used to prepare the dataset for visualization may be found <a href="https://github.com/ccampguilhem/Udacity-DataAnalyst/blob/master/07-DataVisualization/P06-MakeEffectiveDataVisualization/effective_visualization.ipynb">here</a>.
-                    </small></p>
-                </div>
-            </div>
+        <div class="container" id="main">
         </div>
         <script type="text/javascript">
             /*

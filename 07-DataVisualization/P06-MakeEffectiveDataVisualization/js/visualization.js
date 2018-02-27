@@ -1,8 +1,12 @@
 /*
  * Global variables
  */
+//GeoJSON data
+var geoData = null;
+//Routes data
+var routesData = null;
 // Projection for map
-var projection;
+var projection = null;
 //Number of cuts in route length
 var nbCuts = 20;
 //Size for airports circle
@@ -14,21 +18,165 @@ var maxSizeRoute = 2.0;
 //transitions
 var shortTransition = 200;
 var mediumTransition = 500;
-var animationTransition = 1000;
+var longTransition = 4000;
+var animationTransition = 2000;
+//Selected airport
+var currentAirportSelection = null;
+
 
 /*
  * Main drawing function
  *
- * - geo_data: GeoJSON data loaded from html page
+ * - data: GeoJSON data loaded from html page
  */
-function draw(geo_data) {
+function draw(data) {
     
     "use strict";
+
+    geoData = data;
+
+    //Load routes dataset
+    d3.csv("routes.csv", function(d) {
+        //converts string to numeric value
+        d["Distance"] = +d["Distance"]; 
+        d["Flights"] = +d["Flights"];
+        d["OriginLat"] = +d["OriginLat"];
+        d["OriginLong"] = +d["OriginLong"];
+        d["DestLat"] = +d["DestLat"];
+        d["DestLong"] = +d["DestLong"];
+        return d;
+        }, callbackRoutes);
+}
+
+/*
+ * Callback method for routes data
+ *
+ * - data: routes dataset
+ */
+function callbackRoutes(data) {
+
+    //Save routes data
+    routesData = data;
+
+    //Play introduction
+    playIntroduction();
+}
+
+/*
+ * Introduction of animation
+ */
+function playIntroduction() {
+
+    //Create containers for introduction
+    var main = d3.select("div#main");
+    var intro = main.append("div")
+        .attr("class", "row")
+        .attr("id", "intro")
+        .style("text-align", "justify")
+        .append("div")
+        .attr("class", "col-md-12");
+    var panel = intro.append("div")
+        .attr("id", "panel")
+        .style("margin-top", "250px");
+    var notes = intro.append("div")
+        .attr("id", "notes")
+        .style("text-align", "center")
+        .style("margin-top", "50px");
+
+    //Display messages
+    d3.select("#panel")
+        .append("h5")
+        .html(`The following visualization shows the organisation of US domestic flights in 2008
+            and use of different types of aircrafts.`);
+    d3.select("#panel")
+        .append("br")
+    d3.select("#panel")
+        .append("h5")
+        .html(`Each route is represented by a line. The thickness indicates the number of flights 
+            on that route. Airports are shown as dots which size depends on number of flights 
+            from or to that airport.`);
+    d3.select("#panel")
+        .append("br");
+    d3.select("#panel")
+        .append("h5")
+        .html(`The animation displays routes per group of route length starting with shorter ones.
+            `);
+    d3.select("#panel")
+        .append("br");
+    d3.select("#panel")
+        .append("h5")
+        .html(`Once animation is completed, use the <span class="text-primary">slider</span> to 
+            filter route by lengths. <span class="text-primary">Hover</span> an airport to display 
+            additional information. <span class="text-primary">Click</span> on the dot to filter 
+            traffic for that airport. <span class="text-primary">Click</span> again to restore 
+            previous display.`);
+    d3.select("#panel")
+        .append("br");
+    d3.select("#panel")
+        .append("div")
+        .style("text-align", "center")
+        .append("button")
+        .attr("type", "button")
+        .attr("class", "btn btn-primary btn-lg")
+        .style("text-align", "center")
+        .html("Got it !")
+        .attr("onclick", "stopIntroduction()");
+    d3.select("#notes")
+        .append("p")
+        .html(`<small>The GeoJSON data used is taken from 
+            <a href="https://github.com/PublicaMundi/MappingAPI">PublicaMundi</a>.<br>
+            Uses the Darkly theme from <a href="https://bootswatch.com/">bootswatch.com</a>.<br>
+            Uses D3.js <a href="https://d3js.org/">library</a>.<br>
+            The Jupyter notebook used to prepare the dataset for visualization may be found 
+            <a href="https://github.com/ccampguilhem/Udacity-DataAnalyst/blob/master/07-DataVisualization/P06-MakeEffectiveDataVisualization/effective_visualization.ipynb">here</a>.
+            </small>`);
+
+
+                        
+}
+
+function stopIntroduction() {
     
+    //Fade panel out and destroy containers
+    d3.select("#panel")
+        .transition()
+        .duration(mediumTransition)
+        .on("end", function() {
+            d3.select("div#intro").remove();
+            drawMap();
+        })
+        .style("opacity", 0);
+}
+
+/*
+ * Draw map
+ */
+function drawMap() {
+
+    //Create container for status bar
+    d3.select("div#main")
+        .append("div")
+        .attr("class", "row status")
+        .append("div")
+        .attr("class", "col-md-12")
+        .append("h6")
+        .style("text-align", "center")
+        .style("margin-top", "20px")
+        .html("No route displayed.");
+
+    //Create container for svg
+    d3.select("div#main")
+        .append("div")
+        .attr("class", "row")
+        .append("div")
+        .attr("class", "col-md-12")
+        .append("div")
+        .attr("class", "map");
+
     //Draw GeoJSON map
-    var margin = 0,
+    var margin = 10,
         width = 1140 - margin,
-        height = 700 - margin;
+        height = 575 - margin;
 
     var svg = d3.select("div.map")
         .append("svg")
@@ -38,15 +186,31 @@ function draw(geo_data) {
         .attr("class", "states")
 
     projection = d3.geoAlbers()
-        .scale(1500)
-        .translate([550., 350.]);
+        .scale(1250)
+        .translate([550., 280.]);
     var path = d3.geoPath().projection(projection);
 
     var map = svg.selectAll("path")
-        .data(geo_data.features)
+        .data(geoData.features)
         .enter()
         .append("path")
-        .attr("d", path);
+        .style("opacity", 0)
+        .attr("d", path)
+        .transition()
+        .duration(shortTransition)
+        .style("opacity", 1);
+
+    setTimeout(playAnimation, shortTransition);
+}
+
+/*
+ * Play animation
+ */
+ function playAnimation() {
+
+    //Calculate cuts
+    var cuts = calculateCuts(routesData, nbCuts);
+    //console.log("callbackRoutes.cuts:", cuts);
 
     //Tool tip for airports
     var tooltip = d3.select("div.map")
@@ -66,46 +230,23 @@ function draw(geo_data) {
         .append("g")
         .attr("class", "circles");
 
-    //Load routes dataset
-    d3.csv("routes.csv", function(d) {
-        //converts string to numeric value
-        d["Distance"] = +d["Distance"]; 
-        d["Flights"] = +d["Flights"];
-        d["OriginLat"] = +d["OriginLat"];
-        d["OriginLong"] = +d["OriginLong"];
-        d["DestLat"] = +d["DestLat"];
-        d["DestLong"] = +d["DestLong"];
-        return d;
-        }, callbackRoutes);
-}
-
-/*
- * Callback function when routes dataset is loaded
- *
- * - data: routes dataset
- */
- function callbackRoutes(data) {
-
-    //Calculate cuts
-    var cuts = calculateCuts(data, nbCuts);
-    //console.log("callbackRoutes.cuts:", cuts);
-
     //Routes animation
-    var j = 1;
-    var routes_interval = setInterval(function(){
-        //this function is called at specified time intervals (here 1000 milliseconds)
-        update(data, cuts[j-1], cuts[j]);
-        j++;
-        if (j >= cuts.length) {
-            //stops the iteration
-            clearInterval(routes_interval);
-            //display all
-            update(data, cuts[0], cuts[nbCuts]);
+    setTimeout(function(){ 
+        var j = 1;
+        update(routesData, cuts[j-1], cuts[j]);
+        var interval = setInterval(function(){
+            //this function is called at specified time intervals    
+            j++;
+            if (j > nbCuts) {
+                update(routesData, cuts[0], cuts[nbCuts]);
+                //stops the iteration
+                clearInterval(interval);
+            } else {
+                update(routesData, cuts[j-1], cuts[j]);
+            }
+        }, animationTransition);
         }
-    }, animationTransition);
-
-    //update(data, cuts[0], cuts[nbCuts]);
-    //update(data, cuts[nbCuts-3], cuts[nbCuts-2]);
+    , animationTransition);
  }
 
  /*
@@ -274,6 +415,20 @@ function createAirportsDataset(data, minLength=0, maxLength=999999, selectedAirp
  */
 function update(data, minLength, maxLength, selectedAirport=null) {
 
+    //Update status
+    var statusText;
+    if (selectedAirport === null) {
+        statusText = "Routes between " + minLength.toFixed() + " and " + 
+                    maxLength.toFixed() + " nautic miles.";
+    } else {
+        statusText = "Routes between " + minLength.toFixed() + " and " + 
+                    maxLength.toFixed() + " nautic miles from or to " + 
+                    selectedAirport + ".";
+    }
+    var status = d3.select("div.status")
+            .select("h6")
+            .html(statusText);
+
     //Update routes
     updateRoutes(data, minLength, maxLength, selectedAirport);
 
@@ -355,7 +510,13 @@ function updateAirports(data, minLength, maxLength, selectedAirport=null) {
         })
         .merge(circles) //select new elements and the elements already there
         .on("click", function (d) {
-            update(data, minLength, maxLength, d.Airport);
+            if (currentAirportSelection === d.Airport) {
+                currentAirportSelection = null;
+                update(data, minLength, maxLength);
+            } else {
+                currentAirportSelection = d.Airport;
+                update(data, minLength, maxLength, d.Airport);
+            }
         })        
         .attr("cx", function(d) { return d.Coords[0]; })
         .attr("cy", function(d) { return d.Coords[1]; })
