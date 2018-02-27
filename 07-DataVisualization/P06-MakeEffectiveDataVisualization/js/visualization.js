@@ -8,21 +8,22 @@ var routesData = null;
 // Projection for map
 var projection = null;
 //Number of cuts in route length
-var nbCuts = 20;
+var nbCuts = 3;
 //Size for airports circle
 var minSizeAirport = 1;
 var maxSizeAirport = 20;
 //Stroke width for routes
 var minSizeRoute = 0.1;
 var maxSizeRoute = 2.0;
-//transitions
+//Transitions
 var shortTransition = 200;
 var mediumTransition = 500;
 var longTransition = 4000;
 var animationTransition = 2000;
-//Selected airport
+//User-defined selections
 var currentAirportSelection = null;
-
+var currentMinLength = null;
+var currentMaxLength = null;
 
 /*
  * Main drawing function
@@ -100,7 +101,7 @@ function playIntroduction() {
     d3.select("#panel")
         .append("h5")
         .html(`The animation displays routes per group of route length starting with shorter ones.
-            `);
+            Then, it shows the traffic from/to the five biggest airports in US.`);
     d3.select("#panel")
         .append("br");
     d3.select("#panel")
@@ -126,19 +127,16 @@ function playIntroduction() {
         .html(`<small>The GeoJSON data used is taken from 
             <a href="https://github.com/PublicaMundi/MappingAPI">PublicaMundi</a>.<br>
             Uses the Darkly theme from <a href="https://bootswatch.com/">bootswatch.com</a>.<br>
-            Uses D3.js <a href="https://d3js.org/">library</a>.<br>
+            Uses D3.js v4 <a href="https://d3js.org/">library</a>.<br>
             The Jupyter notebook used to prepare the dataset for visualization may be found 
             <a href="https://github.com/ccampguilhem/Udacity-DataAnalyst/blob/master/07-DataVisualization/P06-MakeEffectiveDataVisualization/effective_visualization.ipynb">here</a>.
-            </small>`);
-
-
-                        
+            </small>`);                        
 }
 
 function stopIntroduction() {
     
-    //Fade panel out and destroy containers
-    d3.select("#panel")
+    //Fade out and destroy containers
+    d3.select("#intro")
         .transition()
         .duration(mediumTransition)
         .on("end", function() {
@@ -168,8 +166,9 @@ function drawMap() {
     d3.select("div#main")
         .append("div")
         .attr("class", "row")
+        .attr("id", "center")
         .append("div")
-        .attr("class", "col-md-12")
+        .attr("class", "col-md-10")
         .append("div")
         .attr("class", "map");
 
@@ -187,7 +186,7 @@ function drawMap() {
 
     projection = d3.geoAlbers()
         .scale(1250)
-        .translate([550., 280.]);
+        .translate([460., 280.]);
     var path = d3.geoPath().projection(projection);
 
     var map = svg.selectAll("path")
@@ -230,19 +229,107 @@ function drawMap() {
         .append("g")
         .attr("class", "circles");
 
+    //Container for controls
+    var controls = d3.select("div#center")
+        .append("div")
+        .attr("class", "col-md-2")
+        .style("visibility", "hidden");
+
+    //Controls
+    minLengthControl = controls.append("div")
+        .attr("class", "form-group")
+        .append("fieldset");
+    minLengthControl.append("label")
+        .attr("class", "control-label")
+        .attr("for", "minLengthInput")
+        .html("Min route length:");
+    minLengthControl.append("input")
+        .attr("type", "number")
+        .attr("id", "minLengthInput")
+        .attr("min", cuts[0])
+        .attr("max", cuts[nbCuts])
+        //.attr("step", "100")
+        .attr("value", cuts[0])
+        .on("input", function() { currentMinLength = +this.value; });
+    currentMinLength = cuts[0];
+    maxLengthControl = controls.append("div")
+        .attr("class", "form-group")
+        .append("fieldset");
+    maxLengthControl.append("label")
+        .attr("class", "control-label")
+        .attr("for", "maxLengthInput")
+        .html("Max route length:");
+    maxLengthControl.append("input")
+        .attr("type", "number")
+        .attr("id", "maxLengthInput")
+        .attr("min", cuts[0])
+        .attr("max", cuts[nbCuts])
+        //.attr("step", "100")
+        .attr("value", cuts[nbCuts])
+        .on("input", function() { currentMaxLength = +this.value; });
+    currentMaxLength = cuts[nbCuts];
+    applyButton = controls.append("button")
+        .attr("type", "submit")
+        .attr("class", "btn btn-primary")
+        .attr("id", "apply")
+        .html("Apply")
+        .on("click", function() {
+            if (currentMinLength > currentMaxLength) {
+                currentMinLength = currentMaxLength - 1;
+                document.getElementById("minLengthInput").value = currentMinLength.toString();
+            }
+            update(routesData, currentMinLength, currentMaxLength, currentAirportSelection);
+        });
+
+    //Bind enter key to apply button
+    //from https://stackoverflow.com/a/39318404/8500344
+    document.onkeydown = function (e) {
+        e = e || window.event;
+        switch (e.which || e.keyCode) {
+            case 13 : //Your Code Here (13 is ascii code for 'ENTER')
+                document.getElementById("apply").click();
+            break;
+  }
+}
+
+    //Prepare data for animation
+    var animationData = [];
+    for (i = 1; i <= nbCuts; i++) {
+        animationData.push({
+            "minLength": cuts[i-1],
+            "maxLength": cuts[i],
+            "airport": null}
+            );
+    }
+    big5 = ["William B Hartsfield-Atlanta Intl", "Chicago O'Hare International", "Denver Intl", 
+            "Phoenix Sky Harbor International", "Los Angeles International"];
+    for (i = 0; i < big5.length; i++)
+    animationData.push({
+        "minLength": cuts[0],
+        "maxLength": cuts[nbCuts],
+        "airport": big5[i]}
+        );
+    animationData.push({
+        "minLength": cuts[0],
+        "maxLength": cuts[nbCuts],
+        "airport": null});
+
     //Routes animation
     setTimeout(function(){ 
-        var j = 1;
-        update(routesData, cuts[j-1], cuts[j]);
+        var i = 0;
+        update(routesData, animationData[i].minLength, animationData[i].maxLength, 
+            animationData[i].airport);
         var interval = setInterval(function(){
             //this function is called at specified time intervals    
-            j++;
-            if (j > nbCuts) {
-                update(routesData, cuts[0], cuts[nbCuts]);
+            i++;
+            if (i >= animationData.length) {
+                //Make controls visible
+                controls.style("visibility", "visible");
                 //stops the iteration
                 clearInterval(interval);
             } else {
-                update(routesData, cuts[j-1], cuts[j]);
+                update(routesData, animationData[i].minLength, animationData[i].maxLength,
+                    animationData[i].airport);
             }
         }, animationTransition);
         }
@@ -495,6 +582,7 @@ function updateAirports(data, minLength, maxLength, selectedAirport=null) {
                 .style("left", d.Coords[0] + 30 + "px")
                 .style("top", d.Coords[1] - 20 + "px");
             d3.select(this)
+                .style("cursor", "pointer")
                 .transition()
                 .duration(shortTransition)
                 .style("fill", "#00BC8C");
@@ -504,6 +592,7 @@ function updateAirports(data, minLength, maxLength, selectedAirport=null) {
                 .duration(shortTransition)
                 .style("opacity", 0.0);
             d3.select(this)
+                .style("cursor", "default")
                 .transition()
                 .duration(shortTransition)
                 .style("fill", "white");
