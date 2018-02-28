@@ -15,6 +15,9 @@ var maxSizeAirport = 20;
 //Stroke width for routes
 var minSizeRoute = 0.1;
 var maxSizeRoute = 2.0;
+//Bar charts
+var minSizeBar = 0;
+var maxSizeBar = 600;
 //Transitions
 var shortTransition = 200;
 var mediumTransition = 500;
@@ -26,11 +29,11 @@ var currentMinLength = null;
 var currentMaxLength = null;
 
 /*
- * Main drawing function
+ * Entry point (called from HTML code)
  *
  * - data: GeoJSON data loaded from html page
  */
-function draw(data) {
+function entryPoint(data) {
     
     "use strict";
 
@@ -88,14 +91,15 @@ function playIntroduction() {
     d3.select("#panel")
         .append("h5")
         .html(`The following visualization shows the organisation of US domestic flights in 2008
-            and use of different types of aircrafts.`);
+            and use of different aircraft manufacturers.`);
     d3.select("#panel")
         .append("br")
     d3.select("#panel")
         .append("h5")
         .html(`Each route is represented by a line. The thickness indicates the number of flights 
             on that route. Airports are shown as dots which size depends on number of flights 
-            from or to that airport.`);
+            from or to that airport. The number of flights per aircraft manufacturer is also 
+            displayed in a bar chart at the bottom.`);
     d3.select("#panel")
         .append("br");
     d3.select("#panel")
@@ -106,8 +110,8 @@ function playIntroduction() {
         .append("br");
     d3.select("#panel")
         .append("h5")
-        .html(`Once animation is completed, use the <span class="text-primary">slider</span> to 
-            filter route by lengths. <span class="text-primary">Hover</span> an airport to display 
+        .html(`Once animation is completed, use the <span class="text-primary">controls</span> to 
+            filter routes by length. <span class="text-primary">Hover</span> an airport to display 
             additional information. <span class="text-primary">Click</span> on the dot to filter 
             traffic for that airport. <span class="text-primary">Click</span> again to restore 
             previous display.`);
@@ -119,9 +123,10 @@ function playIntroduction() {
         .append("button")
         .attr("type", "button")
         .attr("class", "btn btn-primary btn-lg")
+        .attr("id", "gotit")
         .style("text-align", "center")
         .html("Got it !")
-        .attr("onclick", "stopIntroduction()");
+        .on("click", stopIntroduction);
     d3.select("#notes")
         .append("p")
         .html(`<small>The GeoJSON data used is taken from 
@@ -130,9 +135,12 @@ function playIntroduction() {
             Uses D3.js v4 <a href="https://d3js.org/">library</a>.<br>
             The Jupyter notebook used to prepare the dataset for visualization may be found 
             <a href="https://github.com/ccampguilhem/Udacity-DataAnalyst/blob/master/07-DataVisualization/P06-MakeEffectiveDataVisualization/effective_visualization.ipynb">here</a>.
-            </small>`);                        
+            </small>`);
 }
 
+/*
+ * Stop introduction and transition to animation
+ */
 function stopIntroduction() {
     
     //Fade out and destroy containers
@@ -141,9 +149,18 @@ function stopIntroduction() {
         .duration(mediumTransition)
         .on("end", function() {
             d3.select("div#intro").remove();
-            drawMap();
+            draw();
         })
         .style("opacity", 0);
+}
+
+/*
+ * Draw visualization elements
+ */
+function draw() {
+    drawMap();
+    drawBarChart();
+    setTimeout(playAnimation, shortTransition); 
 }
 
 /*
@@ -174,7 +191,7 @@ function drawMap() {
 
     //Draw GeoJSON map
     var margin = 10,
-        width = 1140 - margin,
+        width = 950 - margin,
         height = 575 - margin;
 
     var svg = d3.select("div.map")
@@ -190,22 +207,53 @@ function drawMap() {
     var path = d3.geoPath().projection(projection);
 
     var map = svg.selectAll("path")
-        .data(geoData.features)
+        .data(geoData.features, function(d){
+            return d.properties.name;
+        })
         .enter()
         .append("path")
         .style("opacity", 0)
         .attr("d", path)
+        .attr("class", "state")
         .transition()
         .duration(shortTransition)
         .style("opacity", 1);
+}
 
-    setTimeout(playAnimation, shortTransition);
+/*
+ * Draw bar chart
+ */
+function drawBarChart() {
+
+    //Create container for svg
+    var container = d3.select("div#main")
+        .append("div")
+        .attr("class", "row")
+        .attr("id", "bottom")
+        .style("visibility", "hidden")
+        .append("div")
+        .attr("class", "col-md-10");
+    container.append("h6")
+        .html("Number of flights by aircraft manufacturer:")
+        .style("margin-left", "210px");
+    container.append("div")
+        .attr("class", "bar");
+
+    //Draw bar chart
+    var margin = 10,
+        width = 950 - margin,
+        height = 250 - margin;
+
+    var svg = d3.select("div.bar")
+        .append("svg")
+        .attr("width", width + margin)
+        .attr("height", height + margin);
 }
 
 /*
  * Play animation
  */
- function playAnimation() {
+function playAnimation() {
 
     //Calculate cuts
     var cuts = calculateCuts(routesData, nbCuts);
@@ -229,6 +277,20 @@ function drawMap() {
         .append("g")
         .attr("class", "circles");
 
+    //Bar chart
+    var bars = d3.select("div.bar")
+        .select("svg")
+        .append("g")
+        .attr("class", "bars");
+    var ticks = d3.select("div.bar")
+        .select("svg")
+        .append("g")
+        .attr("class", "ticks");
+    var labels = d3.select("div.bar")
+        .select("svg")
+        .append("g")
+        .attr("class", "labels");
+
     //Container for controls
     var controls = d3.select("div#center")
         .append("div")
@@ -236,7 +298,7 @@ function drawMap() {
         .style("visibility", "hidden");
 
     //Controls
-    minLengthControl = controls.append("div")
+    var minLengthControl = controls.append("div")
         .attr("class", "form-group")
         .append("fieldset");
     minLengthControl.append("label")
@@ -252,7 +314,7 @@ function drawMap() {
         .attr("value", cuts[0])
         .on("input", function() { currentMinLength = +this.value; });
     currentMinLength = cuts[0];
-    maxLengthControl = controls.append("div")
+    var maxLengthControl = controls.append("div")
         .attr("class", "form-group")
         .append("fieldset");
     maxLengthControl.append("label")
@@ -268,7 +330,7 @@ function drawMap() {
         .attr("value", cuts[nbCuts])
         .on("input", function() { currentMaxLength = +this.value; });
     currentMaxLength = cuts[nbCuts];
-    applyButton = controls.append("button")
+    var applyButton = controls.append("button")
         .attr("type", "submit")
         .attr("class", "btn btn-primary")
         .attr("id", "apply")
@@ -280,6 +342,20 @@ function drawMap() {
             }
             update(routesData, currentMinLength, currentMaxLength, currentAirportSelection);
         });
+    var resetButton = controls.append("button")
+        .attr("type", "submit")
+        .attr("class", "btn btn-primary")
+        .attr("id", "reset")
+        .html("Reset")
+        .style("margin-left", "22px")
+        .on("click", function() {
+            currentMinLength = cuts[0];
+            currentMaxLength = cuts[nbCuts];
+            currentAirportSelection = null;
+            document.getElementById("minLengthInput").value = currentMinLength.toString();
+            document.getElementById("maxLengthInput").value = currentMaxLength.toString();
+            update(routesData, currentMinLength, currentMaxLength, currentAirportSelection); 
+        })
 
     //Bind enter key to apply button
     //from https://stackoverflow.com/a/39318404/8500344
@@ -289,8 +365,8 @@ function drawMap() {
             case 13 : //Your Code Here (13 is ascii code for 'ENTER')
                 document.getElementById("apply").click();
             break;
-  }
-}
+        }
+    }
 
     //Prepare data for animation
     var animationData = [];
@@ -323,8 +399,9 @@ function drawMap() {
             //this function is called at specified time intervals    
             i++;
             if (i >= animationData.length) {
-                //Make controls visible
+                //Make bar chart and controls visible
                 controls.style("visibility", "visible");
+                d3.select("div#bottom").style("visibility", "visible");
                 //stops the iteration
                 clearInterval(interval);
             } else {
@@ -334,9 +411,42 @@ function drawMap() {
         }, animationTransition);
         }
     , animationTransition);
- }
+}
 
- /*
+/*
+ * Update the map with route dataset
+ *
+ * - data: route dataset
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
+ */
+function update(data, minLength, maxLength, selectedAirport=null) {
+
+    //Update status
+    var statusText;
+    if (selectedAirport === null) {
+        statusText = "Routes between " + minLength.toFixed() + " and " + 
+                    maxLength.toFixed() + " nautic miles.";
+    } else {
+        statusText = "Routes between " + minLength.toFixed() + " and " + 
+                    maxLength.toFixed() + " nautic miles from or to " + 
+                    selectedAirport + ".";
+    }
+    var status = d3.select("div.status")
+            .select("h6")
+            .html(statusText);
+
+    //Update routes
+    updateRoutes(data, minLength, maxLength, selectedAirport);
+
+    //Update airports
+    updateAirports(data, minLength, maxLength, selectedAirport);
+
+    //Update aircrafts
+    updateAircrafts(data, minLength, maxLength, selectedAirport);
+}
+/*
  * Create a cut array for route length
  *
  * The cut is made using quantiles of route length. If nbcuts is 4, the routes are cut in quartiles.
@@ -493,37 +603,6 @@ function createAirportsDataset(data, minLength=0, maxLength=999999, selectedAirp
 }
 
 /*
- * Update the map with route dataset
- *
- * - data: route dataset
- * - minLength: minimal route length to consider
- * - maxLength: maximal route length to consider
- * - selectedAirport: filter only routes including this airport
- */
-function update(data, minLength, maxLength, selectedAirport=null) {
-
-    //Update status
-    var statusText;
-    if (selectedAirport === null) {
-        statusText = "Routes between " + minLength.toFixed() + " and " + 
-                    maxLength.toFixed() + " nautic miles.";
-    } else {
-        statusText = "Routes between " + minLength.toFixed() + " and " + 
-                    maxLength.toFixed() + " nautic miles from or to " + 
-                    selectedAirport + ".";
-    }
-    var status = d3.select("div.status")
-            .select("h6")
-            .html(statusText);
-
-    //Update routes
-    updateRoutes(data, minLength, maxLength, selectedAirport);
-
-    //Update airports
-    updateAirports(data, minLength, maxLength, selectedAirport);
-}
-
-/*
  * Update the airports on the map
  *
  * - data: route dataset
@@ -610,6 +689,7 @@ function updateAirports(data, minLength, maxLength, selectedAirport=null) {
         .attr("cx", function(d) { return d.Coords[0]; })
         .attr("cy", function(d) { return d.Coords[1]; })
         .transition()
+        .ease(d3.easeLinear)
         .duration(mediumTransition)
         .attr("r", function(d) { return flightsScale(d.Flights); })
 }
@@ -617,7 +697,7 @@ function updateAirports(data, minLength, maxLength, selectedAirport=null) {
 /* 
  * Aggregation function for routes
  *
- * - data: airport group data
+ * - data: routes group data
  * - return: object with aggregated value for routes
  */
 function aggregateRoutes(data) {
@@ -752,4 +832,175 @@ function updateRoutes(data, minLength, maxLength, selectedAirport=null) {
         .transition()
         .duration(mediumTransition)
         .style("stroke-width", function(d) { return routesScale(d.Flights); })
+}
+
+/* 
+ * Aggregation function for aircrafts
+ *
+ * - data: aircrafts group data
+ * - return: object with aggregated value for aircrafts
+ */
+function aggregateAircrafts(data) {
+    return {
+        "Flights": d3.sum(data, function(d) {
+            return d["Flights"];
+        })
+    };
+}
+
+/*
+ * Create the aircrafts dataset
+ *
+ * - data: route dataset
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
+ */
+function createAircraftsDataset(data, minLength=0, maxLength=999999, selectedAirport=null) {
+    //Filter routes by length
+    //console.log("createAircraftsDataset.data", data);
+    //console.log("createAircraftsDataset.minLength: ", minLength);
+    //console.log("createAircraftsDataset.maxLength: ", maxLength);
+    var filtered = data.filter(function(d) {
+        if (selectedAirport === null) {
+            return (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+        } else {
+            var bool1 = (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+            var bool2 = (d["OriginAirport"] === selectedAirport) ||
+                    (d["DestAirport"] === selectedAirport)
+            return bool1 && bool2;
+        }
+    })
+    console.log("createAircraftsDataset.filtered", filtered);
+
+    //Group by aircraft
+    var aircraftsAgg = d3.nest()
+        //group by aircraft
+        .key(function(d) { return d["Manufacturer"]; })
+        //aggregate
+        .rollup(aggregateAircrafts)
+        //bind filtered data
+        .entries(filtered)
+    console.log("createAircraftsDataset.aircraftsAgg", aircraftsAgg);
+
+    //Get full list of aircrafts
+    //This is to ensure that all aircrafts are in the dataset even if number of flights is 0
+    //This way bar chart will always have the same components
+    allAircrafts = d3.set(data, function(d) { return d["Manufacturer"]; });
+    var aircraftsDict = {};
+    allAircrafts.each(function(d) {
+        aircraftsDict[d] = 0;
+    });
+    console.log("createAircraftsDataset.aircraftsDict", aircraftsDict);
+
+    //Generate aircrafts dataset
+    var aircrafts = [];
+    for (i = 0; i < aircraftsAgg.length; i++) {
+        var name = aircraftsAgg[i].key;
+        var flights = aircraftsAgg[i].value.Flights;
+        aircraftsDict[name] = flights;
+    }
+    for (var name in aircraftsDict) {
+        var item = {
+            "Aircraft": name,
+            "Flights": aircraftsDict[name]
+        };
+        aircrafts.push(item);
+    }
+    
+    //Sort aircrafts so that they always appear in alphabetical order
+    aircrafts.sort(function (a, b) {
+        return a.Aircraft.localeCompare(b.Aircraft);
+    });
+
+    return aircrafts;
+}
+
+/*
+ * Update the bar chart with aircrafts data
+ *
+ * - data: route dataset
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
+ */
+function updateAircrafts(data, minLength, maxLength, selectedAirport=null) {
+
+    // Create aircrafts dataset
+    var aircrafts = createAircraftsDataset(data, minLength, maxLength, selectedAirport);
+    var maxFlights = d3.max(aircrafts, function(d) { return d.Flights; });
+    var minFlights = d3.min(aircrafts, function(d) { return d.Flights; });    
+    console.log("updateAircrafts.aircrafts: ", aircrafts);
+
+    //Select svg groups
+    var bars = d3.select("div.bar")
+        .select("svg")
+        .select("g.bars");
+    var ticks = d3.select("div.bar")
+        .select("svg")
+        .select("g.ticks");
+    var labels = d3.select("div.bar")
+        .select("svg")
+        .select("g.labels");
+
+    //Create scale
+    var aircraftsScale = d3.scaleLinear()
+        .domain([minFlights, maxFlights])
+        .range([minSizeBar, maxSizeBar]);
+
+    //Draw bars
+    var rects = bars.selectAll("rect")
+        .data(aircrafts, function(d) { return d.Aircraft; });
+
+    rects.enter() //select missing elements
+        .append("rect")
+        .merge(rects)
+        .attr("height", 12)
+        .attr("x", 210)
+        .attr("y", function(d, i) { return i * (12 + 5) + 2; })
+        .transition()
+        .duration(mediumTransition)
+        .attr("width", function(d) { return aircraftsScale(d.Flights); });
+
+    //Draw ticks
+    var texts = ticks.selectAll("text")
+        .data(aircrafts, function(d) { return d.Aircraft; });
+
+    texts.enter()
+        .append("text")
+        .merge(texts)
+        .text(function(d) { return d.Aircraft; })
+        .attr("x", 200)
+        .attr("y", function(d, i) { return i * (12 + 5) + 12; })
+        .style("text-anchor", "end")
+        .attr("font-size", 12)
+        .style("fill", "white");
+
+    //Draw labels
+    texts = labels.selectAll("text")
+        .data(aircrafts, function(d) { return d.Aircraft; });
+
+    texts.enter()
+        .append("text")
+        .style("text-anchor", "begin")
+        .attr("font-size", 12)
+        .style("fill", "white")
+        .style("font-style", "italic")
+        .attr("x", function(d) { return 200 + 20; })
+        .attr("y", function(d, i) { return i * (12 + 5) + 12; })
+        .merge(texts)
+        //.transition()
+        //.duration(shortTransition)
+        //.style("opacity", 0)
+        .transition()
+        .duration(mediumTransition)
+        //.style("opacity", 1);
+        .text(function(d) { 
+            if (d.Flights > 0) {
+                return d.Flights;
+            } else {
+                return "";
+            }})
+        .attr("x", function(d) { return 200 + 20 + aircraftsScale(d.Flights); })
+        .attr("y", function(d, i) { return i * (12 + 5) + 12; })
 }
