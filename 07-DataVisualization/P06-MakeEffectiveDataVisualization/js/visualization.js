@@ -8,7 +8,7 @@ var routesData = null;
 // Projection for map
 var projection = null;
 //Number of cuts in route length
-var nbCuts = 3;
+var nbCuts = 20;
 //Size for airports circle
 var minSizeAirport = 1;
 var maxSizeAirport = 20;
