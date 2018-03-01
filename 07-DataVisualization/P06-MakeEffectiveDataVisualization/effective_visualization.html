@@ -11831,8 +11831,7 @@ div#notebook {
 </ul>
 </li>
 <li><a href="#Preparation">6. Data preparation for visualization</a></li>
-<li><a href="#Conclusion">7. Conclusion</a></li>
-<li><a href="#Appendix">8. Appendix</a></li>
+<li><a href="#Appendix">7. Appendix</a></li>
 </ul>
 
 </div>
@@ -27052,7 +27051,7 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
 <li>airports location with associated traffic as a circle on the map</li>
 <li>routes from origin airport to destination airport with thickness representative of the number of flights on that route</li>
 </ul>
-<p>In terms of animation we want to see the various routes, stats of airlines and aircraft used as function of route length. This will enable to limit the overplot on the map.</p>
+<p>In terms of animation we want to see the various routes, stats of aircrafts used as function of route length. This will enable to limit the overplot on the map.</p>
 <p>This is to show that various aircrafts/airlines are used depending on routes and that we have different types of airports:</p>
 <ul>
 <li>with a lot of traffic but to many destinations</li>
@@ -27066,12 +27065,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
 <li>OriginLat</li>
 <li>OriginLong</li>
 <li>OriginAirport</li>
+<li>OriginCity</li>
+<li>OriginState</li>
 <li>DestLat</li>
 <li>DestLong</li>
 <li>DestAirport</li>
+<li>DestCity</li>
+<li>DestState</li>
 <li>Distance</li>
 </ul>
 <p>The idea is to keep only a single entry per route, airline and manufacturer. An additional parameter will be created with total number of flights for each entry.</p>
+<p>The routes from or to Alaska, Puerto Rico and Hawaii are filtered out to keep data centered on metropolitan area. We also exclude flights from or to Virgin Islands.</p>
 
 </div>
 </div>
@@ -27081,23 +27085,30 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">final_df</span> <span class="o">=</span> <span class="n">overall_df</span><span class="p">[[</span><span class="s2">&quot;Route&quot;</span><span class="p">,</span> <span class="s2">&quot;Airline&quot;</span><span class="p">,</span> <span class="s2">&quot;Manufacturer&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginLat&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginLong&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginAirport&quot;</span><span class="p">,</span> 
-                       <span class="s2">&quot;DestLat&quot;</span><span class="p">,</span> <span class="s2">&quot;DestLong&quot;</span><span class="p">,</span> <span class="s2">&quot;DestAirport&quot;</span><span class="p">,</span> <span class="s2">&quot;Distance&quot;</span><span class="p">]]</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">final_df</span> <span class="o">=</span> <span class="n">overall_df</span><span class="p">[[</span><span class="s2">&quot;Route&quot;</span><span class="p">,</span> <span class="s2">&quot;Airline&quot;</span><span class="p">,</span> <span class="s2">&quot;Manufacturer&quot;</span><span class="p">,</span> 
+                       <span class="s2">&quot;OriginLat&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginLong&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginAirport&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginCity&quot;</span><span class="p">,</span> <span class="s2">&quot;OriginState&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;DestLat&quot;</span><span class="p">,</span> <span class="s2">&quot;DestLong&quot;</span><span class="p">,</span> <span class="s2">&quot;DestAirport&quot;</span><span class="p">,</span> <span class="s2">&quot;DestCity&quot;</span><span class="p">,</span> <span class="s2">&quot;DestState&quot;</span><span class="p">,</span> 
+                       <span class="s2">&quot;Distance&quot;</span><span class="p">]]</span>
 <span class="n">final_df</span> <span class="o">=</span> <span class="p">(</span><span class="n">final_df</span>
             <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Flights</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Distance</span><span class="p">)</span>
             <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;Route&quot;</span><span class="p">,</span> <span class="s2">&quot;Airline&quot;</span><span class="p">,</span> <span class="s2">&quot;Manufacturer&quot;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
             <span class="o">.</span><span class="n">aggregate</span><span class="p">({</span><span class="s2">&quot;OriginLat&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span> 
                         <span class="s2">&quot;OriginLong&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span> 
                         <span class="s2">&quot;OriginAirport&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span> 
+                        <span class="s2">&quot;OriginCity&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;OriginState&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
                         <span class="s2">&quot;DestLat&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
                         <span class="s2">&quot;DestLong&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
                         <span class="s2">&quot;DestAirport&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;DestCity&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;DestState&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
                         <span class="s2">&quot;Distance&quot;</span><span class="p">:</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span>
                         <span class="s2">&quot;Flights&quot;</span><span class="p">:</span> <span class="s2">&quot;count&quot;</span><span class="p">})</span>
-            <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Distance&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Distance&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">OriginAirport</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">OriginAirport</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">DestAirport</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">DestAirport</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span>
 </pre></div>
 
 </div>
@@ -27110,7 +27121,30 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">final_df</span> <span class="o">=</span> <span class="n">final_df</span><span class="p">[(</span><span class="n">final_df</span><span class="o">.</span><span class="n">OriginState</span> <span class="o">!=</span> <span class="s2">&quot;AK&quot;</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">DestState</span> <span class="o">!=</span> <span class="s2">&quot;AK&quot;</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">OriginState</span> <span class="o">!=</span> <span class="s2">&quot;PR&quot;</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">DestState</span> <span class="o">!=</span> <span class="s2">&quot;PR&quot;</span><span class="p">)</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">OriginState</span> <span class="o">!=</span> <span class="s2">&quot;HI&quot;</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">DestState</span> <span class="o">!=</span> <span class="s2">&quot;HI&quot;</span><span class="p">)</span> <span class="o">&amp;</span>
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">OriginState</span> <span class="o">!=</span> <span class="s2">&quot;VI&quot;</span><span class="p">)</span> <span class="o">&amp;</span> 
+         <span class="p">(</span><span class="n">final_df</span><span class="o">.</span><span class="n">DestState</span> <span class="o">!=</span> <span class="s2">&quot;VI&quot;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">final_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -27126,7 +27160,7 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[97]:</div>
+<div class="prompt output_prompt">Out[67]:</div>
 
 
 
@@ -27153,13 +27187,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
       <th>Airline</th>
       <th>Manufacturer</th>
       <th>Distance</th>
-      <th>DestAirport</th>
+      <th>DestState</th>
       <th>DestLong</th>
-      <th>OriginAirport</th>
+      <th>DestAirport</th>
       <th>DestLat</th>
+      <th>OriginLong</th>
+      <th>OriginAirport</th>
+      <th>OriginState</th>
       <th>OriginLat</th>
       <th>Flights</th>
-      <th>OriginLong</th>
+      <th>DestCity</th>
+      <th>OriginCity</th>
     </tr>
   </thead>
   <tbody>
@@ -27169,13 +27207,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
       <td>Skywest Airlines Inc.</td>
       <td>CANADAIR</td>
       <td>118</td>
-      <td>Fresno Yosemite International</td>
+      <td>CA</td>
       <td>-119.718140</td>
-      <td>San Luis Obispo Co-McChesney</td>
+      <td>Fresno Yosemite International</td>
       <td>36.776196</td>
+      <td>-120.642395</td>
+      <td>San Luis Obispo Co-McChesney</td>
+      <td>CA</td>
       <td>35.237057</td>
       <td>1</td>
-      <td>-120.642395</td>
+      <td>Fresno</td>
+      <td>San Luis Obispo</td>
     </tr>
     <tr>
       <th>1929</th>
@@ -27183,13 +27225,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
       <td>Skywest Airlines Inc.</td>
       <td>BOMBARDIER INC</td>
       <td>118</td>
-      <td>Gallatin</td>
+      <td>MT</td>
       <td>-111.153008</td>
-      <td>Great Falls Intl</td>
+      <td>Gallatin</td>
       <td>45.776901</td>
+      <td>-111.370682</td>
+      <td>Great Falls Intl</td>
+      <td>MT</td>
       <td>47.482002</td>
       <td>1</td>
-      <td>-111.370682</td>
+      <td>Bozeman</td>
+      <td>Great Falls</td>
     </tr>
     <tr>
       <th>2188</th>
@@ -27197,13 +27243,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
       <td>Mesa Airlines Inc.</td>
       <td>BOMBARDIER INC</td>
       <td>118</td>
-      <td>Fayetteville Municipal</td>
+      <td>NC</td>
       <td>-78.879997</td>
-      <td>Charlotte/Douglas International</td>
+      <td>Fayetteville Municipal</td>
       <td>34.991470</td>
+      <td>-80.943123</td>
+      <td>Charlotte/Douglas International</td>
+      <td>NC</td>
       <td>35.214012</td>
       <td>184</td>
-      <td>-80.943123</td>
+      <td>Fayetteville</td>
+      <td>Charlotte</td>
     </tr>
     <tr>
       <th>4064</th>
@@ -27211,13 +27261,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
       <td>Mesa Airlines Inc.</td>
       <td>CANADAIR</td>
       <td>119</td>
-      <td>Phoenix Sky Harbor International</td>
+      <td>AZ</td>
       <td>-112.008057</td>
-      <td>Flagstaff Pulliam</td>
+      <td>Phoenix Sky Harbor International</td>
       <td>33.434166</td>
+      <td>-111.671219</td>
+      <td>Flagstaff Pulliam</td>
+      <td>AZ</td>
       <td>35.138454</td>
       <td>34</td>
-      <td>-111.671219</td>
+      <td>Phoenix</td>
+      <td>Flagstaff</td>
     </tr>
     <tr>
       <th>4038</th>
@@ -27225,13 +27279,17 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
       <td>Expressjet Airlines Inc.</td>
       <td>EMBRAER</td>
       <td>119</td>
-      <td>Monterey Peninsula</td>
+      <td>CA</td>
       <td>-121.842949</td>
-      <td>Fresno Yosemite International</td>
+      <td>Monterey Peninsula</td>
       <td>36.586983</td>
+      <td>-119.718140</td>
+      <td>Fresno Yosemite International</td>
+      <td>CA</td>
       <td>36.776196</td>
       <td>2</td>
-      <td>-119.718140</td>
+      <td>Monterey</td>
+      <td>Fresno</td>
     </tr>
   </tbody>
 </table>
@@ -27249,49 +27307,10 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
     
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">final_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;routes.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a id="Conclusion"></p>
-
-</div>
-</div>
-</div>
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="7.-Conclusion-Top">7. Conclusion <a href="#Top"><em>Top</em></a><a class="anchor-link" href="#7.-Conclusion-Top">&#194;&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">final_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;routes.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -27318,7 +27337,7 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="8.-Appendix-Top">8. Appendix <a href="#Top"><em>Top</em></a><a class="anchor-link" href="#8.-Appendix-Top">&#194;&#182;</a></h2>
+<h2 id="7.-Appendix-Top">7. Appendix <a href="#Top"><em>Top</em></a><a class="anchor-link" href="#7.-Appendix-Top">&#194;&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -27333,30 +27352,13 @@ TOu8IiIi8o2SkpKoq6vTJEhErhpaERIRERERkS5HK0IiIiIiItLlaCIkIiIiIiJdjiZCIiIiIiLS
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>List of airports on <a href="https://en.wikipedia.org/wiki/List_of_airports">Wikipedia</a>.<hr></p>
 <p>List of airlines on <a href="https://en.wikipedia.org/wiki/Airline_codes">Wikipedia</a>.<hr></p>
-<p><a href="http://www.planemapper.com/aircrafts">http://www.planemapper.com/aircrafts</a></p>
-<p><a href="http://www.aviationdb.com/Aviation/AircraftQuery.shtm">http://www.aviationdb.com/Aviation/AircraftQuery.shtm</a></p>
-<p><a href="http://www.airfleets.net">http://www.airfleets.net</a></p>
-<p><a href="https://geojson-maps.ash.ms/">https://geojson-maps.ash.ms/</a></p>
-<p><a href="https://bubinga.co/geojson-us-states-and-counties/">https://bubinga.co/geojson-us-states-and-counties/</a></p>
+<p>Aviation references <a href="http://www.planemapper.com/aircrafts">http://www.planemapper.com/aircrafts</a>, <a href="http://www.aviationdb.com/Aviation/AircraftQuery.shtm">http://www.aviationdb.com/Aviation/AircraftQuery.shtm</a>, <a href="http://www.airfleets.net">http://www.airfleets.net</a>.<hr></p>
+<p>GeoJSON sites: <a href="https://geojson-maps.ash.ms/">https://geojson-maps.ash.ms/</a>, <a href="https://bubinga.co/geojson-us-states-and-counties/">https://bubinga.co/geojson-us-states-and-counties/</a>, <a href="http://wiki.geojson.org/GeoJSON_draft_version_6#LineString">http://wiki.geojson.org/GeoJSON_draft_version_6#LineString</a>, <a href="https://stackoverflow.com/a/39988387/8500344">https://stackoverflow.com/a/39988387/8500344</a>.<hr></p>
+<p>Bootstrap documentation and themes used: <a href="https://bootswatch.com/darkly/">https://bootswatch.com/darkly/</a>, <a href="https://getbootstrap.com/">https://getbootstrap.com/</a>.<hr></p>
+<p>D3.js resource for tooltips: <a href="http://bl.ocks.org/d3noob/a22c42db65eb00d4e369">http://bl.ocks.org/d3noob/a22c42db65eb00d4e369</a>.<hr></p>
 
 </div>
 </div>
-</div>
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
 
 
