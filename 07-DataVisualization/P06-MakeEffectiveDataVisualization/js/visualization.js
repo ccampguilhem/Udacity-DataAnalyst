@@ -298,38 +298,42 @@ function playAnimation() {
         .attr("class", "col-md-2")
         .style("visibility", "hidden");
 
-    //Controls
-    var minLengthControl = controls.append("div")
-        .attr("class", "form-group")
-        .append("fieldset");
-    minLengthControl.append("label")
+    //Route length controls
+    var routeControl = controls.append("div")
+        .attr("class", "form");
+
+    var minLengthInput = routeControl.append("div")
+        .attr("class", "form-group");
+    minLengthInput.append("label")
         .attr("class", "control-label")
         .attr("for", "minLengthInput")
         .html("Min route length:");
-    minLengthControl.append("input")
+    minLengthInput.append("input")
         .attr("type", "number")
         .attr("id", "minLengthInput")
         .attr("min", cuts[0])
         .attr("max", cuts[nbCuts])
         .attr("value", cuts[0]);
 
-    var maxLengthControl = controls.append("div")
-        .attr("class", "form-group")
-        .append("fieldset");
-    maxLengthControl.append("label")
+    var maxLengthInput = routeControl.append("div")
+        .attr("class", "form-group");
+    maxLengthInput.append("label")
         .attr("class", "control-label")
         .attr("for", "maxLengthInput")
         .html("Max route length:");
-    maxLengthControl.append("input")
+    maxLengthInput.append("input")
         .attr("type", "number")
         .attr("id", "maxLengthInput")
         .attr("min", cuts[0])
         .attr("max", cuts[nbCuts])
         .attr("value", cuts[nbCuts]);
 
-    var applyButton = controls.append("button")
+    var buttonGroup = routeControl.append("div")
+        .attr("class", "form-group");
+
+    var applyButton = buttonGroup.append("button")
         .attr("type", "submit")
-        .attr("class", "btn btn-primary")
+        .attr("class", "btn btn-primary btn-block")
         .attr("id", "apply")
         .html("Apply")
         .on("click", function() {
@@ -346,19 +350,27 @@ function playAnimation() {
             d3.select("#maxLengthInput").property("value", maxLength);
             //Update visualization
             update(routesData, userSelection);
-        });
-    var resetButton = controls.append("button")
+        });    
+    
+    var resetButton = buttonGroup.append("button")
         .attr("type", "submit")
-        .attr("class", "btn btn-primary")
+        .attr("class", "btn btn-primary btn-block")
         .attr("id", "reset")
         .html("Reset")
-        .style("margin-left", "22px")
         .on("click", function() {
             userSelection.reset();
             document.getElementById("minLengthInput").value = cuts[0].toString();
             document.getElementById("maxLengthInput").value = cuts[nbCuts].toString();
             update(routesData, userSelection);
-        })
+        });
+
+    d3.select("div.map")
+        .select("svg")
+        .select("g.states")
+        .on("click", function() {
+            userSelection.clearAirports();
+            update(routesData, userSelection); 
+        });
 
     //Bind enter key to apply button
     //from https://stackoverflow.com/a/39318404/8500344
@@ -372,6 +384,7 @@ function playAnimation() {
     }
 
     //Prepare data for animation
+    //Routes by length
     var animationData = [];
     for (i = 1; i <= nbCuts; i++) {
         var item = new RouteFilter();
@@ -380,6 +393,7 @@ function playAnimation() {
         animationData.push(item);
     }
     
+    //5 biggest airports
     var big5 = ["William B Hartsfield-Atlanta Intl", "Chicago O'Hare International", "Denver Intl", 
             "Phoenix Sky Harbor International", "McCarran International"];
     var big5Animation = new RouteFilter();
@@ -388,6 +402,7 @@ function playAnimation() {
     big5.forEach(item => big5Animation.addAirport(item));
     animationData.push(big5Animation);
     
+    //Coasts airports
     var coasts = ["San Francisco International", "Metropolitan Oakland International", 
         "San Jose International", "Los Angeles International", "Burbank-Glendale-Pasadena", 
         "Long Beach (Daugherty )", "Ontario International", "John Wayne /Orange Co", 
@@ -403,6 +418,7 @@ function playAnimation() {
     coasts.forEach(item => coastsAnimation.addAirport(item));
     animationData.push(coastsAnimation);
 
+    //Full map
     animationData.push(new RouteFilter());
 
     //Routes animation
