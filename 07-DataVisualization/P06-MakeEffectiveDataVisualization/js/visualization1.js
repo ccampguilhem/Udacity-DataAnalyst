@@ -8,7 +8,7 @@ var routesData = null;
 // Projection for map
 var projection = null;
 //Number of cuts in route length
-var nbCuts = 3;
+var nbCuts = 10;
 //Size for airports circle
 var minSizeAirport = 1;
 var maxSizeAirport = 20;
@@ -27,7 +27,6 @@ var animationTransition = 2000;
 var currentAirportSelection = null;
 var currentMinLength = null;
 var currentMaxLength = null;
-var userSelection = new RouteFilter();
 
 /*
  * Entry point (called from HTML code)
@@ -173,12 +172,12 @@ function drawMap() {
     d3.select("div#main")
         .append("div")
         .attr("class", "row status")
-        .style("height", "50px")
         .append("div")
-        .attr("class", "col-md-10")
-        .append("h5")
+        .attr("class", "col-md-12")
+        .append("h6")
         .style("text-align", "center")
-        .style("margin-top", "20px");
+        .style("margin-top", "20px")
+        .html("No route displayed.");
 
     //Create container for svg
     d3.select("div#main")
@@ -234,9 +233,6 @@ function drawBarChart() {
         .style("visibility", "hidden")
         .append("div")
         .attr("class", "col-md-10");
-    container.append("h6")
-        .html("Number of flights by aircraft manufacturer:")
-        .style("margin-left", "210px");
     container.append("div")
         .attr("class", "bar");
 
@@ -311,8 +307,10 @@ function playAnimation() {
         .attr("id", "minLengthInput")
         .attr("min", cuts[0])
         .attr("max", cuts[nbCuts])
-        .attr("value", cuts[0]);
-
+        //.attr("step", "100")
+        .attr("value", cuts[0])
+        .on("input", function() { currentMinLength = +this.value; });
+    currentMinLength = cuts[0];
     var maxLengthControl = controls.append("div")
         .attr("class", "form-group")
         .append("fieldset");
@@ -325,40 +323,22 @@ function playAnimation() {
         .attr("id", "maxLengthInput")
         .attr("min", cuts[0])
         .attr("max", cuts[nbCuts])
-        .attr("value", cuts[nbCuts]);
-
+        //.attr("step", "100")
+        .attr("value", cuts[nbCuts])
+        .on("input", function() { currentMaxLength = +this.value; });
+    currentMaxLength = cuts[nbCuts];
     var applyButton = controls.append("button")
         .attr("type", "submit")
         .attr("class", "btn btn-primary")
         .attr("id", "apply")
         .html("Apply")
         .on("click", function() {
-            //Get values from controls
-            var minLength = +d3.select("#minLengthInput").property("value");
-            var maxLength = +d3.select("#maxLengthInput").property("value");
-            //Configure values
-            userSelection.setMinRouteLength(minLength);
-            userSelection.setMaxRouteLength(maxLength);
-            //Update controls
-            minLength = userSelection.getMinRouteLength();
-            maxLength = userSelection.getMaxRouteLength();
-            d3.select("#minLengthInput").property("value", minLength);
-            d3.select("#maxLengthInput").property("value", maxLength);
-            //Update visualization
-            update(routesData, userSelection);
+            if (currentMinLength > currentMaxLength) {
+                currentMinLength = currentMaxLength - 1;
+                document.getElementById("minLengthInput").value = currentMinLength.toString();
+            }
+            update(routesData, currentMinLength, currentMaxLength, currentAirportSelection);
         });
-    var resetButton = controls.append("button")
-        .attr("type", "submit")
-        .attr("class", "btn btn-primary")
-        .attr("id", "reset")
-        .html("Reset")
-        .style("margin-left", "22px")
-        .on("click", function() {
-            userSelection.reset();
-            document.getElementById("minLengthInput").value = cuts[0].toString();
-            document.getElementById("maxLengthInput").value = cuts[nbCuts].toString();
-            update(routesData, userSelection);
-        })
 
     //Bind enter key to apply button
     //from https://stackoverflow.com/a/39318404/8500344
@@ -374,75 +354,80 @@ function playAnimation() {
     //Prepare data for animation
     var animationData = [];
     for (i = 1; i <= nbCuts; i++) {
-        var item = new RouteFilter();
-        item.setMinRouteLength(cuts[i-1])
-            .setMaxRouteLength(cuts[i]);
-        animationData.push(item);
+        animationData.push({
+            "minLength": cuts[i-1],
+            "maxLength": cuts[i],
+            "airport": null}
+            );
     }
-    
-    var big5 = ["William B Hartsfield-Atlanta Intl", "Chicago O'Hare International", "Denver Intl", 
-            "Phoenix Sky Harbor International", "McCarran International"];
-    var big5Animation = new RouteFilter();
-    big5Animation.toggleRouteVisibility(false)
-        .setDescription("5 biggest airports in lands");
-    big5.forEach(item => big5Animation.addAirport(item));
-    animationData.push(big5Animation);
-    
-    var coasts = ["San Francisco International", "Metropolitan Oakland International", 
-        "San Jose International", "Los Angeles International", "Burbank-Glendale-Pasadena", 
-        "Long Beach (Daugherty )", "Ontario International", "John Wayne /Orange Co", 
-        "San Diego International-Lindbergh", "Miami International", 
-        "Fort Lauderdale-Hollywood Int'l", "Palm Beach International", "Gen Edw L Logan Intl", 
-        "Theodore F Green State", "Long Island - MacArthur", "Westchester Cty", "LaGuardia", 
-        "Newark Intl", "John F Kennedy Intl", "Baltimore-Washington International", 
-        "Washington Dulles International", "Ronald Reagan Washington National", "Philadelphia Intl"
-    ];
-    var coastsAnimation = new RouteFilter();
-    coastsAnimation.toggleRouteVisibility(false)
-        .setDescription("High concentration of smaller airports along coasts");
-    coasts.forEach(item => coastsAnimation.addAirport(item));
-    animationData.push(coastsAnimation);
-
-    animationData.push(new RouteFilter());
+    big5 = ["William B Hartsfield-Atlanta Intl", "Chicago O'Hare International", "Denver Intl", 
+            "Phoenix Sky Harbor International", "Los Angeles International"];
+    for (i = 0; i < big5.length; i++)
+    animationData.push({
+        "minLength": cuts[0],
+        "maxLength": cuts[nbCuts],
+        "airport": big5[i]}
+        );
+    animationData.push({
+        "minLength": cuts[0],
+        "maxLength": cuts[nbCuts],
+        "airport": null});
 
     //Routes animation
-    var i = -1;
-    var interval = setInterval(function(){
-        //this function is called at specified time intervals
-        i++;
-        if (i >= animationData.length) {
-            //Make bar chart and controls visible
-            controls.style("visibility", "visible");
-            d3.select("div#bottom").style("visibility", "visible");
-            //stops the iteration
-            clearInterval(interval);
-        } else {
-            update(routesData, animationData[i]);
+    setTimeout(function(){ 
+        var i = 0;
+        update(routesData, animationData[i].minLength, animationData[i].maxLength, 
+            animationData[i].airport);
+        var interval = setInterval(function(){
+            //this function is called at specified time intervals    
+            i++;
+            if (i >= animationData.length) {
+                //Make bar chart and controls visible
+                controls.style("visibility", "visible");
+                d3.select("div#bottom").style("visibility", "visible");
+                //stops the iteration
+                clearInterval(interval);
+            } else {
+                update(routesData, animationData[i].minLength, animationData[i].maxLength,
+                    animationData[i].airport);
+            }
+        }, animationTransition);
         }
-    }, animationTransition);
+    , animationTransition);
 }
 
 /*
  * Update the map with route dataset
  *
  * - data: route dataset
- * - userSelection: user selection
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  */
-function update(data, userSelection) {
+function update(data, minLength, maxLength, selectedAirport=null) {
 
     //Update status
+    var statusText;
+    if (selectedAirport === null) {
+        statusText = "Routes between " + minLength.toFixed() + " and " + 
+                    maxLength.toFixed() + " nautic miles.";
+    } else {
+        statusText = "Routes between " + minLength.toFixed() + " and " + 
+                    maxLength.toFixed() + " nautic miles from or to " + 
+                    selectedAirport + ".";
+    }
     var status = d3.select("div.status")
-            .select("h5")
-            .html(userSelection.getDescription());
+            .select("h6")
+            .html(statusText);
 
     //Update routes
-    updateRoutes(data, userSelection);
+    updateRoutes(data, minLength, maxLength, selectedAirport);
 
     //Update airports
-    updateAirports(data, userSelection);
+    updateAirports(data, minLength, maxLength, selectedAirport);
 
     //Update aircrafts
-    updateAircrafts(data, userSelection);
+    updateAircrafts(data, minLength, maxLength, selectedAirport);
 }
 /*
  * Create a cut array for route length
@@ -504,18 +489,28 @@ function aggregateAirports(data) {
  * Create airports dataset
  *
  * - data: route dataset
- * - userSelection: user selection
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  * - return: airports dataset
  */
-function createAirportsDataset(data, userSelection=null) {
+function createAirportsDataset(data, minLength=0, maxLength=999999, selectedAirport=null) {
 
     //Filter routes by length
-    var filtered;
-    if (userSelection === null) {
-        filtered = data;
-    } else {
-        filtered = data.filter(userSelection.filter());
-    }
+    //console.log("createAirportsDataset.data", data);
+    //console.log("createAirportsDataset.minLength: ", minLength);
+    //console.log("createAirportsDataset.maxLength: ", maxLength);
+    var filtered = data.filter(function(d) {
+        if (selectedAirport === null) {
+            return (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+        } else {
+            var bool1 = (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+            var bool2 = (d["OriginAirport"] === selectedAirport) ||
+                    (d["DestAirport"] === selectedAirport)
+            return bool1 && bool2;
+        }
+        
+    })
     //console.log("createAirportsDataset.filtered", filtered);
 
     //Group by airports
@@ -575,12 +570,6 @@ function createAirportsDataset(data, userSelection=null) {
         airports.push(item);
     }
 
-    //If route are not displayed, also filter this dataset
-    //short-circuit prevent right operator from being evaluated
-    if (!(userSelection === null) && !(userSelection.isRouteVisible())) {
-        airports = airports.filter(item => userSelection.hasAirport(item.Airport));
-    }
-
     //Sort array (decreasing flights)
     function compareAirports(a, b) {
         if (a.Flights < b.Flights) {
@@ -600,9 +589,11 @@ function createAirportsDataset(data, userSelection=null) {
  * Update the airports on the map
  *
  * - data: route dataset
- * - userSelection: user selection
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  */
-function updateAirports(data, userSelection) {
+function updateAirports(data, minLength, maxLength, selectedAirport=null) {
     
     //Calculate min and max number of flights (used for scaling)
     var airports = createAirportsDataset(data);
@@ -616,7 +607,7 @@ function updateAirports(data, userSelection) {
         .range([minSizeAirport, maxSizeAirport]);
 
     //Create airports dataset
-    airports = createAirportsDataset(data, userSelection);
+    airports = createAirportsDataset(data, minLength, maxLength, selectedAirport);
     console.log("updateAirports.airports: ", airports);
 
     //Select svg groups
@@ -653,7 +644,6 @@ function updateAirports(data, userSelection) {
                 .style("left", d.Coords[0] + 30 + "px")
                 .style("top", d.Coords[1] - 20 + "px");
             d3.select(this)
-                .style("cursor", "pointer")
                 .transition()
                 .duration(shortTransition)
                 .style("fill", "#00BC8C");
@@ -663,22 +653,19 @@ function updateAirports(data, userSelection) {
                 .duration(shortTransition)
                 .style("opacity", 0.0);
             d3.select(this)
-                .style("cursor", "default")
                 .transition()
                 .duration(shortTransition)
                 .style("fill", "white");
         })
         .merge(circles) //select new elements and the elements already there
         .on("click", function (d) {
-            if (userSelection.isAirportEmpty()) {
-                userSelection.addAirport(d.Airport);
-            } else if (userSelection.hasAirport(d.Airport)) {
-                userSelection.clearAirports();
+            if (currentAirportSelection === d.Airport) {
+                currentAirportSelection = null;
+                update(data, minLength, maxLength);
             } else {
-                userSelection.clearAirports();
-                userSelection.addAirport(d.Airport);
+                currentAirportSelection = d.Airport;
+                update(data, minLength, maxLength, d.Airport);
             }
-            update(data, userSelection);
         })        
         .attr("cx", function(d) { return d.Coords[0]; })
         .attr("cy", function(d) { return d.Coords[1]; })
@@ -710,22 +697,27 @@ function aggregateRoutes(data) {
  * Create routes dataset
  *
  * - data: route dataset
- * - userSelection: user selection
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  * - return: routes dataset
  */
-function createRoutesDataset(data, userSelection=null) {
+function createRoutesDataset(data, minLength=0, maxLength=999999, selectedAirport=null) {
     
     //Filter routes by length
-    var filtered;
-    if (userSelection === null) {
-        filtered = data;
-    } else {
-        if (userSelection.isRouteVisible()) {
-            filtered = data.filter(userSelection.filter());
+    //console.log("createRoutesDataset.data", data);
+    //console.log("createRoutesDataset.minLength: ", minLength);
+    //console.log("createRoutesDataset.maxLength: ", maxLength);
+    var filtered = data.filter(function(d) {
+        if (selectedAirport === null) {
+            return (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
         } else {
-            filtered = [];
+            var bool1 = (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+            var bool2 = (d["OriginAirport"] === selectedAirport) ||
+                    (d["DestAirport"] === selectedAirport)
+            return bool1 && bool2;
         }
-    }
+    })
     console.log("createRoutesDataset.filtered", filtered);
 
     //Group by routes
@@ -736,6 +728,7 @@ function createRoutesDataset(data, userSelection=null) {
         .rollup(aggregateRoutes)
         //bind filtered data
         .entries(filtered)
+
     console.log("createRoutesDataset.routesAgg", routesAgg);
 
     //Generate routes dataset
@@ -758,9 +751,11 @@ function createRoutesDataset(data, userSelection=null) {
  * Update the routes on the map
  *
  * - data: route dataset
- * - userSelection: user selection 
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  */
-function updateRoutes(data, userSelection=null) {
+function updateRoutes(data, minLength, maxLength, selectedAirport=null) {
 
     //Calculate min and max number of flights (used for scaling)
     var routes = createRoutesDataset(data);
@@ -769,7 +764,7 @@ function updateRoutes(data, userSelection=null) {
     console.log("updateRoutes.{minFlights,maxFlights}", minFlights, maxFlights);
 
     // Create routes dataset
-    routes = createRoutesDataset(data, userSelection);
+    routes = createRoutesDataset(data, minLength, maxLength, selectedAirport);
     console.log("updateRoutes.routes: ", routes);
 
     //Select svg group
@@ -838,16 +833,25 @@ function aggregateAircrafts(data) {
  * Create the aircrafts dataset
  *
  * - data: route dataset
- * - userSelection: user selection
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  */
-function createAircraftsDataset(data, userSelection=null) {
+function createAircraftsDataset(data, minLength=0, maxLength=999999, selectedAirport=null) {
     //Filter routes by length
-    var filtered;
-    if (userSelection === null) {
-        filtered = data;
-    } else {
-        filtered = data.filter(userSelection.filter());
-    }
+    //console.log("createAircraftsDataset.data", data);
+    //console.log("createAircraftsDataset.minLength: ", minLength);
+    //console.log("createAircraftsDataset.maxLength: ", maxLength);
+    var filtered = data.filter(function(d) {
+        if (selectedAirport === null) {
+            return (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+        } else {
+            var bool1 = (d["Distance"] >= minLength) && (d["Distance"] <= maxLength);
+            var bool2 = (d["OriginAirport"] === selectedAirport) ||
+                    (d["DestAirport"] === selectedAirport)
+            return bool1 && bool2;
+        }
+    })
     console.log("createAircraftsDataset.filtered", filtered);
 
     //Group by aircraft
@@ -897,12 +901,14 @@ function createAircraftsDataset(data, userSelection=null) {
  * Update the bar chart with aircrafts data
  *
  * - data: route dataset
- * - userSelection: user selection
+ * - minLength: minimal route length to consider
+ * - maxLength: maximal route length to consider
+ * - selectedAirport: filter only routes including this airport
  */
-function updateAircrafts(data, userSelection=null) {
+function updateAircrafts(data, minLength, maxLength, selectedAirport=null) {
 
     // Create aircrafts dataset
-    var aircrafts = createAircraftsDataset(data, userSelection);
+    var aircrafts = createAircraftsDataset(data, minLength, maxLength, selectedAirport);
     var maxFlights = d3.max(aircrafts, function(d) { return d.Flights; });
     var minFlights = d3.min(aircrafts, function(d) { return d.Flights; });    
     console.log("updateAircrafts.aircrafts: ", aircrafts);

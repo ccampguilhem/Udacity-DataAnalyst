@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script src="http://d3js.org/d3.v4.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <script src="js/visualization1.js"></script>
+
+        <style>
+            h5 {
+                color: #ffffff;
+            }
+
+            g.states, path {
+                fill: #222222;
+                stroke: #333333;
+                stroke-width: 1.0px;
+            }
+
+            path.route {
+                stroke: white;
+                fill: none;
+                opacity: 0.7;
+            }
+
+            circle {
+                stroke: #000000;
+                stroke-width: 0.7px;
+                fill: white;
+                opacity: 0.9;
+            }
+
+            p.note {
+                text-align: center;
+            }
+
+            div.tooltip {   
+                position: absolute;
+                text-align: left;         
+                width: 320px;                    
+                height: 66px;                   
+                padding: 4px;               
+                font: 12px sans-serif;      
+                background: black;
+                color: white;
+                border: 0px;        
+                border-radius: 4px;         
+                pointer-events: none;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #00BC8C;
+            }
+
+            path.state {
+                transition: fill 200ms;
+            }
+
+            path.state:hover {
+                fill: #333333;
+            }
+
+            g.bar, rect {
+                fill: #00BC8C;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container" id="main">
+        </div>
+        <script type="text/javascript">
+            /*
+            Use D3 to load the GeoJSON file
+            */
+            d3.json("us-states.json", entryPoint);
+        </script>
+    </body>
+</html>
