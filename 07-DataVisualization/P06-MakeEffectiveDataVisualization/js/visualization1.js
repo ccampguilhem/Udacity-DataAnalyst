@@ -91,21 +91,21 @@ function playIntroduction() {
     d3.select("#panel")
         .append("h5")
         .html(`The following visualization shows the organisation of US domestic flights in 2008
-            and use of different aircraft manufacturers.`);
+            and use of different aircraft manufacturers. The data is taken from 
+            <a href="http://stat-computing.org/dataexpo/2009/">http://stat-computing.org</>.`);
+    d3.select("#panel")
+        .append("br")
+    d3.select("#panel")
+        .append("h5")
+        .attr("class", "text-warning")
+        .html("It shows a decentralized traffic dominated by Boeing aircrafts.")
     d3.select("#panel")
         .append("br")
     d3.select("#panel")
         .append("h5")
         .html(`Each route is represented by a line. The thickness indicates the number of flights 
             on that route. Airports are shown as dots which size depends on number of flights 
-            from or to that airport. The number of flights per aircraft manufacturer is also 
-            displayed in a bar chart at the bottom.`);
-    d3.select("#panel")
-        .append("br");
-    d3.select("#panel")
-        .append("h5")
-        .html(`The animation displays routes per group of route length starting with shorter ones.
-            Then, it shows the traffic from/to the five biggest airports in US.`);
+            from or to that airport.`);
     d3.select("#panel")
         .append("br");
     d3.select("#panel")

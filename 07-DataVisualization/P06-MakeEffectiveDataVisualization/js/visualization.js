@@ -22,7 +22,7 @@ var maxSizeBar = 600;
 var shortTransition = 200;
 var mediumTransition = 500;
 var longTransition = 4000;
-var animationTransition = 4000;
+var animationTransition = 400;
 //User-defined selections
 var currentAirportSelection = null;
 var currentMinLength = null;
@@ -92,30 +92,21 @@ function playIntroduction() {
     d3.select("#panel")
         .append("h5")
         .html(`The following visualization shows the organisation of US domestic flights in 2008
-            and use of different aircraft manufacturers.`);
+            and use of different aircraft manufacturers. The data is taken from 
+            <a href="http://stat-computing.org/dataexpo/2009/">http://stat-computing.org</>.`);
+    d3.select("#panel")
+        .append("br")
+    d3.select("#panel")
+        .append("h5")
+        .attr("class", "text-warning")
+        .html("It shows a decentralized traffic dominated by Boeing aircrafts.")
     d3.select("#panel")
         .append("br")
     d3.select("#panel")
         .append("h5")
         .html(`Each route is represented by a line. The thickness indicates the number of flights 
             on that route. Airports are shown as dots which size depends on number of flights 
-            from or to that airport. The number of flights per aircraft manufacturer is also 
-            displayed in a bar chart at the bottom.`);
-    d3.select("#panel")
-        .append("br");
-    d3.select("#panel")
-        .append("h5")
-        .html(`The animation displays routes per group of route length starting with shorter ones.
-            Then, it shows the traffic from/to the five biggest airports in US.`);
-    d3.select("#panel")
-        .append("br");
-    d3.select("#panel")
-        .append("h5")
-        .html(`Once animation is completed, use the <span class="text-primary">controls</span> to 
-            filter routes by length. <span class="text-primary">Hover</span> an airport to display 
-            additional information. <span class="text-primary">Click</span> on the dot to filter 
-            traffic for that airport. <span class="text-primary">Click</span> again to restore 
-            previous display.`);
+            from or to that airport.`);
     d3.select("#panel")
         .append("br");
     d3.select("#panel")
@@ -150,10 +141,48 @@ function stopIntroduction() {
         .duration(mediumTransition)
         .on("end", function() {
             d3.select("div#intro").remove();
+            createPageLayout();
             draw();
             prepareAnimation();
         })
         .style("opacity", 0);
+}
+
+/*
+ * Create page layout
+ */
+function createPageLayout() {
+    //Overall page
+    var overall = d3.select("div#main")
+        .append("div")
+        .attr("class", "row");
+
+    //Content part (status + map + bottom)
+    var content = overall.append("div")
+        .attr("class", "col-md-10")
+        .attr("id", "content");
+    content.append("div")
+        .attr("class", "row")
+        .attr("id", "status")
+        .style("height", "50px")
+        .append("div")
+        .attr("class", "col-md-12")
+        .style("text-align", "center")
+        .append("h5")
+        .style("margin-top", "20px");
+    content.append("div")
+        .attr("class", "row")
+        .attr("id", "map");
+    content.append("div")
+        .attr("class", "row")
+        .attr("id", "bottom")
+        .style("visibility", "hidden");
+
+    //Controls part
+    var controls = overall.append("div")
+        .attr("class", "col-md-2")
+        .attr("id", "controls")
+        .style("visibility", "hidden");
 }
 
 /*
@@ -170,33 +199,12 @@ function draw() {
  */
 function drawMap() {
 
-    //Create container for status bar
-    d3.select("div#main")
-        .append("div")
-        .attr("class", "row status")
-        .style("height", "50px")
-        .append("div")
-        .attr("class", "col-md-10")
-        .append("h5")
-        .style("text-align", "center")
-        .style("margin-top", "20px");
-
-    //Create container for svg
-    d3.select("div#main")
-        .append("div")
-        .attr("class", "row")
-        .attr("id", "center")
-        .append("div")
-        .attr("class", "col-md-10")
-        .append("div")
-        .attr("class", "map");
-
     //Draw GeoJSON map
     var margin = 10,
         width = 950 - margin,
         height = 575 - margin;
 
-    var svg = d3.select("div.map")
+    var svg = d3.select("div#map")
         .append("svg")
         .attr("width", width + margin)
         .attr("height", height + margin)
@@ -228,13 +236,7 @@ function drawMap() {
 function drawBarChart() {
 
     //Create container for svg
-    var container = d3.select("div#main")
-        .append("div")
-        .attr("class", "row")
-        .attr("id", "bottom")
-        .style("visibility", "hidden")
-        .append("div")
-        .attr("class", "col-md-10");
+    var container = d3.select("div#bottom");
     container.append("h6")
         .html("Number of flights by aircraft manufacturer:")
         .style("margin-left", "210px");
@@ -261,19 +263,19 @@ function prepareAnimation() {
     //console.log("callbackRoutes.cuts:", cuts);
 
     //Tool tip for airports
-    var tooltip = d3.select("div.map")
+    var tooltip = d3.select("div#map")
         .append("div")   
         .attr("class", "tooltip")
         .style("opacity", 0);
 
     //Routes
-    var routes = d3.select("div.map")
+    var routes = d3.select("div#map")
         .select("svg")
         .append("g")
         .attr("class", "routes");
 
     //Circles for airports
-    var svg = d3.select("div.map")
+    var svg = d3.select("div#map")
         .select("svg")
         .append("g")
         .attr("class", "circles");
@@ -293,15 +295,14 @@ function prepareAnimation() {
         .attr("class", "labels");
 
     //Container for controls
-    var controls = d3.select("div#center")
-        .append("div")
-        .attr("class", "col-md-2")
-        .attr("id", "controls")
-        .style("visibility", "hidden");
+    var controls = d3.select("div#controls");
 
     //Route length controls
     var routeControl = controls.append("div")
         .attr("class", "form");
+
+    routeControl.append("legend")
+        .html("Controls:");
 
     var minLengthInput = routeControl.append("div")
         .attr("class", "form-group");
@@ -381,8 +382,32 @@ function prepareAnimation() {
             update(routesData, userSelection);
         });
 
+    //Instructions
+    var instructions = controls.append("div")
+        .attr("class", "form");
+    instructions.append("legend")
+        .html("About:");
+    var about = instructions.append("div")
+        .attr("class", "form-group");
+    about.append("p")
+        .html("Click on the button below to display help:")
+    var helpButton = about.append("button")
+        .attr("type", "button")
+        .attr("data-toggle", "modal")
+        .attr("data-target", "#help")
+        .attr("class", "btn btn-primary btn-block")
+        .attr("id", "help")
+        .html("Help");
+    about = instructions.append("div")
+        .attr("class", "form-group");
+    about.append("p")
+        .html("Cédric Campguilhem</span>, March 2018");
+    about.append("a")
+        .attr("href", "https://github.com/ccampguilhem/Udacity-DataAnalyst")
+        .html("https://github.com/ccampguilhem/Udacity-DataAnalyst");
+
     //Click binding on map to unselect airport
-    d3.select("div.map")
+    d3.select("div#map")
         .select("svg")
         .select("g.states")
         .on("click", function() {
@@ -423,7 +448,7 @@ function playAnimation() {
             "Phoenix Sky Harbor International", "McCarran International"];
     var big5Animation = new RouteFilter();
     big5Animation.toggleRouteVisibility(false)
-        .setDescription("5 major airports in lands");
+        .setDescription("5 major airports in spread in central area");
     big5.forEach(item => big5Animation.addAirport(item));
     animationData.push(big5Animation);
     
@@ -450,7 +475,7 @@ function playAnimation() {
         .setRouteFlightsThreshold(routesData, 19000);
     animationData.push(popularAnimation);
     var popularAnimation = new RouteFilter();
-    popularAnimation.setDescription("then extend to land (more than 16000 flights)...")
+    popularAnimation.setDescription("then extend to central area (more than 16000 flights)...")
         .setRouteFlightsThreshold(routesData, 16000);
     animationData.push(popularAnimation);
     var popularAnimation = new RouteFilter();
@@ -490,7 +515,7 @@ function playAnimation() {
 function update(data, userSelection) {
 
     //Update status
-    var status = d3.select("div.status")
+    var status = d3.select("div#status")
             .select("h5")
             .html(userSelection.getDescription());
 
@@ -679,11 +704,11 @@ function updateAirports(data, userSelection) {
     console.log("updateAirports.airports: ", airports);
 
     //Select svg groups
-    var svg = d3.select("div.map")
+    var svg = d3.select("div#map")
         .select("svg")
         .select("g.circles");
 
-    var tooltip = d3.select("div.map")
+    var tooltip = d3.select("div#map")
         .select("div.tooltip")
 
     //Draw circles
@@ -832,7 +857,7 @@ function updateRoutes(data, userSelection=null) {
     console.log("updateRoutes.routes: ", routes);
 
     //Select svg group
-    var svg = d3.select("div.map")
+    var svg = d3.select("div#map")
         .select("svg")
         .select("g.routes");
 

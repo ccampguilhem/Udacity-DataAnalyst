@@ -6,9 +6,9 @@
 
 I mainly want to share some intersting findings in the way aeronautic US traffic is organized as a decentralized system
  dominated by Boeing aircrafts:
-- location of big airports in a east to west line,
-- not so much big airports on east and west coasts,
-- popular routes do not necessarily start or end in the biggest airports,
+- major airports in lands,
+- more concentrated airports along coasts,
+- popular routes are mostly local and then extend,
 - mostly Boeing aircafts are used but some routes and airports show different proportions.
 
 # Design
@@ -46,7 +46,8 @@ Text on introduction is too bright. On map, it's not obvious you can click on ai
 has been selected it's not obvious to know that you have to click again to unselect. It could be great to unselect by clicking 
 anywhere on the map. The controls to filter route length do not show clearly which are the default settings. The bar chart is 
 not clear: is it the number of aircrafts by manufacturer used on that routes or is it the number of flights ? It's nearly 
-impossible to focus on the map and on the bart chart at the same time during the animation.
+impossible to focus on the map and on the bart chart at the same time during the animation. It could be good to replay the 
+animation as well. The animation should show the use of aircrafts as well as it's one message.
 
 ## Feedback 2
 
@@ -54,7 +55,7 @@ The bar chart shall make more visible what is the proportion of flights for a gi
 routes. Introduction text is unclear about what the main message is. It could be a good idea to filter aircrafts as well, for 
 example by displaying in a different color the flights where aircraft is used. It could be a good idea to add a filter on 
 number of flights as well so that it's easier to see what are the main routes: the animation by route length spreads the 
-information on multiple frames. Why not allowing multiple selections for airports and aircrafts ?
+information on multiple frames and it's difficult to catch. Why not allowing multiple selections for airports and aircrafts ?
 
 ## Feedback 3
 
@@ -66,7 +67,8 @@ to filter. A filter for flights number could be added. The map area is too "whit
 traffic instead of only size? Same remark for the route length with a color scale as well. As the instructions are on the 
 previous page, it's not easy to remember all: it shall be possible to display the help from main page. When selecting an 
 item (airport, aircraft) it could be good to have a switch option either to remove the filtered-out elements from display 
-or to change the color of filtered-in elements.
+or to change the color of filtered-in elements. Regarding the use of aircraft messages, it's up to the reader to make the 
+right selections in the visualization when animation is over, it shall be more guided.
 
 ## What I decided to include
 
@@ -77,7 +79,8 @@ There are some "cheap" improvements:
   unselects,
 - introduce a reset button to restore full display,
 - remove hover effect on states,
-- add a title to the bar chart.
+- add a title to the bar chart,
+- add a replay button.
 
 To improve visualization I consider some feedback as essential:
 
