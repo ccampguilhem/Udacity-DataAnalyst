@@ -22,7 +22,7 @@ var maxSizeBar = 600;
 var shortTransition = 200;
 var mediumTransition = 500;
 var longTransition = 4000;
-var animationTransition = 2000;
+var animationTransition = 4000;
 //User-defined selections
 var currentAirportSelection = null;
 var currentMinLength = null;
@@ -151,6 +151,7 @@ function stopIntroduction() {
         .on("end", function() {
             d3.select("div#intro").remove();
             draw();
+            prepareAnimation();
         })
         .style("opacity", 0);
 }
@@ -252,11 +253,10 @@ function drawBarChart() {
 }
 
 /*
- * Play animation
+ * Prepare animation elements
  */
-function playAnimation() {
-
-    //Calculate cuts
+function prepareAnimation() {
+    //Prepare animation elements
     var cuts = calculateCuts(routesData, nbCuts);
     //console.log("callbackRoutes.cuts:", cuts);
 
@@ -296,6 +296,7 @@ function playAnimation() {
     var controls = d3.select("div#center")
         .append("div")
         .attr("class", "col-md-2")
+        .attr("id", "controls")
         .style("visibility", "hidden");
 
     //Route length controls
@@ -352,6 +353,7 @@ function playAnimation() {
             update(routesData, userSelection);
         });    
     
+    //General controls
     var resetButton = buttonGroup.append("button")
         .attr("type", "submit")
         .attr("class", "btn btn-primary btn-block")
@@ -364,6 +366,22 @@ function playAnimation() {
             update(routesData, userSelection);
         });
 
+    var replayButton = buttonGroup.append("button")
+        .attr("type", "submit")
+        .attr("class", "btn btn-primary btn-block")
+        .attr("id", "replay")
+        .html("Replay")
+        .on("click", function() {
+            d3.select("div#controls").style("visibility", "hidden");
+            d3.select("div#bottom").style("visibility", "hidden");
+            playAnimation();
+            userSelection.reset();
+            document.getElementById("minLengthInput").value = cuts[0].toString();
+            document.getElementById("maxLengthInput").value = cuts[nbCuts].toString();
+            update(routesData, userSelection);
+        });
+
+    //Click binding on map to unselect airport
     d3.select("div.map")
         .select("svg")
         .select("g.states")
@@ -382,23 +400,30 @@ function playAnimation() {
             break;
         }
     }
+}  
+
+/*
+ * Play animation
+ */
+function playAnimation() {
 
     //Prepare data for animation
-    //Routes by length
     var animationData = [];
-    for (i = 1; i <= nbCuts; i++) {
-        var item = new RouteFilter();
-        item.setMinRouteLength(cuts[i-1])
-            .setMaxRouteLength(cuts[i]);
-        animationData.push(item);
-    }
+
+    // //Routes by length
+    // for (i = 1; i <= nbCuts; i++) {
+    //     var item = new RouteFilter();
+    //     item.setMinRouteLength(cuts[i-1])
+    //         .setMaxRouteLength(cuts[i]);
+    //     animationData.push(item);
+    // }
     
     //5 biggest airports
     var big5 = ["William B Hartsfield-Atlanta Intl", "Chicago O'Hare International", "Denver Intl", 
             "Phoenix Sky Harbor International", "McCarran International"];
     var big5Animation = new RouteFilter();
     big5Animation.toggleRouteVisibility(false)
-        .setDescription("5 biggest airports in lands");
+        .setDescription("5 major airports in lands");
     big5.forEach(item => big5Animation.addAirport(item));
     animationData.push(big5Animation);
     
@@ -418,24 +443,42 @@ function playAnimation() {
     coasts.forEach(item => coastsAnimation.addAirport(item));
     animationData.push(coastsAnimation);
 
+    //Popular routes
+    var popularAnimation = new RouteFilter();
+    popularAnimation.setDescription("Most popular routes are limited to East and West (more than " + 
+        "19000 flights)...")
+        .setRouteFlightsThreshold(routesData, 19000);
+    animationData.push(popularAnimation);
+    var popularAnimation = new RouteFilter();
+    popularAnimation.setDescription("then extend to land (more than 16000 flights)...")
+        .setRouteFlightsThreshold(routesData, 16000);
+    animationData.push(popularAnimation);
+    var popularAnimation = new RouteFilter();
+    popularAnimation.setDescription("and finally link East and West (more than 13000 flights).")
+        .setRouteFlightsThreshold(routesData, 13000);
+    animationData.push(popularAnimation);
+
     //Full map
     animationData.push(new RouteFilter());
 
-    //Routes animation
-    var i = -1;
-    var interval = setInterval(function(){
-        //this function is called at specified time intervals
-        i++;
-        if (i >= animationData.length) {
-            //Make bar chart and controls visible
-            controls.style("visibility", "visible");
-            d3.select("div#bottom").style("visibility", "visible");
-            //stops the iteration
-            clearInterval(interval);
-        } else {
-            update(routesData, animationData[i]);
-        }
-    }, animationTransition);
+    //Routes animation (nested timeout and interval to have a shorter delay for first frame)
+    var i = 0;
+    setTimeout(function() {
+        update(routesData, animationData[i]);
+        var interval = setInterval(function(){
+            //this function is called at specified time intervals
+            i++;
+            if (i >= animationData.length) {
+                //Make bar chart and controls visible
+                d3.select("div#controls").style("visibility", "visible");
+                d3.select("div#bottom").style("visibility", "visible");
+                //stops the iteration
+                clearInterval(interval);
+            } else {
+                update(routesData, animationData[i]);
+            }
+        }, animationTransition);
+    }, mediumTransition);
 }
 
 /*

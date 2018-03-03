@@ -8,6 +8,8 @@ function RouteFilter() {
     this.airportsSelection = null;
     this.description = null;
     this.routeVisibility = true;
+    this.flightsFilter = null;
+    //this.cleanMode = false;
 }
 
 /* 
@@ -22,6 +24,8 @@ RouteFilter.prototype.reset = function() {
     this.airportsSelection = null;
     this.description = null;
     this.routeVisibility = true;
+    this.flightsFilter = null;
+    //this.cleanMode = false;
     return this;
 }
 
@@ -176,6 +180,10 @@ RouteFilter.prototype.filter = function() {
         if (!(self.maxRouteLength === null)) {
             result = (d.Distance <= self.maxRouteLength) && result;
         }
+        //Flights number
+        if (!(self.flightsFilter === null)) {
+            result = self.flightsFilter.has(d.Route);
+        }
         return result;
     }
 }
@@ -255,3 +263,33 @@ RouteFilter.prototype.toggleRouteVisibility = function(value) {
 RouteFilter.prototype.isRouteVisible = function(value) {
     return this.routeVisibility;
 }
+
+/*
+ * Set threshold for number of flights per route
+ *
+ * - data: route dataset
+ * - value: threshold value
+ * - return: route filter object
+ */
+RouteFilter.prototype.setRouteFlightsThreshold = function(data, value) {
+    //Aggregate routes dataset on routes
+    var routesAgg = d3.nest()
+        .key(function(d) { return d["Route"]; })
+        .rollup(function(g) {
+            return d3.sum(g, item => item.Flights);
+        })
+        .entries(data)
+    //Filter with threshold
+    routesAgg = routesAgg.filter(item => item.value >= value);
+    //Collect all routes in a set
+    this.flightsFilter = d3.set();
+    var self = this;
+    routesAgg.forEach(function(item){
+        self.flightsFilter.add(item.key);
+    });
+    console.log("RouteFilter.setRouteFlightsThreshold.flightsFilter", this.flightsFilter);
+    return this;
+}
+
+
+
