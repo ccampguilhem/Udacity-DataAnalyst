@@ -90,7 +90,7 @@ To improve visualization I consider some feedback as essential:
 - add help text on the main page,
 - allow filtering by aircrats to better see the use of aircrafts by airports/routes,
 - implement a filter on number of flights to better see the most popular routes,
-- multiple selections for airports and aircrafts.
+- multiple selections for aircrafts.
 
 There are some feedback I will not take into account:
 
@@ -101,6 +101,7 @@ There are some feedback I will not take into account:
 - color scales: I specifically wanted to avoid using colors too much, I would prefer stick to my initial idea,
 - using an optional color overlay instead of removing items when filtering: that would be a bigger change in my code and 
   I prefer to keep project to reasonable time investment.
+- multiple selection of airports: it's managed during the animation phase but not available through the user interaction
 
 # Resources
 

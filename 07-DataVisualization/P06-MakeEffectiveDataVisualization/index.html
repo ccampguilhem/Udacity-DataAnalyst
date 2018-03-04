@@ -71,9 +71,12 @@
                 transition: fill 200ms;
             }
 
-            g.bar, rect {
+            g.bars rect {
                 fill: #00BC8C;
-                /*fill: white;*/
+            }
+
+            g.ticks text.selected {
+                stroke: #00BC8C;
             }
 
         </style>
@@ -100,6 +103,10 @@
                                <span class="text-primary">Apply</span> button to update 
                                visualization. You can also press <span class="text-primary">ENTER</span> key instead.
                             </p>
+                            <p><span class="text-primary">Click</span> on an aircraft name in bar chart to filter flights
+                               of that aircraft. You can select multiple aircrafts. <span class="text-primary">Click</span> 
+                               again on the selected aircrafts, which appear in a different color, to unselect them.
+                           </p>
                             <p>Use <span class="text-primary">Reset</span> button to restore default state of  
                                visualization, or <span class="text-primary">Replay</span> button to see again the 
                                animated part.                   

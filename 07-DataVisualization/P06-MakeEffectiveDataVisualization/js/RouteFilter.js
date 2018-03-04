@@ -9,6 +9,7 @@ function RouteFilter() {
     this.description = null;
     this.routeVisibility = true;
     this.flightsFilter = null;
+    this.aircraftsSelection = null;
 }
 
 /* 
@@ -24,7 +25,8 @@ RouteFilter.prototype.reset = function() {
     this.description = null;
     this.routeVisibility = true;
     this.flightsFilter = null;
-    console.log("RouteFilter.reset.flightsFilter", this.flightsFilter);
+    this.aircraftsSelection = null;
+    //console.log("RouteFilter.reset.flightsFilter", this.flightsFilter);
     return this;
 }
 
@@ -158,13 +160,88 @@ RouteFilter.prototype.clearAirports = function() {
 }
 
 /*
+ * Add an aircraft to selection.
+ *
+ * - value: aircraft name
+ * - return: route filter object
+ */
+RouteFilter.prototype.addAircraft = function(value) {
+    //Add an aircraft to selection
+    if (this.aircraftsSelection === null) {
+        this.aircraftsSelection = d3.set();
+    }
+    this.aircraftsSelection.add(value);
+    return this;
+}
+
+/*
+ * Stat whether aircraft is in selection.
+ *
+ * - value: aircrafts name
+ * - return: true or false
+ */
+RouteFilter.prototype.hasAircraft = function(value) {
+    if (this.aircraftsSelection === null) {
+        return false;
+    } else {
+        return this.aircraftsSelection.has(value);
+    }
+    return this;
+}
+
+/*
+ * Remove aircraft from selection.
+ *
+ * If aircraft is not in the selection, nothing happens.
+ *
+ * - value: aircraft name
+ * - return: route filter object
+ */
+RouteFilter.prototype.removeAircraft = function(value) {
+    if (this.aircraftsSelection === null) {
+        return this;
+    } else {
+        this.aircraftsSelection.remove(value);
+        if (this.aircraftsSelection.empty()) {
+            this.aircraftsSelection = null;
+        }
+        return this;
+    }
+}
+
+/*
+ * Stat whether aircraft selection is empty.
+ *
+ * - return: true or false
+ */
+RouteFilter.prototype.isAircraftEmpty = function() {
+    if (this.aircraftsSelection === null) {
+        return true;
+    } else {
+        return this.aircraftsSelection.empty();
+    }
+}
+
+/*
+ * Clear all selected aircrafts
+ *
+ * - return: route filter object
+ */
+RouteFilter.prototype.clearAircrafts = function() {
+    if (!(this.aircraftsSelection === null)) {
+        this.aircraftsSelection = null;
+    }
+    return this;
+}
+
+/*
  * Create a filter function for dataset.
  *
  * - return: filter function
  */
 RouteFilter.prototype.filter = function() {
     var self = this;
-    console.log("RouteFilter.filter.flightsFilter", this.flightsFilter);
+    //console.log("RouteFilter.filter.flightsFilter", this.flightsFilter);
     return function(d) {
         //Apply filter rules to provided dataset
         var result = true;
@@ -184,6 +261,10 @@ RouteFilter.prototype.filter = function() {
         if (!(self.flightsFilter === null)) {
             result = self.flightsFilter.has(d.Route) && result;
         }
+        //Aircraft filter
+        if (!(self.aircraftsSelection === null)) {
+            result = self.aircraftsSelection.has(d.Manufacturer) && result;
+        }        
         return result;
     }
 }
@@ -290,6 +371,3 @@ RouteFilter.prototype.setRouteFlightsThreshold = function(data, value) {
     console.log("RouteFilter.setRouteFlightsThreshold.flightsFilter", this.flightsFilter);
     return this;
 }
-
-
-

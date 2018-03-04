@@ -21,8 +21,7 @@ var maxSizeBar = 600;
 //Transitions
 var shortTransition = 200;
 var mediumTransition = 500;
-var longTransition = 4000;
-var animationTransition = 4000;
+var animationTransition = 5000;
 //User-defined selections
 var userSelection = new RouteFilter();
 
@@ -391,6 +390,7 @@ function prepareAnimation() {
             d3.select("#maxLengthInput").property("value", cuts[nbCuts].toString());
             d3.select("#flightInput").property("value", 0);
             d3.select("#visibilityInput").property("checked", true);
+            d3.selectAll("text.selected").classed("selected", false);
             update(routesData, userSelection);
         });
 
@@ -406,7 +406,8 @@ function prepareAnimation() {
             d3.select("#minLengthInput").property("value", cuts[0].toString());
             d3.select("#maxLengthInput").property("value", cuts[nbCuts].toString());
             d3.select("#flightInput").property("value", 0);
-            d3.select("#visibilityInput").property("checked", true);            
+            d3.select("#visibilityInput").property("checked", true);    
+            d3.selectAll("text.selected").classed("selected", false);
             playAnimation();
         });
 
@@ -476,7 +477,7 @@ function playAnimation() {
             "Phoenix Sky Harbor International", "McCarran International"];
     var big5Animation = new RouteFilter();
     big5Animation.toggleRouteVisibility(false)
-        .setDescription("5 major airports in spread in central area");
+        .setDescription("5 major airports spread in central areas");
     big5.forEach(item => big5Animation.addAirport(item));
     animationData.push(big5Animation);
     
@@ -503,13 +504,30 @@ function playAnimation() {
         .setRouteFlightsThreshold(routesData, 19000);
     animationData.push(popularAnimation);
     var popularAnimation = new RouteFilter();
-    popularAnimation.setDescription("then extend to central area (more than 15750 flights)...")
+    popularAnimation.setDescription("then extend to central areas (more than 15750 flights)...")
         .setRouteFlightsThreshold(routesData, 15750);
     animationData.push(popularAnimation);
     var popularAnimation = new RouteFilter();
     popularAnimation.setDescription("and finally link East and West (more than 11000 flights).")
         .setRouteFlightsThreshold(routesData, 11000);
     animationData.push(popularAnimation);
+
+    //Aircrafts
+    var boeingAnimation = new RouteFilter();
+    boeingAnimation.setDescription("Boeing aircrafts are used everywhere in US...");
+    boeingAnimation.addAircraft("BOEING");
+    animationData.push(boeingAnimation);
+
+    var airbusAnimation = new RouteFilter();
+    airbusAnimation.setDescription("in competition with Airbus on all ranges...");
+    airbusAnimation.addAircraft("AIRBUS");
+    animationData.push(airbusAnimation);
+
+    var bombardierAnimation = new RouteFilter();
+    bombardierAnimation.setDescription("and with Bombardier and Embraer on shorter flights");
+    bombardierAnimation.addAircraft("BOMBARDIER INC");
+    bombardierAnimation.addAircraft("EMBRAER");
+    animationData.push(bombardierAnimation);
 
     //Full map
     animationData.push(new RouteFilter());
@@ -1064,7 +1082,23 @@ function updateAircrafts(data, userSelection=null) {
         .attr("y", function(d, i) { return i * (12 + 5) + 12; })
         .style("text-anchor", "end")
         .attr("font-size", 12)
-        .style("fill", "white");
+        .style("fill", "white")
+        .on("click", function(d) {
+            var current = d3.select(this);
+            current.classed("selected", !current.classed("selected"));
+            if (userSelection.hasAircraft(d.Aircraft)) {
+                userSelection.removeAircraft(d.Aircraft);
+            } else {
+                userSelection.addAircraft(d.Aircraft);
+            }
+            update(data, userSelection);
+        })
+        .on("mouseover", function (d) {
+            d3.select(this).style("cursor", "pointer");
+        })
+        .on("mouseout", function (d) {
+            d3.select(this).style("cursor", "default");
+        });
 
     //Draw labels
     texts = labels.selectAll("text")
