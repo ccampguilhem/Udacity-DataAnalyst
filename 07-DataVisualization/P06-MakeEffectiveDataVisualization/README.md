@@ -112,7 +112,7 @@ The most obvious ones:
   v4 which has minor and major differences with v3 (new `merge` function).
 - I used a bootstrap template for the page as I didn't want to struggle too much about positioning, styling texts and 
   controls... I used Darkly theme from [bootswatch.com](https://bootswatch.com/">bootswatch.com).
-- As I had no experience in html/css, I followed the Html/Css introduction course from Udacity which introduced bootstrap to 
+- As I had no real experience in html/css, I followed the Html/Css introduction course from Udacity which introduced bootstrap to 
   me, before starting the data analyst course.
 - I got the map from [PublicaMundi](https://github.com/PublicaMundi/MappingAPI">PublicaMundi).
 

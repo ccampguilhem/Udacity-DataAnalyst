@@ -22,11 +22,8 @@ var maxSizeBar = 600;
 var shortTransition = 200;
 var mediumTransition = 500;
 var longTransition = 4000;
-var animationTransition = 400;
+var animationTransition = 4000;
 //User-defined selections
-var currentAirportSelection = null;
-var currentMinLength = null;
-var currentMaxLength = null;
 var userSelection = new RouteFilter();
 
 /*
@@ -302,7 +299,7 @@ function prepareAnimation() {
         .attr("class", "form");
 
     routeControl.append("legend")
-        .html("Controls:");
+        .html("Controls");
 
     var minLengthInput = routeControl.append("div")
         .attr("class", "form-group");
@@ -330,6 +327,30 @@ function prepareAnimation() {
         .attr("max", cuts[nbCuts])
         .attr("value", cuts[nbCuts]);
 
+    var flightInput = routeControl.append("div")
+        .attr("class", "form-group");
+    flightInput.append("label")
+        .attr("class", "control-label")    
+        .attr("for", "flightInput")
+        .html("Min flights per route:");
+    flightInput.append("input")
+        .attr("type", "number")
+        .attr("id", "flightInput")
+        .attr("min", 0)
+        .attr("max", 20000)
+        .attr("value", 0);
+
+    var visibilityInput = routeControl.append("div")
+        .attr("class", "form-group")
+        .append("div")
+        .attr("class", "form-check");
+
+    var label = visibilityInput.append("label")
+        .attr("class", "form-check-label")
+        .html(`<input id="visibilityInput" class="form-check-input" type="checkbox"
+                value="" checked="">
+               Route visibility`);
+
     var buttonGroup = routeControl.append("div")
         .attr("class", "form-group");
 
@@ -342,9 +363,13 @@ function prepareAnimation() {
             //Get values from controls
             var minLength = +d3.select("#minLengthInput").property("value");
             var maxLength = +d3.select("#maxLengthInput").property("value");
+            var routeFlights = +d3.select("#flightInput").property("value");
+            var routeVisibility = d3.select("#visibilityInput").property("checked");
             //Configure values
             userSelection.setMinRouteLength(minLength);
             userSelection.setMaxRouteLength(maxLength);
+            userSelection.setRouteFlightsThreshold(routesData, routeFlights);
+            userSelection.toggleRouteVisibility(routeVisibility);
             //Update controls
             minLength = userSelection.getMinRouteLength();
             maxLength = userSelection.getMaxRouteLength();
@@ -362,8 +387,10 @@ function prepareAnimation() {
         .html("Reset")
         .on("click", function() {
             userSelection.reset();
-            document.getElementById("minLengthInput").value = cuts[0].toString();
-            document.getElementById("maxLengthInput").value = cuts[nbCuts].toString();
+            d3.select("#minLengthInput").property("value", cuts[0].toString());
+            d3.select("#maxLengthInput").property("value", cuts[nbCuts].toString());
+            d3.select("#flightInput").property("value", 0);
+            d3.select("#visibilityInput").property("checked", true);
             update(routesData, userSelection);
         });
 
@@ -375,18 +402,19 @@ function prepareAnimation() {
         .on("click", function() {
             d3.select("div#controls").style("visibility", "hidden");
             d3.select("div#bottom").style("visibility", "hidden");
-            playAnimation();
             userSelection.reset();
-            document.getElementById("minLengthInput").value = cuts[0].toString();
-            document.getElementById("maxLengthInput").value = cuts[nbCuts].toString();
-            update(routesData, userSelection);
+            d3.select("#minLengthInput").property("value", cuts[0].toString());
+            d3.select("#maxLengthInput").property("value", cuts[nbCuts].toString());
+            d3.select("#flightInput").property("value", 0);
+            d3.select("#visibilityInput").property("checked", true);            
+            playAnimation();
         });
 
     //Instructions
     var instructions = controls.append("div")
         .attr("class", "form");
     instructions.append("legend")
-        .html("About:");
+        .html("About");
     var about = instructions.append("div")
         .attr("class", "form-group");
     about.append("p")
@@ -475,12 +503,12 @@ function playAnimation() {
         .setRouteFlightsThreshold(routesData, 19000);
     animationData.push(popularAnimation);
     var popularAnimation = new RouteFilter();
-    popularAnimation.setDescription("then extend to central area (more than 16000 flights)...")
-        .setRouteFlightsThreshold(routesData, 16000);
+    popularAnimation.setDescription("then extend to central area (more than 15750 flights)...")
+        .setRouteFlightsThreshold(routesData, 15750);
     animationData.push(popularAnimation);
     var popularAnimation = new RouteFilter();
-    popularAnimation.setDescription("and finally link East and West (more than 13000 flights).")
-        .setRouteFlightsThreshold(routesData, 13000);
+    popularAnimation.setDescription("and finally link East and West (more than 11000 flights).")
+        .setRouteFlightsThreshold(routesData, 11000);
     animationData.push(popularAnimation);
 
     //Full map
@@ -513,6 +541,9 @@ function playAnimation() {
  * - userSelection: user selection
  */
 function update(data, userSelection) {
+
+    console.log("udpate", userSelection.getDescription());
+    console.log("update.userSelection.flightsFilter", userSelection.flightsFilter);
 
     //Update status
     var status = d3.select("div#status")

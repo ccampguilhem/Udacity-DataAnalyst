@@ -9,7 +9,6 @@ function RouteFilter() {
     this.description = null;
     this.routeVisibility = true;
     this.flightsFilter = null;
-    //this.cleanMode = false;
 }
 
 /* 
@@ -25,7 +24,7 @@ RouteFilter.prototype.reset = function() {
     this.description = null;
     this.routeVisibility = true;
     this.flightsFilter = null;
-    //this.cleanMode = false;
+    console.log("RouteFilter.reset.flightsFilter", this.flightsFilter);
     return this;
 }
 
@@ -165,6 +164,7 @@ RouteFilter.prototype.clearAirports = function() {
  */
 RouteFilter.prototype.filter = function() {
     var self = this;
+    console.log("RouteFilter.filter.flightsFilter", this.flightsFilter);
     return function(d) {
         //Apply filter rules to provided dataset
         var result = true;
@@ -182,7 +182,7 @@ RouteFilter.prototype.filter = function() {
         }
         //Flights number
         if (!(self.flightsFilter === null)) {
-            result = self.flightsFilter.has(d.Route);
+            result = self.flightsFilter.has(d.Route) && result;
         }
         return result;
     }
