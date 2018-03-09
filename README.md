@@ -24,6 +24,8 @@
 | P5 released     | 10/12/2017 |                                                                                                            |
 | P5 re-submitted | 14/12/2017 |                                                                                                            |
 | P5 accepted     | 15/12/2017 | [Explore and summarize](./06-ExploratoryDataAnalysis/P05-ExploreAndSummarizeData/explore_and_summarize.Rmd)|
+| P6 released     | 04/03/2018 | 																											|
+| P6 accepted     | 05/03/2018 | [Make an effective visualization](http://kango.free.fr/DataVisualization/)                                 |
 
 ## Usefull resources
 
