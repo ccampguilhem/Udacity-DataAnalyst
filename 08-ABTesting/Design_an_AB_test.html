@@ -11802,7 +11802,6 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Table-of-contents">Table of contents<a class="anchor-link" href="#Table-of-contents">&#194;&#182;</a></h2><ul>
 <li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Organisation">Project organisation</a></li>
 <li><a href="#Design">Experiment design</a><ul>
 <li><a href="#Metric">Metric choice</a></li>
 <li><a href="#Standard deviation">Measuring standard deviation</a></li>
@@ -11852,42 +11851,9 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
-
-</div>
-</div>
-</div>
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a id="Organisation"></p>
-
-</div>
-</div>
-</div>
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Project-organization-top">Project organization <a href="#Top"><em>top</em></a><a class="anchor-link" href="#Project-organization-top">&#194;&#182;</a></h2>
-</div>
-</div>
-</div>
-
-
-    
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p>This project is related to A/B testing course for Udacity Data Analyst Nanodegree program. The purpose of this project is to analyse an experiment made at Udacity.</p>
+<p>The experiment is related to a change when student clicks "start free trial" button. A message asks them how much time they would dedicate to the course. If the student indicated 5 or more hours per week, they would be taken through the checkout process as usual. If they indicated fewer than 5 hours per week, a message would appear indicating that Udacity courses usually require a greater time commitment for successful completion, and suggesting that the student might like to access the course materials for free. At this point, the student would have the option to continue enrolling in the free trial, or access the course materials for free instead.</p>
+<p>The hypothesis was that this might set clearer expectations for students upfront, thus reducing the number of frustrated students who left the free trial because they didn't have enough time—without significantly reducing the number of students to continue past the free trial and eventually complete the course. If this hypothesis held true, Udacity could improve the overall student experience and improve coaches' capacity to support students who are likely to complete the course.</p>
 
 </div>
 </div>
@@ -11945,7 +11911,64 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p>The following parameters have been selected as invariants of the analysis (i.e. parameters which should not be affected by the change being analyzed). All those metrics are captured upstream to the change being analyzed.</p>
+<table>
+<thead><tr>
+<th style="text-align:left">Invariant</th>
+<th style="text-align:left">Description                      </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Number of cookies</td>
+<td style="text-align:left">Number of unique cookies to view the course overview page. </td>
+</tr>
+<tr>
+<td style="text-align:left">Number of clicks</td>
+<td style="text-align:left">Number of unique cookies to click on "Start free trial" button </td>
+</tr>
+<tr>
+<td style="text-align:left">Click-through-probability</td>
+<td style="text-align:left">Number of unique cookies to click on "Start free trial" button divided by the number of unique cookies to view the course page overview.</td>
+</tr>
+</tbody>
+</table>
+<p>All other metrics (Number of user-ids, Gross conversion, Retention, Net conversion) are collected downstream to change and may potentially being affected by change.</p>
+<p>The following parameters have been selected as evaluation metrics because it collects information downstream to change and are related to the objectives of this A/B test which are:</p>
+<ul>
+<li>minimizing the proportion of enrolled students quiting during the trial</li>
+<li>keeping the same proportion of students clicking the start free trial and continuing the course afterwards</li>
+</ul>
+<table>
+<thead><tr>
+<th style="text-align:left">Evaluation metrics</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Practical significance boundary</th>
+<th style="text-align:left">Reasons of choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Gross conversion</td>
+<td style="text-align:left">Number of user-ids to enroll in the free trial divided by the number of unique cookies to click on the "Start free trial" button.</td>
+<td style="text-align:left">${d}_{min} = 0.01$</td>
+<td style="text-align:left">This captures the proportion of students changing their mind after the time commitment warning.</td>
+</tr>
+<tr>
+<td style="text-align:left">Retention</td>
+<td style="text-align:left">Number of user-ids to remain enrolled after the trial divided by the number of user-ids enrolled during the trial.</td>
+<td style="text-align:left">${d}_{min} = 0.01$</td>
+<td style="text-align:left">This metric enables to evaluate first objective: minimize number of students quitting during the trial.</td>
+</tr>
+<tr>
+<td style="text-align:left">Net conversion</td>
+<td style="text-align:left">Number of user-ids to remain enrolled after the trial divided by the number of unique cookies to click the "Start free trial" button.</td>
+<td style="text-align:left">${d}_{min} = 0.0075$</td>
+<td style="text-align:left">This metrics enables to evaluate the second objective: keep the same proportion of students enrolled in the long term.</td>
+</tr>
+</tbody>
+</table>
+<p>Number of user-ids who enroll in the free trial may be affected by change but does not provide any relevant information serving the objective of the analysis.</p>
 
 </div>
 </div>
@@ -11969,7 +11992,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Measuring-standard-deviation-Experiment-design">Measuring standard deviation <a href="#Design"><em>Experiment design</em></a><a class="anchor-link" href="#Measuring-standard-deviation-Experiment-design">&#194;&#182;</a></h3>
+<h3 id="Measuring-standard-error-Experiment-design">Measuring standard error <a href="#Design"><em>Experiment design</em></a><a class="anchor-link" href="#Measuring-standard-error-Experiment-design">&#194;&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11980,7 +12003,94 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p>The standard error for each evaluation metrics will be calculated with the following data:</p>
+<table>
+<thead><tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Unique cookies to view course overview page per day</td>
+<td style="text-align:left">40000</td>
+</tr>
+<tr>
+<td style="text-align:left">Unique cookies to click "Start free trial" per day</td>
+<td style="text-align:left">3200</td>
+</tr>
+<tr>
+<td style="text-align:left">Enrollments per day</td>
+<td style="text-align:left">660</td>
+</tr>
+<tr>
+<td style="text-align:left">Click-through-probability on "Start free trial"</td>
+<td style="text-align:left">0.08</td>
+</tr>
+<tr>
+<td style="text-align:left">Probability of enrolling, given click</td>
+<td style="text-align:left">0.20625</td>
+</tr>
+<tr>
+<td style="text-align:left">Probability of payment, given enroll</td>
+<td style="text-align:left">0.53</td>
+</tr>
+<tr>
+<td style="text-align:left">Probability of payment, given click</td>
+<td style="text-align:left">0.1093125</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>probability of enrolling, given click</em> is linked to the <em>gross conversion</em> metric. <em>Probability of payment, given enroll</em> is in relation with the <em>retention</em> metric. Finally, <em>probability of payment, given click</em> is related to <em>net conversion</em> metric. As we are dealing with probabilities, we will assume to have a binomial distribution. We can then estimate the standard error for each metric using the binomial standard deviation:</p>
+\begin{align}
+SE = \sqrt{\frac{p(1-p)}{n}}
+\end{align}<p>Where:</p>
+<ul>
+<li>p is the probability of event</li>
+<li>n is the number of repetitions of the event</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The sample size is 5000 cookies. We can then assume that we will have 400 clicks on the "Start free trial button" and 82.5 enrollments. The standard deviations are reported in the table below:</p>
+<table>
+<thead><tr>
+<th style="text-align:left">Evaluation metrics</th>
+<th style="text-align:left">Units of analysis (n)</th>
+<th style="text-align:left">Estimated standard deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Gross conversion</td>
+<td style="text-align:left">cookie (400)</td>
+<td style="text-align:left">0.0202</td>
+</tr>
+<tr>
+<td style="text-align:left">Retention</td>
+<td style="text-align:left">user-id (82)</td>
+<td style="text-align:left">0.0549</td>
+</tr>
+<tr>
+<td style="text-align:left">Net conversion</td>
+<td style="text-align:left">cookie (400)</td>
+<td style="text-align:left">0.0156</td>
+</tr>
+</tbody>
+</table>
+<p>Gross conversion and net conversion use cookie as unit of analysis and unit of diversion, so the analytical standard error calculated here shall be quite close from empirical values. This is not the case for retention metrics as it uses user-id and we could have differences between empirical variability and the one estimated above.</p>
 
 </div>
 </div>
@@ -12015,7 +12125,83 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<h4 id="Number-of-samples-vs-power">Number of samples vs power<a class="anchor-link" href="#Number-of-samples-vs-power">&#194;&#182;</a></h4><p>Assuming that all metrics are independent, the probability of having at least one false positive would be $1 - (0.95 * 0.95 * 0.95) = 0.14$. Using the Bonferroni correction is a way to reduce the overall chance to get false positive by increasing significance level (reducing alpha value) for each test that is made. However, I am not going to use it. Using it significantly increases the duration of the experiment and assumes that tests are independent. Besides, we will see later that one evaluation metric is going to be discarded, letting us with only two metrics. In this configuration there is 9,8% of chance of having a false positive.</p>
+<p>I have used the online calculator provide by <a href="http://www.evanmiller.org/ab-testing/sample-size.html">Evan Miller</a> to estimate sample size for A/B test. The results are provided in the table below:</p>
+<table>
+<thead><tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Base conversion rate</th>
+<th style="text-align:left">Practical significance</th>
+<th style="text-align:left">$\alpha$</th>
+<th style="text-align:left">$1 - \beta$</th>
+<th style="text-align:left">Sample size per variation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Gross conversion</td>
+<td style="text-align:left">20.625 %</td>
+<td style="text-align:left">1.0 %</td>
+<td style="text-align:left">5.0 %</td>
+<td style="text-align:left">80.0 %</td>
+<td style="text-align:left">25835</td>
+</tr>
+<tr>
+<td style="text-align:left">Retention</td>
+<td style="text-align:left">53.0 %</td>
+<td style="text-align:left">1.0 %</td>
+<td style="text-align:left">5.0 %</td>
+<td style="text-align:left">80.0 %</td>
+<td style="text-align:left">39115</td>
+</tr>
+<tr>
+<td style="text-align:left">Net conversion</td>
+<td style="text-align:left">10.93125 %</td>
+<td style="text-align:left">0.75 %</td>
+<td style="text-align:left">5.0 %</td>
+<td style="text-align:left">80.0 %</td>
+<td style="text-align:left">27413</td>
+</tr>
+</tbody>
+</table>
+<p>The retention metrics is the one requiring the most samples per variation. But as this metrics is also using user-id as units of analysis, it also need to be converted to clicks, increasing again the number of page views (only 8% of view lead to clicks):</p>
+\begin{equation}
+{pageviews} = \frac{39115 * 2}{0.08 * 0.20625}
+\end{equation}<p>The equation above assumes that both control and test groups are seeing the same number of pages and leads to 4741212 page views.</p>
+
+</div>
+</div>
+</div>
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Duration-vs-exposure">Duration vs exposure<a class="anchor-link" href="#Duration-vs-exposure">&#194;&#182;</a></h4><p>We have 40000 unique cookies to view course overview per day. If we redirect half of the traffic, the duration would be:</p>
+\begin{equation}
+duration = \frac{4741212}{40000 * 0.5}
+\end{equation}<p>The equation above leads to 238 days ! That's a long experiment and Udacity does not want to spend that long. We need to rework some of the previous decisions we have made.</p>
+<p>The retention metric is really demanding in terms of page views. If we drop this metric, the dimensionning metric is net conversion which now requires 685325 page views. If we increase the redirection factor to two-third of the traffic, this lead to a duration of 26 days which is much more manageable.</p>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This desing exposes one third of students to a new feature during less than one month. The nature of feature is to minimize students starting the free trial without willing to dedicate more than 5 hours a week to follow the course. This feature shall not change the mind of students wanting to take the course and agreeing to dedicate a long time to it. So running this test is probably an acceptable risk.</p>
 
 </div>
 </div>
@@ -12073,7 +12259,81 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p>With a alpha of 0.05, the critical $z^*$ value for a two tailed test is 1.96.</p>
+<p>The total number of cookies in each group is:</p>
+<ul>
+<li>experiment group: $n_1$</li>
+<li>control group: $n_2$</li>
+<li>probability to be in experiment group (by design): $p=0.5$</li>
+<li>observed probability to be in experiment group: ${p}_{obs}=\frac{n_2}{n_1+n_2}$</li>
+</ul>
+<p>The pooled standard error is:</p>
+\begin{equation}
+SE = \sqrt{\frac{p(1-p)}{n_1+n_2}}
+\end{equation}<p>The margin of error is:</p>
+\begin{equation}
+margin = SE . z^*
+\end{equation}<p>The confidence interval is:</p>
+\begin{equation}
+CI = [0.5 - margin, 0.5 + margin]
+\end{equation}<p>The sanity check is passed if observed probability $p_{obs}$ is within confidence interval.</p>
+
+</div>
+</div>
+</div>
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For number of cookies:</p>
+<ul>
+<li>confidence interval: [0.4988, 0.5012]</li>
+<li>observed probability: 0.4994</li>
+<li>sanity check: <strong>passed</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For number of clicks:</p>
+<ul>
+<li>confidence interval: [0.4959, 0.5041]</li>
+<li>observed probability: 0.5005</li>
+<li>sanity check: <strong>passed</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For the click-through-probability we use a slightly different approach. The average click-through-probability is 0.0821 based on control group. We are no longer using a pooled standard error. We then need to check that click-through-probability for experiment group lies within the confidence interval:</p>
+<ul>
+<li>confidence interval: [0.0812, 0.0830]</li>
+<li>observed probability: 0.0822</li>
+<li>sanity check: <strong>passed</strong></li>
+</ul>
 
 </div>
 </div>
@@ -12108,7 +12368,92 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<h4 id="Effect-size-tests">Effect size tests<a class="anchor-link" href="#Effect-size-tests">&#194;&#182;</a></h4><p>The dataset records 23 days of experiment in terms of unique cookies, clicks, enrollments and payments. This duration is lower than the duration we have designed. All other things being equal, this means that we are losing statistical power $1 - \beta$ (percent of the time the minimum effect size will be detected, assuming it exists). A reduction of samples is related to an increase of $\beta$.</p>
+<p>That being said, we can calculate confidence interval and state whether each evaulation metric is statistically significant and practically significant).</p>
+<p>The method used to calculate confidence interval changes:</p>
+\begin{equation}
+p = \frac{events_{control} + events_{experiment}}{clicks_{control} + clicks_{experiment}} \\
+SE = \sqrt{p(1-p)*\Bigl(\frac{1}{clicks_{control}}+\frac{1}{clicks_{experiment}}\Bigr)} \\
+margin = SE * z^* \\
+d = \frac{events_{control}}{clicks_{control}} - \frac{events_{experiment}}{clicks_{experiment}} \\
+CI = [d - margin, d + margin]
+\end{equation}<p>The $z^*$ value is calculated from alpha assuming a two-tailed test:</p>
+\begin{equation}
+z^* = 1.96
+\end{equation}<p>A metric is statistically significant if 0 is not included in the confidence interval (there is high chance that there is a difference between experiment and control). Additionaly, it becomes practically significant if the practical difference $d_{min}$ is not in the confidence interval: there is high chance that business sees a difference.</p>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The results are reported in the table below:</p>
+<table>
+<thead><tr>
+<th style="text-align:left">Evaluation metric</th>
+<th style="text-align:left">Lower bound</th>
+<th style="text-align:left">Upper bound</th>
+<th style="text-align:left">Statistical significance</th>
+<th style="text-align:left">Practical significance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gross conversion</td>
+<td style="text-align:left">-0.0291</td>
+<td style="text-align:left">-0.0120</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">net conversion</td>
+<td style="text-align:left">-0.0116</td>
+<td style="text-align:left">0.0019</td>
+<td style="text-align:left">No</td>
+<td style="text-align:left">No</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sign-tests">Sign tests<a class="anchor-link" href="#Sign-tests">&#194;&#182;</a></h4><p>We have records of 23 days of experiment. The number of enrollments is higher in the experiment group in 4 days (in a row). The number of payments is higher in the experiment group in 10 different days.</p>
+<p>With the use of <a href="https://www.graphpad.com/quickcalcs/binomial1.cfm">GraphPad</a>, setting the number of "successes" to 4 and 10 respectively and a probability of 0.5 we get the following numbers:</p>
+<p>Gross conversion:</p>
+<ul>
+<li>Number of successes: 4</li>
+<li>Probability: 0.5</li>
+<li>Two-tail p-value: 0.0026</li>
+<li>Alpha value: 0.025 (0.05 divided by 2 for a two-tailes test)</li>
+<li>The result is statistically significant.</li>
+</ul>
+<p>Net conversion:</p>
+<ul>
+<li>Number of successes: 10</li>
+<li>Probability: 0.5</li>
+<li>Two-tail p-value: 0.6776 </li>
+<li>Alpha value: 0.025 (0.05 divided by 2 for a two-tailes test)</li>
+<li>The result is statistically unsignificant.</li>
+</ul>
 
 </div>
 </div>
@@ -12143,7 +12488,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p>We haven't use the Bonferroni correction for reasons already discussed in section <a href="#Design">Number of samples vs power</a>. 
+The problem we have here is that the number of samples we have analyzed (23) is below the size we have designed (26). This means that the results we have exposed have a statistical power below 80% (the target was to have a beta value of 0.2). To reach the exepected statistical power the experiment shall be extended.</p>
+<p>The experiments shows that the impact on gross conversion is both statistically and practically significant. The change in net conversion is unsignificant.</p>
+<p>The initial objective of the change is:</p>
+<ul>
+<li>minimizing the proportion of enrolled students quiting during the trial (retention)</li>
+<li>keeping the same proportion of students clicking the start free trial and continuing the course afterwards (net conversion)</li>
+</ul>
+<p>As there is no statistical difference in terms of net conversion, making the change would not be a high risky for Udacity in terms of revenues. The retention metrics has not been kept in the analysis and it was the better metrics to assess the decrease of proportion of enrolled students quiting during the trial. Howerver, even if less accurate (uses cookies as mean of diversion instead of user-id) the gross conversion has been reduced by the change. We could make a reasonable assumption that both are correlated.</p>
 
 </div>
 </div>
@@ -12178,7 +12531,17 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p>I really wanted to follow the course, to me quitting before the end of free trial was not an option. I already knew that I had to dedicate time to the course, my feeling is that you cannot learn something if you are not willing to spend some time with it !</p>
+<p>However, as a French, I must say that the way the Udacity courses work is pretty different than my experience with French colleges, universities and so on. And I would have advised any of my colleagues interested in the course to have a taste of that way before taking commitment. The balance between theory and practical examples is completly in opposition. Udacity course offers much more practical examples than theory. I like it, but it's pretty different to what I had experienced so far.</p>
+<p>I am not sure how other countries balance theory and practice in their education. But different cultures may lead to different kind of frustrations.</p>
+<p>One experiment idea would be to suggest a specific lesson explaining educational choices made by Udacity to give a taste to students before enrollment. The idea would be similar to the experiment conducted here: reduce frustrations of students in the free trial period while focusing Udacity coaches on long-term enrolled students without decreasing significantly long-term enrollments. The specific lesson may not have any coaching at all and students willing to start a new course would be redirected to such lesson first (whatever the course they have chosen).</p>
+<p>Due to the very close nature of the experiment with the one we have conducted here, I would make almost the same design choices:</p>
+<ul>
+<li>Evaluation metrics: net conversion, gross conversion, retention.</li>
+<li>Invariants: number of unique cookies, number of clicks on "start free trial" button, click-through-probability for "start free trial button".</li>
+</ul>
+<p>However, I would probably increase the practical significance level on gross conversion metric due to the fact that preparing such a dedicated lesson would require more work for Udacity than a simple warning message if the solution is retained (for example adding new feedbacks from former students).</p>
+<p>I would keep the same unit of diversion (cookies) as this specific lesson would not require user checkout.</p>
 
 </div>
 </div>
@@ -12208,33 +12571,19 @@ div#notebook {
 </div>
 
 
+
+
     
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>type text here</p>
+<p><a href="http://www.evanmiller.org/ab-testing/sample-size.html">Evan Miller</a> online calculator for A/B tests sizing.<hr></p>
+<p><a href="https://www.widerfunnel.com/3-mistakes-invalidate-ab-test-results/">Discussion</a> on whether or not to use Bonferroni correction.<hr></p>
+<p><a href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni</a> correction on Wikipedia.<hr></p>
 
 </div>
 </div>
-</div>
-
-
-
-
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
 
 
