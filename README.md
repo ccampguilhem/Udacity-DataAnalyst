@@ -25,7 +25,10 @@
 | P5 re-submitted | 14/12/2017 |                                                                                                            |
 | P5 accepted     | 15/12/2017 | [Explore and summarize](./06-ExploratoryDataAnalysis/P05-ExploreAndSummarizeData/explore_and_summarize.Rmd)|
 | P6 released     | 04/03/2018 | 																											|
-| P6 accepted     | 05/03/2018 | [Make an effective visualization](http://kango.free.fr/DataVisualization/)                                 |
+| P6 accepted     | 05/03/2018 | [Make an effective visualization](http://ccampguilhem.free.fr/DataVisualization/2008UStraffic)             |
+| P7 released     | 11/03/2018 |                                                                                                            |
+| P7 re-submitted | 18/03/2018 |                                                                                                            |
+| P7 accepted     | ??/03/2018 | [Design an A/B test](./07-ABTesting/Design_an_AB_test.ipynb)                                               |
 
 ## Usefull resources
 

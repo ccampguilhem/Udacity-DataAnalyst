@@ -11911,7 +11911,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The following parameters have been selected as invariants of the analysis (i.e. parameters which should not be affected by the change being analyzed). All those metrics are captured upstream to the change being analyzed.</p>
+<p>The following parameters have been selected as invariants of the analysis (i.e. parameters which should not be affected by the change being analyzed).</p>
 <table>
 <thead><tr>
 <th style="text-align:left">Invariant</th>
@@ -11933,7 +11933,6 @@ div#notebook {
 </tr>
 </tbody>
 </table>
-<p>All other metrics (Number of user-ids, Gross conversion, Retention, Net conversion) are collected downstream to change and may potentially being affected by change.</p>
 <p>The following parameters have been selected as evaluation metrics because it collects information downstream to change and are related to the objectives of this A/B test which are:</p>
 <ul>
 <li>minimizing the proportion of enrolled students quiting during the trial</li>
@@ -11944,7 +11943,6 @@ div#notebook {
 <th style="text-align:left">Evaluation metrics</th>
 <th style="text-align:left">Description</th>
 <th style="text-align:left">Practical significance boundary</th>
-<th style="text-align:left">Reasons of choice</th>
 </tr>
 </thead>
 <tbody>
@@ -11952,23 +11950,30 @@ div#notebook {
 <td style="text-align:left">Gross conversion</td>
 <td style="text-align:left">Number of user-ids to enroll in the free trial divided by the number of unique cookies to click on the "Start free trial" button.</td>
 <td style="text-align:left">${d}_{min} = 0.01$</td>
-<td style="text-align:left">This captures the proportion of students changing their mind after the time commitment warning.</td>
 </tr>
 <tr>
 <td style="text-align:left">Retention</td>
 <td style="text-align:left">Number of user-ids to remain enrolled after the trial divided by the number of user-ids enrolled during the trial.</td>
 <td style="text-align:left">${d}_{min} = 0.01$</td>
-<td style="text-align:left">This metric enables to evaluate first objective: minimize number of students quitting during the trial.</td>
 </tr>
 <tr>
 <td style="text-align:left">Net conversion</td>
 <td style="text-align:left">Number of user-ids to remain enrolled after the trial divided by the number of unique cookies to click the "Start free trial" button.</td>
 <td style="text-align:left">${d}_{min} = 0.0075$</td>
-<td style="text-align:left">This metrics enables to evaluate the second objective: keep the same proportion of students enrolled in the long term.</td>
 </tr>
 </tbody>
 </table>
-<p>Number of user-ids who enroll in the free trial may be affected by change but does not provide any relevant information serving the objective of the analysis.</p>
+<p>Reasons of choice for evaluation and invariant metrics:</p>
+<ul>
+<li><strong>Number of cookies</strong>: Is a good invariant metric because it's being directly randomized between experiment and control group. Is a bad evaluation metric because it won't be different between experiment and control.</li>
+<li><strong>Number of user-ids</strong>: Is a bad invariant metric because the experiment may change the number of users involved in the free trial period. It's only at enrollment that a user checkout is made. Could have been used as an evaluation metric but is redundant with gross conversion. The later one has the advantage of being normalized so that comparisons between control and experiment group are easier.</li>
+<li><strong>Number of clicks</strong>: Is a good invariant as it is recorded before user has a chance to see the change brought by the experiment. Is a bad evaluation metric for the same reason: it's recorded upstream to the change.</li>
+<li><strong>Click-through-probability</strong>: For the same reason that the number of clicks, the click-through-probability is recorded upstream to the change. It is then a good invariant and a bad evaluation metric.</li>
+<li><strong>Gross conversion</strong>: Is a bad invariant because it's recorded downstream to change and may be affected by it. Is a good metric because it brings information related to the hypothesis being tested by capturing the proportion of students changing their mind after the time commitment warning.</li>
+<li><strong>Retention</strong>: Is a bad invariant because it's recorded downstream to change and may be affected by it. Is a good evaluation metric because it brings information related to the hypothesis being tested by assessing the first objective: minimize number of students quitting during the trial.</li>
+<li><strong>Net conversion</strong>: Is a bad invariant because it's recorded downstream to change and may be affected by it. Is a good evaluation metric because it is relevant to the second objective being tested: keep the same proportion of students enrolled in the long term.</li>
+</ul>
+<p>To launch this experiment we expect the gross conversion and retention to decrease with practical significance and the net conversion not to decrease with practical significance.</p>
 
 </div>
 </div>
@@ -12125,7 +12130,7 @@ SE = \sqrt{\frac{p(1-p)}{n}}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Number-of-samples-vs-power">Number of samples vs power<a class="anchor-link" href="#Number-of-samples-vs-power">&#194;&#182;</a></h4><p>Assuming that all metrics are independent, the probability of having at least one false positive would be $1 - (0.95 * 0.95 * 0.95) = 0.14$. Using the Bonferroni correction is a way to reduce the overall chance to get false positive by increasing significance level (reducing alpha value) for each test that is made. However, I am not going to use it. Using it significantly increases the duration of the experiment and assumes that tests are independent. Besides, we will see later that one evaluation metric is going to be discarded, letting us with only two metrics. In this configuration there is 9,8% of chance of having a false positive.</p>
+<h4 id="Number-of-samples-vs-power">Number of samples vs power<a class="anchor-link" href="#Number-of-samples-vs-power">&#194;&#182;</a></h4><p>We have multiple hypothesis tested in this experiment. Testing multiple hypothesis increases the risk of making type I error (incorrect rejection of null hypothesis). The Bonferroni correction may be used in a context where type I error shall be avoided but is discouraged where type II errors shall be avoided (see this <a href="https://www.onlinelibrary.wiley.com/doi/pdf/10.1111/opo.12131">paper</a> for reference). I will not use Bonferroni correction to avoid type II error (incorrect retaining of null hypothesis).</p>
 <p>I have used the online calculator provide by <a href="http://www.evanmiller.org/ab-testing/sample-size.html">Evan Miller</a> to estimate sample size for A/B test. The results are provided in the table below:</p>
 <table>
 <thead><tr>
@@ -12201,7 +12206,7 @@ duration = \frac{4741212}{40000 * 0.5}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This desing exposes one third of students to a new feature during less than one month. The nature of feature is to minimize students starting the free trial without willing to dedicate more than 5 hours a week to follow the course. This feature shall not change the mind of students wanting to take the course and agreeing to dedicate a long time to it. So running this test is probably an acceptable risk.</p>
+<p>This desing exposes one third of students to a new feature during less than one month. The nature of feature is to minimize students starting the free trial without willing to dedicate more than 5 hours a week to follow the course. This feature shall not change the mind of students wanting to take the course and agreeing to dedicate a long time to it. Additionally no personal data is required and so there is no risk in terms of ethics. Also, the nature of change is harmless to the users. Overall, running this test is probably an acceptable risk.</p>
 
 </div>
 </div>
@@ -12272,7 +12277,7 @@ duration = \frac{4741212}{40000 * 0.5}
 SE = \sqrt{\frac{p(1-p)}{n_1+n_2}}
 \end{equation}<p>The margin of error is:</p>
 \begin{equation}
-margin = SE . z^*
+margin = SE * z^*
 \end{equation}<p>The confidence interval is:</p>
 \begin{equation}
 CI = [0.5 - margin, 0.5 + margin]
@@ -12465,6 +12470,25 @@ z^* = 1.96
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Summary">Summary<a class="anchor-link" href="#Summary">&#194;&#182;</a></h4><p>As introduced in section <a href="#Sizing">Number of samples vs power</a>, I have not used Bonferroni correction. Bonferroni correction shall not be used where type II errors have to be avoided.</p>
+<p>In this experiment, the null hypothesis could be written like this:</p>
+<ul>
+<li>$H_{0,1}$: the proportion of students quitting during the trial period remains the same.</li>
+<li>$H_{0,2}$: the proportion of students clicking the "start trial" button and continuing after the trial period remains the same.</li>
+</ul>
+<p>The second null hypothesis is critical: if the proportion decreases, it may affect the Udacity revenues.</p>
+<p>A type II error in this contect would be not to find a change in the proportion of students continuing after the trial period while there is actually a decrease in the proportion. This is probably not an acceptable risk for the business.</p>
+
+</div>
+</div>
+</div>
+
+
+    
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="Recommendations"></p>
 
 </div>
@@ -12488,15 +12512,20 @@ z^* = 1.96
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We haven't use the Bonferroni correction for reasons already discussed in section <a href="#Design">Number of samples vs power</a>. 
-The problem we have here is that the number of samples we have analyzed (23) is below the size we have designed (26). This means that the results we have exposed have a statistical power below 80% (the target was to have a beta value of 0.2). To reach the exepected statistical power the experiment shall be extended.</p>
 <p>The experiments shows that the impact on gross conversion is both statistically and practically significant. The change in net conversion is unsignificant.</p>
 <p>The initial objective of the change is:</p>
 <ul>
 <li>minimizing the proportion of enrolled students quiting during the trial (retention)</li>
 <li>keeping the same proportion of students clicking the start free trial and continuing the course afterwards (net conversion)</li>
 </ul>
-<p>As there is no statistical difference in terms of net conversion, making the change would not be a high risky for Udacity in terms of revenues. The retention metrics has not been kept in the analysis and it was the better metrics to assess the decrease of proportion of enrolled students quiting during the trial. Howerver, even if less accurate (uses cookies as mean of diversion instead of user-id) the gross conversion has been reduced by the change. We could make a reasonable assumption that both are correlated.</p>
+<p>As a reminder, the null hypothesis are:</p>
+<ul>
+<li>$H_{0,1}$: the proportion of students quitting during the trial period remains the same.</li>
+<li>$H_{0,2}$: the proportion of students clicking the "start trial" button and continuing after the trial period remains the same.</li>
+</ul>
+<p>The significant (statistical and practical) decrease of gross conversion shows that number of students enrolled in the free trial has decreased. We are sure about that because both lower and upper bounds of confidence interval are negative numbers.</p>
+<p>Yet, the experiment failed to reject the second null hypothesis. Failing to reject the null hypothesis is not a proof that null hypothesis is valid. The confidence interval for net conversion ranges from negative values to positive values, meaning that there is a risk that proportion of students remaining enrolled after the free trial decreases.</p>
+<p>This is a risk of revenue loss for Udacity and I would not recommend implementing the change.</p>
 
 </div>
 </div>
@@ -12531,8 +12560,8 @@ The problem we have here is that the number of samples we have analyzed (23) is 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>I really wanted to follow the course, to me quitting before the end of free trial was not an option. I already knew that I had to dedicate time to the course, my feeling is that you cannot learn something if you are not willing to spend some time with it !</p>
-<p>However, as a French, I must say that the way the Udacity courses work is pretty different than my experience with French colleges, universities and so on. And I would have advised any of my colleagues interested in the course to have a taste of that way before taking commitment. The balance between theory and practical examples is completly in opposition. Udacity course offers much more practical examples than theory. I like it, but it's pretty different to what I had experienced so far.</p>
+<p>I really wanted to follow the Data Analyst course, to me quitting before the end of free trial was not an option. I already knew that I had to dedicate time to the course, my feeling is that you cannot learn something if you are not willing to spend some time with it !</p>
+<p>However, as a French, I must say that the way the Udacity courses work is pretty different than my experience with French colleges and high schools. And I would have advised any of my colleagues interested in the course to have a taste of that way before taking commitment. The balance between theory and practical examples is completly in opposition. Udacity course offers much more practical examples than theory. I like it, but it's pretty different to what I had experienced so far.</p>
 <p>I am not sure how other countries balance theory and practice in their education. But different cultures may lead to different kind of frustrations.</p>
 <p>One experiment idea would be to suggest a specific lesson explaining educational choices made by Udacity to give a taste to students before enrollment. The idea would be similar to the experiment conducted here: reduce frustrations of students in the free trial period while focusing Udacity coaches on long-term enrolled students without decreasing significantly long-term enrollments. The specific lesson may not have any coaching at all and students willing to start a new course would be redirected to such lesson first (whatever the course they have chosen).</p>
 <p>Due to the very close nature of the experiment with the one we have conducted here, I would make almost the same design choices:</p>
@@ -12541,7 +12570,15 @@ The problem we have here is that the number of samples we have analyzed (23) is 
 <li>Invariants: number of unique cookies, number of clicks on "start free trial" button, click-through-probability for "start free trial button".</li>
 </ul>
 <p>However, I would probably increase the practical significance level on gross conversion metric due to the fact that preparing such a dedicated lesson would require more work for Udacity than a simple warning message if the solution is retained (for example adding new feedbacks from former students).</p>
-<p>I would keep the same unit of diversion (cookies) as this specific lesson would not require user checkout.</p>
+<p>The risk of taking such an experiment is the entry cost with no guarantee of break even:</p>
+<ul>
+<li>Modification of the user interface to redirect free trials to that specific lesson</li>
+<li>Creation of the lesson itself requires some time</li>
+</ul>
+<p>I would keep the same unit of diversion (cookies) as this specific lesson would not require user checkout. As the practical significance on gross conversion metric is increased, the number of samples for that metric is lowered. But as net conversion metric requires the same number of samples (higher than the number of samples required for gross conversion) the duration of experiment would be the same than this experiment (26 days if we also consider a redirection of two-third of the traffic for this experiment).</p>
+<p>The Bonferroni correction would not be used either to prevent the risk of not detecting decrease in net conversion while there is.</p>
+<p>The test may be conducted at the same time than other tests as long as they do not overlap (other test related to free trials and enrollments) with this experiment. This would increase the risk of false positives (type I error) just like if we were considering more null hypotheses. Preventing such increase of type I error would be possible by using correction like Bonferroni but at the risk of increasing type II errors.</p>
+<p>If at the end of this experiment gross conversion decreases practically and statistically significantly and net conversion does not decrease practically and statistically significantly then this new feature may be launched.</p>
 
 </div>
 </div>
@@ -12579,8 +12616,9 @@ The problem we have here is that the number of samples we have analyzed (23) is 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="http://www.evanmiller.org/ab-testing/sample-size.html">Evan Miller</a> online calculator for A/B tests sizing.<hr></p>
-<p><a href="https://www.widerfunnel.com/3-mistakes-invalidate-ab-test-results/">Discussion</a> on whether or not to use Bonferroni correction.<hr></p>
+<p><a href="https://www.widerfunnel.com/3-mistakes-invalidate-ab-test-results/">Discussion</a> on whether or not to use Bonferroni correction. <a href="https://www.onlinelibrary.wiley.com/doi/pdf/10.1111/opo.12131">Paper</a> on the same theme.<hr></p>
 <p><a href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni</a> correction on Wikipedia.<hr></p>
+<p>Multiple A/B tests at the <a href="https://conversionxl.com/blog/can-you-run-multiple-ab-tests-at-the-same-time/">same time</a> ?</p>
 
 </div>
 </div>
