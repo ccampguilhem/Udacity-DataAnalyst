@@ -12569,15 +12569,14 @@ z^* = 1.96
 <li>Evaluation metrics: net conversion, gross conversion, retention.</li>
 <li>Invariants: number of unique cookies, number of clicks on "start free trial" button, click-through-probability for "start free trial button".</li>
 </ul>
-<p>However, I would probably increase the practical significance level on gross conversion metric due to the fact that preparing such a dedicated lesson would require more work for Udacity than a simple warning message if the solution is retained (for example adding new feedbacks from former students).</p>
 <p>The risk of taking such an experiment is the entry cost with no guarantee of break even:</p>
 <ul>
 <li>Modification of the user interface to redirect free trials to that specific lesson</li>
 <li>Creation of the lesson itself requires some time</li>
 </ul>
-<p>I would keep the same unit of diversion (cookies) as this specific lesson would not require user checkout. As the practical significance on gross conversion metric is increased, the number of samples for that metric is lowered. But as net conversion metric requires the same number of samples (higher than the number of samples required for gross conversion) the duration of experiment would be the same than this experiment (26 days if we also consider a redirection of two-third of the traffic for this experiment).</p>
+<p>I would keep the same unit of diversion (cookies) as this specific lesson would not require user checkout. Without changing the practical significane, the duration of the experiment would be the same than this one: 26 days if we consider a redirection of two-third of traffic.</p>
 <p>The Bonferroni correction would not be used either to prevent the risk of not detecting decrease in net conversion while there is.</p>
-<p>The test may be conducted at the same time than other tests as long as they do not overlap (other test related to free trials and enrollments) with this experiment. This would increase the risk of false positives (type I error) just like if we were considering more null hypotheses. Preventing such increase of type I error would be possible by using correction like Bonferroni but at the risk of increasing type II errors.</p>
+<p>The test may be conducted at the same time than other tests as long as they do not overlap (other test related to free trials and enrollments) with this experiment. This would increase the risk of false positives (type I error) just like if we were considering more null hypotheses. Preventing such increase of type I error would be possible by using correction like Bonferroni but at the risk of increasing type II errors. As this is something we want to avoid I would discourage any other overlapping experiment.</p>
 <p>If at the end of this experiment gross conversion decreases practically and statistically significantly and net conversion does not decrease practically and statistically significantly then this new feature may be launched.</p>
 
 </div>
