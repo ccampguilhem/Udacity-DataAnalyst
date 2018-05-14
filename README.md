@@ -28,7 +28,7 @@
 | P6 accepted     | 05/03/2018 | [Make an effective visualization](http://ccampguilhem.free.fr/DataVisualization/2008UStraffic)             |
 | P7 released     | 11/03/2018 |                                                                                                            |
 | P7 re-submitted | 18/03/2018 |                                                                                                            |
-| P7 accepted     | 22/03/2018 | [Design an A/B test](./07-ABTesting/Design_an_AB_test.ipynb)                                               |
+| P7 accepted     | 22/03/2018 | [Design an A/B test](./08-ABTesting/Design_an_AB_test.ipynb)                                               |
 
 ## Usefull resources
 
